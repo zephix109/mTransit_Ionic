@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MapPage } from '../map/map';
 
 import { NavController } from 'ionic-angular';
 
@@ -7,6 +8,7 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'login.html'
 })
 export class loginPage {
+  mapPage = MapPage;
 
   constructor(public navCtrl: NavController) {
 

@@ -12,7 +12,7 @@
   <p>Sign in With</p>
 
 
-  <button ion-button icon-only  color="twitter">
+  <button ion-button icon-only color="twitter">
     <ion-icon name="logo-twitter"></ion-icon>
   </button>
   <button ion-button icon-only  color="facebook">
@@ -28,4 +28,6 @@
   <ion-item>
     <ion-input type="text" placeholder="Enter Code"></ion-input>
   </ion-item>
+  
+  <button [navPush]="mapPage">Go To Map</button>
 </ion-content>

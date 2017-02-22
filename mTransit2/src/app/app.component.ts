@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, Nav } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { loginPage } from '../pages/login/login';
+import { MapPage } from '../pages/map/map';
 
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
+  @ViewChild(Nav) nav: Nav;
   rootPage = loginPage;
 
   constructor(platform: Platform) {
@@ -18,5 +20,10 @@ export class MyApp {
       StatusBar.styleDefault();
       Splashscreen.hide();
     });
+  }
+  
+  openPage(page) {
+	//navigate to new page if this is not the current page
+	this.nav.setRoot(page.component);
   }
 }
