@@ -14,20 +14,22 @@
   <img src="http://i.imgur.com/ggzwIHN.png" height="250" width="250"/>
   <p>Sign in With</p>
 
-
+<ion-content padding *ngIf="!auth.authenticated()">
   <button ion-button icon-only  color="twitter">
     <ion-icon name="logo-twitter"></ion-icon>
   </button>
   <button ion-button icon-only  color="facebook">
     <ion-icon name="logo-facebook"></ion-icon>
   </button>
-  <button ion-button icon-only  color="googleplus">
-    <ion-icon name="logo-googleplus" block (click)="auth.login()" ></ion-icon>
+  <button ion-button icon-only   color="googleplus">
+    <ion-icon name="logo-googleplus" block (click)='auth.login()' ></ion-icon>
   </button>
 
-  <ion-content padding *ngIf="!auth.authenticated()">
-      <p>not signed</p>
-  </ion-content>
+  
+  
+    <button ion-button block (click)="auth.login()">Login</button>
+  
+</ion-content>
 
   <ion-content padding *ngIf="auth.authenticated()">
       <p>signed</p>

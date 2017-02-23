@@ -73,7 +73,7 @@ export class AuthService {
   
   public login() {
     // Show the Auth0 Lock widget
-    alert("test");
+    console.log("test");
     this.lock.show();
   }
   
