@@ -10,7 +10,7 @@ declare var Auth0Lock: any;
 declare var options: any;
 
 @Injectable()
-export class AuthService {
+export class SMSAuthService {
 
   jwtHelper: JwtHelper = new JwtHelper();
   auth0 = new Auth0({clientID: '9EZ1kXkUSwmM6Bc2CGMWNXkus5jfATeB', domain: 'mtransit.auth0.com' });
@@ -22,7 +22,6 @@ export class AuthService {
       }
     }
   });
-  
   storage: Storage = new Storage();
   refreshSubscription: any;
   user: Object;
@@ -80,18 +79,7 @@ export class AuthService {
   
   public login() {
     // Show the Auth0 Lock widget
-    var options = {
-      socialButtonStyle: 'small',
-      theme: {
-        logo:'http://i.imgur.com/ggzwIHN.png',
-        primaryColor: 'blue',
-      },
-      languageDictionary: {
-        title: "Log in",
-        emailInputPlaceholder: "Test"
-      }
-    };
-    this.lock.show(options);
+    this.lock.show();
   }
   
   public logout() {

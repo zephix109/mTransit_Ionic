@@ -13,4 +13,8 @@ export class loginPage {
 
   constructor(public navCtrl: NavController,public auth: AuthService) {}
 
+  googleLogin(){
+    this.auth.login();
+  }
+
 }
