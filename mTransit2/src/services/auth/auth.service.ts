@@ -36,6 +36,13 @@ export class AuthService {
   
   constructor(private authHttp: AuthHttp, zone: NgZone) {
     this.zoneImpl = zone;
+
+
+    /*
+
+      Below requires db, which will be done in sprint 3
+
+    */
     // Check if there is a profile saved in local storage
     this.storage.get('profile').then(profile => {
       this.user = JSON.parse(profile);
@@ -51,10 +58,10 @@ export class AuthService {
       this.storage.set('id_token', authResult.idToken);
       this.idToken = authResult.idToken;
 
-      // Fetch profile information
+      //Fetch profile information
       this.lock.getProfile(authResult.idToken, (error, profile) => {
         if (error) {
-          // Handle error
+          //Handle error
           alert(error);
           return;
         }
@@ -64,11 +71,12 @@ export class AuthService {
         this.user = profile;
       });
 
-      this.lock.hide();
+       this.lock.hide();
 
       this.storage.set('refresh_token', authResult.refreshToken);
       this.zoneImpl.run(() => this.user = authResult.profile);
-      // Schedule a token refresh
+
+      //Schedule a token refresh
       //this.scheduleRefresh();
 
     });    

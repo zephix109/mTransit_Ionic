@@ -13,8 +13,11 @@ export class loginPage {
 
   constructor(public navCtrl: NavController,public auth: AuthService) {}
 
-  googleLogin(){
+  Login(){
     this.auth.login();
+
+    this.navCtrl.push('test/test');
+
   }
 
 }
