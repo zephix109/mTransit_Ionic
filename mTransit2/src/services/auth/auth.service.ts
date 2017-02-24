@@ -13,13 +13,22 @@ declare var options: any;
 export class AuthService {
 
   jwtHelper: JwtHelper = new JwtHelper();
-  auth0 = new Auth0({clientID: '9EZ1kXkUSwmM6Bc2CGMWNXkus5jfATeB', domain: 'mtransit.auth0.com' });
-  lock = new Auth0Lock('9EZ1kXkUSwmM6Bc2CGMWNXkus5jfATeB', 'mtransit.auth0.com',  {
+  webAuth = new auth0.WebAuth({
+    clientID: '9EZ1kXkUSwmM6Bc2CGMWNXkus5jfATeB', 
+    domain: 'mtransit.auth0.com' 
+  });
+
+  lock = new Auth0Lock(
+    '9EZ1kXkUSwmM6Bc2CGMWNXkus5jfATeB'
+    , 'mtransit.auth0.com',  
+    {
     auth: {
       redirect: false,
       params: {
         scope: 'openid offline_access',
-      }
+      },
+      sso: false
+      
     }
   });
   
@@ -28,6 +37,7 @@ export class AuthService {
   user: Object;
   zoneImpl: NgZone;
   idToken: string;
+  accessToken: string;
 
     phoneNumber: string;
     enterPhone: string;
@@ -36,30 +46,47 @@ export class AuthService {
   
   constructor(private authHttp: AuthHttp, zone: NgZone) {
     this.zoneImpl = zone;
+
+
+
+
     // Check if there is a profile saved in local storage
     this.storage.get('profile').then(profile => {
       this.user = JSON.parse(profile);
     }).catch(error => {
-      console.log(error);
+      console.log( error);
     });
 
     this.storage.get('id_token').then(token => {
       this.idToken = token;
-    });
+    })
+
+    // Listening for the authenticated event
 
     this.lock.on('authenticated', authResult => {
       this.storage.set('id_token', authResult.idToken);
       this.idToken = authResult.idToken;
 
+     //alert(authResult['access_token']);
+
+    // var auth0Manage = this.auth0.Management({
+
+    //   domain: 'mtransit.auth0.com',
+    //   token: this.idToken
+    // });
+
       // Fetch profile information
-      this.lock.getProfile(authResult.idToken, (error, profile) => {
+      this.lock.getUserInfo(authResult.accessToken, (error, profile) => {
+        
         if (error) {
           // Handle error
-          alert(error);
+          alert("test" + error);
           return;
         }
 
+        
         profile.user_metadata = profile.user_metadata || {};
+     //   this.storage.set('accessToken', authResult.accessToken);
         this.storage.set('profile', JSON.stringify(profile));
         this.user = profile;
       });
@@ -79,13 +106,12 @@ export class AuthService {
   }
   
   public login() {
-
     //Define options (what the widget looks like)
     var options = {
       socialButtonStyle: 'small',
       theme: {
         logo:'http://i.imgur.com/ggzwIHN.png',
-        primaryColor: 'blue',
+        primaryColor: '#387ef5',
       },
       languageDictionary: {
         title: "Log in",

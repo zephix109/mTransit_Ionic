@@ -4,20 +4,19 @@ import { NavController } from 'ionic-angular';
 
 import {AuthService} from '../../services/auth/auth.service';
 
-import {TestPage} from '../test/test';
+
 
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
 })
 
-export class loginPage {
+export class TestPage {
 
   constructor(public navCtrl: NavController,public auth: AuthService) {}
 
   googleLogin(){
     this.auth.login();
-    console.log("tittiiieesss");
   }
 
 }
