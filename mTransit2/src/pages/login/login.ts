@@ -17,7 +17,9 @@ export class loginPage {
 
   Login(){
     this.auth.login();
-    console.log("tittiiieesss");
+
+    this.navCtrl.push('test/test');
+
   }
 
 }
