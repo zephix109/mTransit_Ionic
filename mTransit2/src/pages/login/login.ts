@@ -15,7 +15,7 @@ export class loginPage {
 
   constructor(public navCtrl: NavController,public auth: AuthService) {}
 
-  googleLogin(){
+  Login(){
     this.auth.login();
     console.log("tittiiieesss");
   }
