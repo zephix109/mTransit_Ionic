@@ -28,6 +28,7 @@
   <ion-item>
     <ion-input type="text" placeholder="Enter Code"></ion-input>
   </ion-item>
-  
-  <button [navPush]="mapPage">Go To Map</button>
+  <div padding>
+	<button ion-button block (click)="goToMap()">Go to map</button>
+  </div>
 </ion-content>
