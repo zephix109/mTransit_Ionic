@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { NavController } from 'ionic-angular';
 
 import {AuthService} from '../../services/auth/auth.service';
@@ -20,6 +19,10 @@ export class loginPage {
 
     this.navCtrl.push('test/test');
 
+  }
+  
+  goToMap() {
+	  this.navCtrl.push(MapPage);
   }
 
 }
