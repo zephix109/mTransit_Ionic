@@ -2,6 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { loginPage } from '../pages/login/login';
+import { MapPage } from '../pages/map/map';
 
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
 import { AuthService } from '../services/auth/auth.service';
@@ -20,7 +21,8 @@ export function getAuthHttp(http) {
 @NgModule({
   declarations: [
     MyApp,
-    loginPage
+    loginPage,
+	  MapPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -28,7 +30,8 @@ export function getAuthHttp(http) {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    loginPage
+    loginPage,
+	  MapPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},AuthService,
     {
