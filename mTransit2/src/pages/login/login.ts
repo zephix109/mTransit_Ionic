@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { TranslateService } from 'ng2-translate';
 import { NavController } from 'ionic-angular';
 
 @Component({
@@ -8,8 +8,14 @@ import { NavController } from 'ionic-angular';
 })
 export class loginPage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public translateService: TranslateService) {
 
   }
 
+  swapLanguage() {
+    if(this.translateService.currentLang == "en")
+      this.translateService.use('fr');
+    else
+      this.translateService.use('en');
+  }
 }
