@@ -79,7 +79,8 @@ export class AuthService {
   }
   
   public login() {
-    // Show the Auth0 Lock widget
+
+    //Define options (what the widget looks like)
     var options = {
       socialButtonStyle: 'small',
       theme: {
@@ -91,6 +92,8 @@ export class AuthService {
         emailInputPlaceholder: "Test"
       }
     };
+
+    // Show the Auth0 Lock widget
     this.lock.show(options);
   }
   
