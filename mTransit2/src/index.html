@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Ionic App</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">-->
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
 
@@ -15,6 +16,18 @@
   <!-- cordova.js required for cordova apps -->
   <script src="cordova.js"></script>
 
+    <!-- Auth0.js script -->
+  <script src="https://cdn.auth0.com/w2/auth0-7.6.1.min.js"></script>
+
+  <!-- Auth0 Lock script -->
+  <script src="https://cdn.auth0.com/js/lock/10.9.1/lock.min.js"></script>
+
+  <!--Auth0 passswordless-lock for SMS use-->
+  <script src="https://cdn.auth0.com/js/lock-passwordless-2.2.min.js"></script>
+
+  <!-- Latest patch release (recommended for production) -->
+  <script src="http://cdn.auth0.com/js/lock/10.11.0/lock.min.js"></script>
+  
   <!-- un-comment this code to enable service worker
   <script>
     if ('serviceWorker' in navigator) {
@@ -37,6 +50,7 @@
 
   <!-- The bundle js is generated during the build process -->
   <script src="build/main.js"></script>
+
 
 </body>
 </html>

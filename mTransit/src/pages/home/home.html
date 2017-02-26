@@ -10,11 +10,16 @@
 
   <img src="http://i.imgur.com/ggzwIHN.png" height="250" width="250"/>
   <p>Sign in With</p>
-
+<ion-content padding *ngIf="auth.authenticated()">
+    <p>Welcome  {{auth.user.nickname}}</p>
+</ion-content>
 <ion-content padding *ngIf="!auth.authenticated()">
-    <button ion-button (click)="auth.login()">Login</button>
+    <button ion-button (click)="Login()">Login</button>
 </ion-content>
 
+<ion-content padding *ngIf="auth.authenticated()">
+    <button ion-button (click)="auth.logout()">Logout</button>
+</ion-content>
 
   <p>If you're a driver, enter your code
     then tap a button above to sign in</p>
