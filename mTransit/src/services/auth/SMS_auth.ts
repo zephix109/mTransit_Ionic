@@ -6,22 +6,24 @@ import { Auth0Vars } from '../../auth0-variables';
 
 // Avoid name not found warnings
 declare var Auth0: any;
-declare var Auth0Lock: any;
+declare var Auth0LockPasswordless: any;
 declare var options: any;
 
 @Injectable()
 export class SMSAuthService {
 
   jwtHelper: JwtHelper = new JwtHelper();
-  auth0 = new Auth0({clientID: '9EZ1kXkUSwmM6Bc2CGMWNXkus5jfATeB', domain: 'mtransit.auth0.com' });
-  lock = new Auth0Lock('9EZ1kXkUSwmM6Bc2CGMWNXkus5jfATeB', 'mtransit.auth0.com',  {
-    auth: {
-      redirect: false,
-      params: {
-        scope: 'openid offline_access',
-      }
-    }
+  auth0 = new Auth0({
+    clientID: '9EZ1kXkUSwmM6Bc2CGMWNXkus5jfATeB',
+    domain: 'mtransit.auth0.com',
+    callbackURL: 'https://mtransit.auth0.com/mobile'
   });
+
+  lock = new Auth0LockPasswordless(
+    '9EZ1kXkUSwmM6Bc2CGMWNXkus5jfATeB', 
+    'mtransit.auth0.com'
+  );
+
   storage: Storage = new Storage();
   refreshSubscription: any;
   user: Object;
@@ -79,7 +81,7 @@ export class SMSAuthService {
   
   public login() {
     // Show the Auth0 Lock widget
-    this.lock.show();
+    this.lock.sms( {callbackURL: 'https://mtransit.auth0.com/mobile'} );
   }
   
   public logout() {
@@ -100,8 +102,8 @@ export class SMSAuthService {
 
   }
 
-  public send_SMS(){
-    var phoneNumber = ('input.phone-number');
+  public send_SMS(inputPhoneNumber: String){
+    var phoneNumber = inputPhoneNumber;
     this.auth0.requestSMSCode({ phoneNumber:phoneNumber}, function(err) {
       if (err) {
         alert('error sending SMS: '+ err.error_description);

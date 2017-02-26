@@ -13,7 +13,7 @@ declare var options: any;
 
 @Injectable()
 export class AuthService {
-
+  
   jwtHelper: JwtHelper = new JwtHelper();
 
   // webAuth0 = new auth0.WebAuth({
@@ -52,76 +52,77 @@ export class AuthService {
   
   
   constructor(private authHttp: AuthHttp, zone: NgZone) {
+    //async ngOnInit(){
+      this.zoneImpl = zone;
 
-    this.zoneImpl = zone;
-
-    // Check if there is a profile saved in local storage
-    this.storage.get('profile').then(profile => {
-      this.user = JSON.parse(profile);
-    }).catch(error => {
-      console.log(error);
-    });
-
-    //Once user is logged, trigger here
-    this.lock.on("authenticated", authResult => {
-      this.storage.set('idToken', authResult.idToken);
-      this.idToken = authResult.idToken;
-      this.accessToken = authResult.access_Token;
-      //Fetch profile information
-
-      /*
-        ISSUE HERE RIGHT NOW
-        getUserInfo requires an accessToken but doesn't accept authResult.accessToken?
-
-      */
-      this.lock.getUserInfo(authResult.accessToken, (error, profile) => {
-        if (error) {
-          //Handle error
-          alert(error);
-          return;
-        }
-
-        profile.user_metadata = profile.user_metadata || {};
-        this.storage.set('profile', JSON.stringify(profile));
-        this.user = profile;
+      // Check if there is a profile saved in local storage
+      this.storage.get('profile').then(profile => {
+        this.user = JSON.parse(profile);
+      }).catch(error => {
+        console.log(error);
       });
+       
+        //Once user is logged, trigger here
+        this.lock.on("authenticated", authResult => {
+          this.storage.set('idToken', authResult.idToken);
+          this.idToken = authResult.idToken;
+          this.accessToken = authResult.access_Token;
 
-      this.lock.hide();
+          //Fetch profile informatio
+          this.lock.getUserInfo(authResult.accessToken, (error, profile) => {
+            if (error) {
+              //Handle error
+              alert(error);
+              return;
+            }
 
-      this.storage.set('refresh_token', authResult.refreshToken);
-      this.zoneImpl.run(() => this.user = authResult.profile);
+            profile.user_metadata = profile.user_metadata || {};
+            this.storage.set('profile', JSON.stringify(profile));
+            this.user = profile;
+          });
 
-      //Schedule a token refresh
-      this.scheduleRefresh();
+          if(this.user = null){
+            alert("uh oh");
+          }
 
-    });
+          this.lock.hide();
 
-    this.lock.on('authorization_error', function(error) {
-        var options = { 
-          languageDictionary: {
-            error: {
-              login: {
-                "lock.invalid_email_password": "Custom message about invalid credentials",
-                "lock.network": "Custom message indicating a network error and suggesting the user check connection",
-                "lock.unauthorized": "Custom message about a failure of permissions",
-                "too_many_attempts": "Custom message indicating the user has failed to login too many times."
+          this.storage.set('refresh_token', authResult.refreshToken);
+          this.zoneImpl.run(() => this.user = authResult.profile);
+
+          //Schedule a token refresh
+          this.scheduleRefresh();
+
+        });
+
+        this.lock.on('authorization_error', function(error) {
+          var options = { 
+            languageDictionary: {
+              error: {
+                login: {
+                  "lock.invalid_email_password": "Custom message about invalid credentials",
+                  "lock.network": "Custom message indicating a network error and suggesting the user check connection",
+                  "lock.unauthorized": "Custom message about a failure of permissions",
+                  "too_many_attempts": "Custom message indicating the user has failed to login too many times."
+                }
               }
             }
-          }
-        };
+          };
 
-      this.lock.show();
-    });    
+          this.lock.show(options);
+        });
+      
+          
 
-  //  this.handleRedirectWithHash();
-
+    //  this.handleRedirectWithHash();
+   // }
   }
 
   public authenticated() { 
     return tokenNotExpired('id_token', this.idToken);
   }
   
-  public login() {
+  public login()  {
     // Show the Auth0 Lock widget
     var options = {
       socialButtonStyle: 'small',
@@ -145,30 +146,6 @@ export class AuthService {
     this.zoneImpl.run(() => this.user = null);
     // Unschedule the token refresh
     this.unscheduleRefresh();
-  }
-
-  // public loginViaGoogle(){
-
-  //       this.webAuth0.login({
-  //           connection: 'google-oauth2'
-  //       });
-
-  // }
-
-  public requestSMS(){
-
-   // ev.preventDefault();
-
-    this.auth0.requestSMSCode({
-     // phoneNumber: this.phone_Number.val()
-    }, function (err) {
-      if (err) {
-        alert(err.error_description);
-        return;
-      }
-      // the request was successful and you should receive
-      // a SMS with the code at the specified phone number
-    });
   }
 
   public scheduleRefresh() {
@@ -247,22 +224,7 @@ export class AuthService {
     });
     
   }
-  //  private handleRedirectWithHash() {
-  //   Router.events.take(1).subscribe(event => {
-  //     if (/access_token/.test(event.url) || /error/.test(event.url)) {  
 
-  //       let authResult = this.auth0.parseHash(window.location.hash);
-
-  //       if (authResult && authResult.idToken) {
-  //         this.lock.emit('authenticated', authResult);
-  //       }
-
-  //       if (authResult && authResult.error) {
-  //         this.lock.emit('authorization_error', authResult);
-  //       }
-  //     }
-  //   });
-  // }
 
 
 }
