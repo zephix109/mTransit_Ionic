@@ -12,17 +12,6 @@
   <p>Sign in With</p>
 
 <ion-content padding *ngIf="!auth.authenticated()">
-  
-  <!--<button ion-button icon-only  color="twitter">
-    <ion-icon name="logo-twitter"></ion-icon>
-  </button>
-  <button ion-button icon-only  color="facebook">
-    <ion-icon name="logo-facebook" (click)="googleLogin()"></ion-icon>
-  </button>
-  <button ion-button icon-only   color="googleplus">
-    <ion-icon name="logo-googleplus" (click)='auth.loginViaGoogle()' ></ion-icon>
-  </button>-->
-
     <button ion-button (click)="auth.login()">Login</button>
 </ion-content>
 
