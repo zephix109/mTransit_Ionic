@@ -129,6 +129,8 @@ export class AuthService {
     // Show the Auth0 Lock widget
     var options = {
       socialButtonStyle: 'small',
+      autoclose: true,
+      allowSignUp: true,
       theme: {
         logo:'http://i.imgur.com/ggzwIHN.png',
         primaryColor: 'blue',

@@ -103,6 +103,7 @@ export class SMSAuthService {
   }
 
   public send_SMS(inputPhoneNumber: String){
+    
     var phoneNumber = inputPhoneNumber;
     this.auth0.requestSMSCode({ phoneNumber:phoneNumber}, function(err) {
       if (err) {
