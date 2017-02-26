@@ -32,7 +32,7 @@ export class AuthService {
     '9EZ1kXkUSwmM6Bc2CGMWNXkus5jfATeB',
     'mtransit.auth0.com',  {
     auth: {
-      redirect: false
+      redirect: true
       // ,params: {
       //   scope: 'openid offline_access',
       // }
