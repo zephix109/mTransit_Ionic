@@ -1,6 +1,14 @@
 import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
-import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
+import { 
+  GoogleMap, 
+  GoogleMapsEvent, 
+  GoogleMapsLatLng, 
+  Geolocation, 
+  GoogleMapsMarker, 
+  GoogleMapsMarkerOptions,
+  Geoposition
+} from 'ionic-native';
  
 @Component({
   selector: 'map-page',
@@ -17,9 +25,10 @@ export class MapPage {
     }
  
     loadMap(){
- 
-        let location = new GoogleMapsLatLng(-34.9290,138.6010);
- 
+
+      Geolocation.watchPosition().subscribe((position) => {
+        let location = new GoogleMapsLatLng(position.coords.latitude, position.coords.longitude); 
+      
         this.map = new GoogleMap('map', {
           'backgroundColor': 'white',
           'controls': {
@@ -41,10 +50,24 @@ export class MapPage {
             'bearing': 50
           }
         });
- 
+      
         this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
             console.log('Map is ready!');
         });
- 
+      }, (err) => {
+      console.log(err);
+    });
+
+/*
+      //Create new marker
+      let markerOptions: GoogleMapsMarkerOptions = {
+        position: location,
+        title: 'Ionic'
+      };
+
+      this.map.addMarker(markerOptions).then((marker: GoogleMapsMarker) => {
+            marker.showInfoWindow();
+      });
+*/
     }
 }
