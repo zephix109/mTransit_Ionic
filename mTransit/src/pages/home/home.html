@@ -12,13 +12,14 @@
 
   <div *ngIf="!auth.authenticated()">
       <button ion-button (click)="userLogin()">Login</button>
-      <!-- Button added for test purposes until login is fixed -->
-      <button ion-button (click)="goToMap()">Go to map</button>
+
+      <button ion-button (click)="loginSMS()">SMS</button>
   </div>
 
   <div *ngIf="auth.authenticated()">
       <button ion-button (click)="auth.logout()">Logout</button>
       <button ion-button (click)="goToMap()">Go to map</button>
+      
   </div>
   <p>- or -</p>
   <p>If you're a driver, enter your code

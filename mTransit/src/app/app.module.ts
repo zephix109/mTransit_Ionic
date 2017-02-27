@@ -3,6 +3,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
+import { SMSregPage } from '../pages/sm-sreg/sm-sreg';
 
 import { provide } from 'angular/core';
 import { Auth} from "../providers/auth/auth";
@@ -25,7 +26,8 @@ export function getAuthHttp(http) {
   declarations: [
     MyApp,
     HomePage,
-    MapPage
+    MapPage,
+    SMSregPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -34,7 +36,8 @@ export function getAuthHttp(http) {
   entryComponents: [
     MyApp,
     HomePage,
-    MapPage
+    MapPage,
+    SMSregPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},AuthService,
     {

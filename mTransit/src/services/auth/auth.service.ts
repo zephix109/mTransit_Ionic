@@ -32,11 +32,20 @@ export class AuthService {
     '9EZ1kXkUSwmM6Bc2CGMWNXkus5jfATeB',
     'mtransit.auth0.com',  {
     auth: {
-      redirect: true
-      // ,params: {
-      //   scope: 'openid offline_access',
+      redirect: false
+      ,params: {
+        scope: 'openid profile offline_access',
+        device: "my-device",
+      
+      }
+      // ,
+      // state: {
+      //   "auth0_authorize": "abc123", 
+      //   "return_url" : "../sm-sreg/sm-sreg"
       // }
-    }
+    },
+    
+    sso: true
   });
   
   storage: Storage = new Storage();
@@ -45,14 +54,9 @@ export class AuthService {
   zoneImpl: NgZone;
   idToken: string;
   accessToken: string;
-
-  phone_Number: string;
-  enter_Phone: string;
-  enter_Code: string;
-  
   
   constructor(private authHttp: AuthHttp, zone: NgZone) {
-    //async ngOnInit(){
+
       this.zoneImpl = zone;
 
       // Check if there is a profile saved in local storage
@@ -61,15 +65,23 @@ export class AuthService {
       }).catch(error => {
         console.log(error);
       });
+
+      this.storage.get('access_token').then(token => {
+        this.accessToken = token;
+      });
        
         //Once user is logged, trigger here
-        this.lock.on("authenticated", authResult => {
+      this.lock.on("authenticated", authResult => {
+        if (authResult && authResult.accessToken && authResult.idToken) {
+
+          this.storage.set('access_token', authResult.accessToken);
           this.storage.set('idToken', authResult.idToken);
+          this.storage.set('refresh_token', authResult.refreshToken);
           this.idToken = authResult.idToken;
-          this.accessToken = authResult.access_Token;
+          this.accessToken = authResult.accessToken;
 
           //Fetch profile informatio
-          this.lock.getUserInfo(authResult.accessToken, (error, profile) => {
+          this.lock.getUserInfo(this.accessToken, (error, profile) => {
             if (error) {
               //Handle error
               alert(error);
@@ -87,15 +99,17 @@ export class AuthService {
 
           this.lock.hide();
 
-          this.storage.set('refresh_token', authResult.refreshToken);
           this.zoneImpl.run(() => this.user = authResult.profile);
 
           //Schedule a token refresh
           this.scheduleRefresh();
 
-        });
+        }
 
-        this.lock.on('authorization_error', function(error) {
+      });
+      
+
+      this.lock.on('authorization_error', function(error) {
           var options = { 
             languageDictionary: {
               error: {
@@ -110,12 +124,10 @@ export class AuthService {
           };
 
           this.lock.show(options);
-        });
-      
-          
+      });
 
-    //  this.handleRedirectWithHash();
-   // }
+      this.storage.set('return_url', '../sm-sreg/sm-sreg');
+
   }
 
   public authenticated() { 
@@ -125,15 +137,17 @@ export class AuthService {
   public login()  {
     // Show the Auth0 Lock widget
     var options = {
-      socialButtonStyle: 'small',
+      socialButtonStyle: 'big',
+      autoclose: true,
+      allowedConnections: ['twitter', 'facebook', 'google-oauth2'],
       theme: {
         logo:'http://i.imgur.com/ggzwIHN.png',
         primaryColor: 'blue',
       },
       languageDictionary: {
         title: "Log in",
-        emailInputPlaceholder: "Test"
-      }
+      },
+      sso: false
     };
     this.lock.show(options);
   }
