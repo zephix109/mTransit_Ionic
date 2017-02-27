@@ -81,7 +81,15 @@ export class SMSAuthService {
   
   public login() {
     // Show the Auth0 Lock widget
-    this.lock.sms( {callbackURL: 'https://mtransit.auth0.com/mobile'} );
+    this.lock.sms( {
+      
+      callbackURL: 'https://mtransit.auth0.com/mobile',
+      authParams : {
+        scope: 'openid email'
+      }
+
+    });
+
   }
   
   public logout() {
@@ -94,16 +102,8 @@ export class SMSAuthService {
     //this.unscheduleRefresh();
   }
 
-  public loginViaGoogle(){
-
-        this.auth0.login({
-            connection: 'google-oauth2'
-        });
-
-  }
-
   public send_SMS(inputPhoneNumber: String){
-    
+
     var phoneNumber = inputPhoneNumber;
     this.auth0.requestSMSCode({ phoneNumber:phoneNumber}, function(err) {
       if (err) {

@@ -35,10 +35,17 @@ export class AuthService {
       redirect: false
       ,params: {
         scope: 'openid profile offline_access',
-        device: "my-device"
-      },
-      sso: true
-    }
+        device: "my-device",
+      
+      }
+      // ,
+      // state: {
+      //   "auth0_authorize": "abc123", 
+      //   "return_url" : "../sm-sreg/sm-sreg"
+      // }
+    },
+    
+    sso: true
   });
   
   storage: Storage = new Storage();
@@ -102,7 +109,7 @@ export class AuthService {
       });
       
 
-        this.lock.on('authorization_error', function(error) {
+      this.lock.on('authorization_error', function(error) {
           var options = { 
             languageDictionary: {
               error: {
@@ -117,7 +124,9 @@ export class AuthService {
           };
 
           this.lock.show(options);
-        });
+      });
+
+      this.storage.set('return_url', '../sm-sreg/sm-sreg');
 
   }
 
@@ -128,16 +137,15 @@ export class AuthService {
   public login()  {
     // Show the Auth0 Lock widget
     var options = {
-      socialButtonStyle: 'small',
+      socialButtonStyle: 'big',
       autoclose: true,
-      allowSignUp: true,
+      allowedConnections: ['twitter', 'facebook', 'google-oauth2'],
       theme: {
         logo:'http://i.imgur.com/ggzwIHN.png',
         primaryColor: 'blue',
       },
       languageDictionary: {
         title: "Log in",
-        emailInputPlaceholder: "Test"
       },
       sso: false
     };
