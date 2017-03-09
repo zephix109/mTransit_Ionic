@@ -4,6 +4,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
 import { SMSregPage } from '../pages/sm-sreg/sm-sreg';
+import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate/ng2-translate';
 
 import { provide } from 'angular/core';
 import { Auth} from "../providers/auth/auth";
@@ -30,7 +31,12 @@ export function getAuthHttp(http) {
     SMSregPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    TranslateModule.forRoot({
+      provide: TranslateLoader,
+      useFactory: (createTranslateLoader),
+      deps: [Http]
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -47,3 +53,7 @@ export function getAuthHttp(http) {
     }]
 })
 export class AppModule {}
+export function createTranslateLoader(http: Http) {
+  return new TranslateStaticLoader(http, 'assets/i18n',
+  '.json');
+}

@@ -24387,6 +24387,10 @@ ion-navbar.toolbar {
   }
 }
 
+.language_button {
+  float: right;
+}
+
 ion-app._gmaps_cdv_ .nav-decor {
   background-color: transparent !important;
 }
