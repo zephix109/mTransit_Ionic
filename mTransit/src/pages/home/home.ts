@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { SMSregPage } from '../sm-sreg/sm-sreg';
 import { MapPage } from '../map/map';
 
 @Component({
@@ -9,12 +8,11 @@ import { MapPage } from '../map/map';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {}
+  constructor(public navCtrl: NavController) {
+    
+  }
 
   Login(){
-
-   
-
 
     var PagePromise = new Promise(function(resolve,reject){
        resolve();
@@ -25,17 +23,12 @@ export class HomePage {
       //.then(gotomap => this.goToMap());
 
   }
-
-  loginSMS(){
-    this.navCtrl.push(SMSregPage);
-  }
   
   userLogin(){
     //TO-DO login functions
   }
 
   goToMap(){
-
      this.navCtrl.push(MapPage);
   }
 
