@@ -10,8 +10,9 @@ import firebase from 'firebase';
 })
 export class HomePage {
 
-  userProfile: any = null;
-  constructor(public navCtrl: NavController) {
+    //mapPage = MapPage;
+//  userProfile: any = null;
+    constructor(public navCtrl: NavController) {
     
   }
 
@@ -23,7 +24,8 @@ export class HomePage {
           firebase.auth().signInWithCredential(facebookCredential)
           .then((success) => {
               console.log("Firebase success: " + JSON.stringify(success));
-              this.userProfile = success;
+              //this.userProfile = success;
+              this.goToMap();
           })
           .catch((error) => {
               console.log("Firebase failure: " + JSON.stringify(error));
