@@ -6,21 +6,10 @@ import { MapPage } from '../pages/map/map';
 import { SMSregPage } from '../pages/sm-sreg/sm-sreg';
 
 import { provide } from 'angular/core';
-import { Auth} from "../providers/auth/auth";
-import { AuthConfig, AuthHttp } from 'angular2-jwt';
-import { AuthService } from '../services/auth/auth.service';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
 
 let storage: Storage = new Storage();
-
-export function getAuthHttp(http) {
-  return new AuthHttp(new AuthConfig({
-    noJwtError: true,
-    globalHeaders: [{'Accept': 'application/json'}],
-    tokenGetter: (() => storage.get('id_token'))
-  }), http);
-}
 
 @NgModule({
   declarations: [
@@ -39,11 +28,6 @@ export function getAuthHttp(http) {
     MapPage,
     SMSregPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},AuthService,
-    {
-      provide: AuthHttp,
-      useFactory: getAuthHttp,
-      deps: [Http]
-    }]
+  
 })
 export class AppModule {}
