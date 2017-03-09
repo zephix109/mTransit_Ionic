@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { AuthService } from '../../services/auth/auth.service';
 import { SMSregPage } from '../sm-sreg/sm-sreg';
 import { MapPage } from '../map/map';
 
@@ -10,11 +9,11 @@ import { MapPage } from '../map/map';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public auth: AuthService) {}
+  constructor(public navCtrl: NavController) {}
 
   Login(){
 
-    //this.auth.login();
+   
 
 
     var PagePromise = new Promise(function(resolve,reject){
@@ -22,15 +21,8 @@ export class HomePage {
     });
 
     PagePromise
-      //.then(doAuth => this.userLogin())
-      .then(test => {
-        alert("test");
-      })
-      .then(checkAuth => 
-      {
-        alert("we're here");
-      })
-      .then(gotomap => this.goToMap());
+      //TO-DO social media login
+      //.then(gotomap => this.goToMap());
 
   }
 
@@ -39,7 +31,7 @@ export class HomePage {
   }
   
   userLogin(){
-    this.auth.login(); //Does actual login here
+    //TO-DO login functions
   }
 
   goToMap(){

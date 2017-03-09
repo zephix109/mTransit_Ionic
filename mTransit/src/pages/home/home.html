@@ -10,20 +10,7 @@
 
   <img src="http://i.imgur.com/ggzwIHN.png" height="250" width="250"/>
 
-  <div *ngIf="!auth.authenticated()">
-      <button ion-button (click)="userLogin()">Login</button>
-
-      <button ion-button (click)="loginSMS()">SMS</button>
-      
-      <button ion-button (click)="goToMap()">Map</button>
-      
-  </div>
-
-  <div *ngIf="auth.authenticated()">
-      <button ion-button (click)="auth.logout()">Logout</button>
-      <button ion-button (click)="goToMap()">Go to map</button>
-      
-  </div>
+ 
   <p>- or -</p>
   <p>If you're a driver, enter your code
     then tap a button above to sign in</p>
