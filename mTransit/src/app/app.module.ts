@@ -3,6 +3,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
+import {SmsPage} from '../pages/sms/sms';
 
 import { provide } from 'angular/core';
 import { Http } from '@angular/http';
@@ -17,6 +18,7 @@ let storage: Storage = new Storage();
     MyApp,
     HomePage,
     MapPage,
+    SmsPage,
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -26,6 +28,7 @@ let storage: Storage = new Storage();
     MyApp,
     HomePage,
     MapPage,
+    SmsPage,
   ],
   
 })

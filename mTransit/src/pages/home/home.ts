@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { MapPage } from '../map/map';
+import { SmsPage } from '../sms/sms';
 import {Facebook} from '@ionic-native/facebook';
 import firebase from 'firebase';
 
@@ -10,8 +11,6 @@ import firebase from 'firebase';
 })
 export class HomePage {
 
-    //mapPage = MapPage;
-//  userProfile: any = null;
     constructor(public navCtrl: NavController) {
     
   }
@@ -24,16 +23,18 @@ export class HomePage {
           firebase.auth().signInWithCredential(facebookCredential)
           .then((success) => {
               console.log("Firebase success: " + JSON.stringify(success));
-              //this.userProfile = success;
-              this.goToMap();
+              //this.goToMap();
+              this.goToSMS();
           })
           .catch((error) => {
               console.log("Firebase failure: " + JSON.stringify(error));
+              alert("Oops, you couldn't login.");
           });
 
       }).catch((error) => { console.log(error) });
   }
 
+/*
   Login(){
 
     var PagePromise = new Promise(function(resolve,reject){
@@ -49,9 +50,14 @@ export class HomePage {
   userLogin(){
     //TO-DO login functions
   }
+*/
 
   goToMap(){
-     this.navCtrl.push(MapPage);
+      this.navCtrl.push(MapPage);
+  }
+
+  goToSMS(){
+      this.navCtrl.push(SmsPage);
   }
 
 }
