@@ -8,6 +8,8 @@ import { provide } from 'angular/core';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
 
+import firebase from 'firebase';
+
 let storage: Storage = new Storage();
 
 @NgModule({
