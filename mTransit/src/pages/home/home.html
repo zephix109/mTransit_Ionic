@@ -1,7 +1,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Login
+      {{ "LOGIN" | translate }}
+        <button ion-button icon-left class="language_button" (tap)=swapLanguage()>
+          <ion-icon name="globe"></ion-icon> 
+          {{ "LANGUAGE_CHANGE" | translate }}
+        </button>
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -24,12 +28,11 @@
       <button ion-button (click)="goToMap()">Go to map</button>
       
   </div>
-  <p>- or -</p>
-  <p>If you're a driver, enter your code
-    then tap a button above to sign in</p>
+
+  <p> {{ "DRIVER_TEXT" | translate }} </p>
 
   <ion-item>
-    <ion-input type="text" placeholder="Enter Code"></ion-input>
+    <ion-input type="text" [placeholder]="'ENTER_CODE' | translate"></ion-input>
   </ion-item>
   
 </ion-content>
