@@ -1,35 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef} from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
-import { 
-  GoogleMap, 
-  GoogleMapsEvent, 
-  GoogleMapsLatLng, 
-  Geolocation, 
-  GoogleMapsMarker, 
-  GoogleMapsMarkerOptions,
-  Geoposition
-} from 'ionic-native';
- 
+import { Geolocation } from 'ionic-native';
+
+declare var google: any;
+
 @Component({
   selector: 'map-page',
   templateUrl: 'map.html'
 })
+
+
 export class MapPage {
  
-  map: GoogleMap;
+  @ViewChild('map') mapElement: ElementRef;
+  map: any;
 
   constructor(public navCtrl: NavController, public platform: Platform) {
       platform.ready().then(() => {
-          this.loadMap();
+         this.loadMap(); 
       });
   }
 
   loadMap(){
 
-    Geolocation.watchPosition().subscribe((position) => {
-      let location = new GoogleMapsLatLng(position.coords.latitude, position.coords.longitude); 
+    //Geolocation.watchPosition().subscribe((position) => {
+    Geolocation.getCurrentPosition().then((position) => {
+
+      let location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude); 
     
-      this.map = new GoogleMap('map', {
+      //this.map = new GoogleMap('map', 
+
+      let mapOptions = {
         'backgroundColor': 'white',
         'controls': {
           'compass': true,
@@ -49,25 +50,50 @@ export class MapPage {
           'zoom': 15,
           'bearing': 50
         }
-      });
+      }
     
-      this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
-        console.log('Map is ready!');
-      });
+ 
     }, (err) => {
       console.log(err);
     });
 
-/*
-      //Create new marker
-      let markerOptions: GoogleMapsMarkerOptions = {
-        position: location,
-        title: 'Ionic'
-      };
 
-      this.map.addMarker(markerOptions).then((marker: GoogleMapsMarker) => {
-            marker.showInfoWindow();
-      });
-*/
+      // //Create new marker
+      // let markerOptions: GoogleMapsMarkerOptions = {
+      //   position: location,
+      //   title: 'Ionic'
+      // };
+
+      // this.map.addMarker(markerOptions).then((marker: GoogleMapsMarker) => {
+      //       marker.showInfoWindow();
+      // });
+
+  }
+
+
+  addMarker(){
+  
+    let marker = new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      position: this.map.getCenter()
+    });
+  
+    // let content = "<h4>Information!</h4>";          
+  
+    // this.addInfoWindow(marker, content);
+  
+  }
+
+  addInfoWindow(marker, content){
+  
+    let infoWindow = new google.maps.InfoWindow({
+      content: content
+    });
+  
+    google.maps.event.addListener(marker, 'click', () => {
+      infoWindow.open(this.map, marker);
+    });
+  
   }
 }
