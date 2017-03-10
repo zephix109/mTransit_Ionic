@@ -49,7 +49,7 @@ export class HomePage {
   }
 
   swapLanguage() {
-    if(this.translateService.currentLang == "en")
+    if (this.translateService.currentLang == "en")
       this.translateService.use('fr');
     else
       this.translateService.use('en');

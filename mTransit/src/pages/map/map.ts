@@ -54,11 +54,7 @@ export class MapPage {
       this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
         console.log('Map is ready!');
       });
-    }, (err) => {
-      console.log(err);
-    });
 
-/*
       //Create new marker
       let markerOptions: GoogleMapsMarkerOptions = {
         position: location,
@@ -68,6 +64,9 @@ export class MapPage {
       this.map.addMarker(markerOptions).then((marker: GoogleMapsMarker) => {
             marker.showInfoWindow();
       });
-*/
+    }, (err) => {
+      console.log(err);
+    });
+
   }
 }
