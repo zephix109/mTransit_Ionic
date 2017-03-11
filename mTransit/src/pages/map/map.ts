@@ -55,18 +55,20 @@ export class MapPage {
         console.log('Map is ready!');
       });
 
-      //Create new marker
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  loadMapMarkers() {
+    
       let markerOptions: GoogleMapsMarkerOptions = {
-        position: location,
+        position: ,
         title: 'Ionic'
       };
 
       this.map.addMarker(markerOptions).then((marker: GoogleMapsMarker) => {
             marker.showInfoWindow();
       });
-    }, (err) => {
-      console.log(err);
-    });
-
-  }
+    }
 }
