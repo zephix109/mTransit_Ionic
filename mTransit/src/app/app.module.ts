@@ -10,6 +10,7 @@ import { provide } from 'angular/core';
 import { Auth} from "../providers/auth/auth";
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
 import { AuthService } from '../services/auth/auth.service';
+import { StopInit } from '../services/map/stops_Init';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
 
