@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
+import { BusStopCatalog } from '../../components/bus-stop-catalog';
+import { BusStop } from '../../components/bus-stop';
+import { BusStopService } from '../..providers/bus-stop-service';
+import { Http } from '@angular/http'
 import { 
   GoogleMap, 
   GoogleMapsEvent, 
@@ -12,7 +16,8 @@ import {
  
 @Component({
   selector: 'map-page',
-  templateUrl: 'map.html'
+  templateUrl: 'map.html',
+  providers: [BusStopService]
 })
 export class MapPage {
  
@@ -22,6 +27,7 @@ export class MapPage {
       platform.ready().then(() => {
           this.loadMap();
       });
+      this.loadMapMarkers();
   }
 
   loadMap(){
@@ -61,14 +67,16 @@ export class MapPage {
   }
 
   loadMapMarkers() {
+    let busStopCatalog = new BusStopCatalog();
     
-      let markerOptions: GoogleMapsMarkerOptions = {
-        position: ,
-        title: 'Ionic'
-      };
 
-      this.map.addMarker(markerOptions).then((marker: GoogleMapsMarker) => {
-            marker.showInfoWindow();
-      });
+    let markerOptions: GoogleMapsMarkerOptions = {
+      position: ,
+      title: ''
+    };
+
+    this.map.addMarker(markerOptions).then((marker: GoogleMapsMarker) => {
+          marker.showInfoWindow();
+    });
     }
 }
