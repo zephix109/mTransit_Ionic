@@ -13,7 +13,7 @@ import firebase from 'firebase';
 export class MyApp {
   rootPage = HomePage;
 
-  constructor(platform: Platform) {
+  constructor(platform: Platform, translate: TranslateService) {
     translate.setDefaultLang('en');
     const firebaseConfig = {
       apiKey: "AIzaSyClOWx3rRxBGM1yshjpC-brIQfoyMG4k0M",
