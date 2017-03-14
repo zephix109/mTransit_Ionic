@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from 'ng2-translate';
 import { NavController } from 'ionic-angular';
 import { MapPage } from '../map/map';
 import { SmsPage } from '../sms/sms';
@@ -11,9 +12,7 @@ import firebase from 'firebase';
 })
 export class HomePage {
 
-    constructor(public navCtrl: NavController) {
-    
-  }
+    constructor(public navCtrl: NavController, public translateService: TranslateService) {}
 
   //function that logs the user in. It currently redirects to map page, but will redirect to SMS when that functionality is completed.
   facebookLogin(){
@@ -43,6 +42,13 @@ export class HomePage {
   //function that loads the SMS verification page
   goToSMS(){
       this.navCtrl.push(SmsPage);
+  }
+
+  swapLanguage() {
+    if(this.translateService.currentLang == "en")
+      this.translateService.use('fr');
+    else
+      this.translateService.use('en');
   }
 
 }

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
+import { TranslateService } from 'ng2-translate';
+
 import { loginPage } from '../pages/login/login';
 import { TranslateService } from './translate';
-
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ export class MyApp implements OnInit{
   public supportedLanguages: any[];
 
   constructor(platform: Platform, private _translate: TranslateService) {
+
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

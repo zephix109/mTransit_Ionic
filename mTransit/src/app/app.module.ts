@@ -4,6 +4,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
 import {SmsPage} from '../pages/sms/sms';
+import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate/ng2-translate';
 
 import { provide } from 'angular/core';
 import { Http } from '@angular/http';
@@ -21,7 +22,12 @@ let storage: Storage = new Storage();
     SmsPage,
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    TranslateModule.forRoot({
+      provide: TranslateLoader,
+      useFactory: (createTranslateLoader),
+      deps: [Http]
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -33,3 +39,7 @@ let storage: Storage = new Storage();
   
 })
 export class AppModule {}
+export function createTranslateLoader(http: Http) {
+  return new TranslateStaticLoader(http, 'assets/i18n',
+  '.json');
+}

@@ -1,8 +1,10 @@
 import { NgModule, ErrorHandler } from '@angular/core';
+import { Http } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { loginPage } from '../pages/login/login';
 import { MapPage } from '../pages/map/map';
+import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate/ng2-translate';
 
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
 import { AuthService } from '../services/auth/auth.service';
@@ -25,8 +27,13 @@ export function getAuthHttp(http) {
 	  MapPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
-  ],
+  IonicModule.forRoot(MyApp),
+  TranslateModule.forRoot({
+    provide: TranslateLoader,
+    useFactory: (createTranslateLoader),
+    deps: [Http]
+  })
+],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
@@ -41,3 +48,6 @@ export function getAuthHttp(http) {
     }]
 })
 export class AppModule {}
+export function createTranslateLoader(http: Http) {
+  return new TranslateStaticLoader(http, 'assets/i18n', '.json');
+}
