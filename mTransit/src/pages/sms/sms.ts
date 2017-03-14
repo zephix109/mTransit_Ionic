@@ -9,6 +9,8 @@ import {SMS} from 'ionic-native'; //allows us to send SMS
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+var userNumber;
+
 @Component({
   //selector: 'page-sms',
   selector: 'sms-page',
@@ -18,7 +20,7 @@ export class SmsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
-  sendSMS(){
+  sendSMS(  ){
     var options={
       replaceLineBreaks: false,
       android: {
@@ -32,8 +34,13 @@ export class SmsPage {
         //alert("success");
         //this.navCtrl.push(SmsCodePage);
       },()=>{
-        alert("failed");  
+        //alert failed
+        alert(userNumber);  
       });
+  }
+
+  changeText(){
+    alert();
   }
 
   ionViewDidLoad() {
@@ -43,7 +50,7 @@ export class SmsPage {
 }
 
 Sim.getSimInfo().then(
-  (info) => console.log("SMS info: ", info),
+  (info) => userNumber = info.phoneNumber,
   (err) => console.log(err)
 );
 
