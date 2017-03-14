@@ -1,19 +1,22 @@
-import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { TranslateService } from 'ng2-translate';
+
 import { loginPage } from '../pages/login/login';
-import { MapPage } from '../pages/map/map';
+import { TranslateService } from './translate';
 
 @Component({
-  templateUrl: 'app.html'
+  selector: 'app-root',
+  templateUrl: 'app.html',
 })
-export class MyApp {
-  @ViewChild('myNav') nav: NavController;
+export class MyApp implements OnInit{
   rootPage = loginPage;
 
-  constructor(platform: Platform, translate: TranslateService) {
-    translate.setDefaultLang('en');
+  public translatedText: string;
+  public supportedLanguages: any[];
+
+  constructor(platform: Platform, private _translate: TranslateService) {
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -22,9 +25,31 @@ export class MyApp {
       Splashscreen.hide();
     });
   }
-  
-  openPage(page) {
-	//navigate to new page if this is not the current page
-	this.nav.push(page);
+
+  ngOnInit() {
+
+    this.supportedLanguages = [
+      { display: 'English', value: 'en' },
+      { display: 'French', value: 'fr' },
+    ];
+
+    //set current language
+    this.selectLang('en');
+  }
+
+  isCurrentLang(lang: string) {
+    //check if selected language is current language
+    return lang === this._translate.currentLang;
+  }
+
+  selectLang(lang: string) {
+    //set current language;
+    this._translate.use(lang);
+    this.refreshText();
+  }
+
+  refreshText() {
+    //refresh translation when language changes
+    this.translatedText = this._translate.instant('hello world'); // **will change from hello world**
   }
 }
