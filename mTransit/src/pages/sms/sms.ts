@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {SmsCodePage} from '../sms-code/sms-code';
-
+import { Sim } from 'ionic-native';
 import {SMS} from 'ionic-native'; //allows us to send SMS
 /*
   Generated class for the Sms page.
@@ -41,3 +41,17 @@ export class SmsPage {
   }
 
 }
+
+Sim.getSimInfo().then(
+  (info) => console.log("SMS info: ", info),
+  (err) => console.log(err)
+);
+
+Sim.hasReadPermission().then(
+  (info) => console.log('Has permission:', info)
+);
+
+Sim.requestReadPermission().then(
+  () => console.log('Permission granted'),
+  () => console.log('Permission denied')
+);
