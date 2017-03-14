@@ -15,6 +15,7 @@ export class HomePage {
     
   }
 
+  //function that logs the user in. It currently redirects to map page, but will redirect to SMS when that functionality is completed.
   facebookLogin(){
       Facebook.login(['email']).then( (response) => {
           const facebookCredential = firebase.auth.FacebookAuthProvider
@@ -34,28 +35,12 @@ export class HomePage {
       }).catch((error) => { console.log(error) });
   }
 
-/*
-  Login(){
-
-    var PagePromise = new Promise(function(resolve,reject){
-       resolve();
-    });
-
-    PagePromise
-      //TO-DO social media login
-      //.then(gotomap => this.goToMap());
-
-  }
-  
-  userLogin(){
-    //TO-DO login functions
-  }
-*/
-
+  //function that loads the map page
   goToMap(){
       this.navCtrl.push(MapPage);
   }
 
+  //function that loads the SMS verification page
   goToSMS(){
       this.navCtrl.push(SmsPage);
   }
