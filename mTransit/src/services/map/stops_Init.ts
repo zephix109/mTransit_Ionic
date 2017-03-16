@@ -10,6 +10,7 @@ import {
 } from 'ionic-native';
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import { BusStop } from '../../../components/bus-stop/bus-stop'
 
 @Injectable()
 export class StopInit {
@@ -46,8 +47,6 @@ export class StopInit {
       this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
         console.log('Map is ready!');
       });
-
-
 
     }, (err) => {
       console.log(err);
@@ -102,6 +101,8 @@ export class StopInit {
     showStops(){
       
       var all_stops = [];
+
+      //let stop1 = new BusStop{};
 
       let testLocation = new GoogleMapsLatLng(45.495677,-73.579057);
       let testStop_name = "Station Guy-Concordia";
