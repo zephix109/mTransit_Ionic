@@ -6,13 +6,17 @@ import { MapPage } from '../pages/map/map';
 import { SMSregPage } from '../pages/sm-sreg/sm-sreg';
 import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate/ng2-translate';
 
-import { provide } from 'angular/core';
+//import { provide } from 'angular/core';
 import { Auth} from "../providers/auth/auth";
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
 import { AuthService } from '../services/auth/auth.service';
 import { StopInit } from '../services/map/stops_Init';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
+
+import { BusStopService } from '../providers/bus-stop-service';
+import { GoogleMaps } from '../providers/google-maps';
+import { Connectivity } from '../providers/connectivity';
 
 let storage: Storage = new Storage();
 
@@ -51,7 +55,7 @@ export function getAuthHttp(http) {
       provide: AuthHttp,
       useFactory: getAuthHttp,
       deps: [Http]
-    }]
+    },StopInit,BusStopService, GoogleMaps, Connectivity]
 })
 export class AppModule {}
 export function createTranslateLoader(http: Http) {
