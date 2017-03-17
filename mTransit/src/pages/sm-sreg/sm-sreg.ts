@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { SMSAuthService } from '../../services/auth/SMS_auth';
+//import { SMSAuthService } from '../../services/auth/SMS_auth';
+import { BusStopService } from '../../providers/bus-stop-service';
+
 /*
   Generated class for the SMSreg page.
 
@@ -13,10 +15,12 @@ import { SMSAuthService } from '../../services/auth/SMS_auth';
 })
 export class SMSregPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public smsAuth: SMSAuthService) {}
+  constructor(public navCtrl: NavController, public bss: BusStopService ) {}
 
   ionViewDidLoad() {
-    this.smsAuth.login();
-  }
+    this.bss.load();
+    console.log("Hello from bustop test");
+
+  } 
 
 }
