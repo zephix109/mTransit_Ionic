@@ -8,9 +8,8 @@ import { Http } from '@angular/http'
  
 @Component({
   selector: 'map-page',
-  templateUrl: 'map.html',
-  providers: [StopInit]
-  providers: [BusStopService]
+  templateUrl: 'map.html'
+
 })
 export class MapPage {
 

@@ -3,7 +3,9 @@ import { BusStop } from '../bus-stop/bus-stop';
 
 export class BusStopCatalog {
 
-    constructor(public catalog: BusStop[]) {
+    catalog: BusStop[]
+
+    constructor() {
     }
 
     addBusStop(busStop) {
