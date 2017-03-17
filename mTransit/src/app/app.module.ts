@@ -13,6 +13,7 @@ import { AuthService } from '../services/auth/auth.service';
 import { StopInit } from '../services/map/stops_Init';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
+import { BusStopService } from '../providers/bus-stop-service';
 
 import { BusStopService } from '../providers/bus-stop-service';
 import { GoogleMaps } from '../providers/google-maps';
@@ -55,7 +56,7 @@ export function getAuthHttp(http) {
       provide: AuthHttp,
       useFactory: getAuthHttp,
       deps: [Http]
-    },StopInit,BusStopService, GoogleMaps, Connectivity]
+    }, StopInit, BusStopService]
 })
 export class AppModule {}
 export function createTranslateLoader(http: Http) {
