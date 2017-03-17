@@ -91,6 +91,7 @@ export class StopInit {
 
       };
 
+      
       this.map.addMarker(markerOptions);
 
     }
