@@ -21,6 +21,8 @@ export class BusStopService {
 
   }
 
+  //Load stm bus stop from JSON file into array.
+  //Current problem surrounds Goelocation that surrounds this.applyHaversine(...)
   load() {
     if (this.data) {
       return Promise.resolve(this.data);
@@ -33,17 +35,20 @@ export class BusStopService {
         .map(res => res.json().bus_stops)
         .subscribe(data => {
 
-              this.user_lat = 45.546645;//position.coords.latitude;
-              this.user_lon = -73.536455;//position.coords.longitude;
-              
+        this.user_lat = 45.546645;//position.coords.latitude;
+        this.user_lon = -73.536455;//position.coords.longitude;
+
 
         Promise.all([
           console.log("1"),
-          //this.watch = Geolocation.watchPosition().subscribe(( position: Geoposition) => {
-            this.applyHaversine( data, this.user_lat, this.user_lon ),
-          //}, (err) => {
-          //   console.log(err);
-          // }),
+
+          //PROBLEM STARTS HERE
+          this.watch = Geolocation.watchPosition().subscribe(( position: Geoposition) => {
+            this.applyHaversine( data, this.user_lat, this.user_lon ); //This works by itself when its not surrounded by Geolocation
+          }, (err) => {
+            console.log(err);
+          }),
+
           console.log("2"),
           data.sort((busStopA,busStopB) => {
             return busStopA.distance - busStopB.distance;
@@ -60,6 +65,17 @@ export class BusStopService {
     });
   }
 
+  /*
+  * Function applyHaversine
+  *
+  * Input:
+  *  - Array representing bus_stop JSON list
+  *  - user's current latitude
+  *  - user's current longitude
+  *
+  * Function iterates through every item in the Array and creates a new field named "distance" which is the distance between 
+  * the user's location and the item's location. This calculation is called the Haversine formulas which is called at this.getDistanceBetweenPoints
+  */
   applyHaversine(busStopJSONarr, userLat : number, userLon : number){
     
       console.log(userLat);
@@ -91,6 +107,7 @@ export class BusStopService {
 
   }
 
+  //Calculation for Haversine formulas
   getDistanceBetweenPoints(start, end, units){
  
         let earthRadius = {
