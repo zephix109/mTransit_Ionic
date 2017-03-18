@@ -14,8 +14,6 @@ import { StopInit } from '../services/map/stops_Init';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { BusStopService } from '../providers/bus-stop-service';
-
-import { BusStopService } from '../providers/bus-stop-service';
 import { GoogleMaps } from '../providers/google-maps';
 import { Connectivity } from '../providers/connectivity';
 

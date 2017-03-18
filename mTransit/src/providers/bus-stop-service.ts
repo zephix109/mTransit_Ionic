@@ -63,25 +63,25 @@ export class BusStopService {
     });
   }
   
-  applyHaversine(locations){
-    let usersLocation = {
-      lat: 40.713744, 
-      lng: -74.009056
-    };
+  // applyHaversine(locations){
+  //   let usersLocation = {
+  //     lat: 40.713744, 
+  //     lng: -74.009056
+  //   };
  
-    locations.map((location) => {
+  //   locations.map((location) => {
  
-    let placeLocation = {
-      lat: location.latitude,
-      lng: location.longitude
-    };
+  //   let placeLocation = {
+  //     lat: location.latitude,
+  //     lng: location.longitude
+  //   };
  
-    location.distance = this.getDistanceBetweenPoints(
-        usersLocation,
-        placeLocation,
-        'miles'
-      ).toFixed(2);
-    });
+  //   location.distance = this.getDistanceBetweenPoints(
+  //       usersLocation,
+  //       placeLocation,
+  //       'miles'
+  //     ).toFixed(2);
+  //   });
 
   /*
   * Function applyHaversine

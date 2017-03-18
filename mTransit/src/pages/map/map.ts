@@ -3,7 +3,7 @@ import { NavController, Platform } from 'ionic-angular';
 import { StopInit } from '../../services/map/stops_Init';
 import { BusStopCatalog } from '../../components/bus-stop-catalog';
 import { BusStop } from '../../components/bus-stop';
-import { BusStopService } from '../providers/bus-stop-service';
+import { BusStopService } from '../../providers/bus-stop-service';
 import { Http } from '@angular/http'
 import { GoogleMaps } from '../../providers/google-maps';
  
