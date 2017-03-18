@@ -35,31 +35,29 @@ export class BusStopService {
         .map(res => res.json().bus_stops)
         .subscribe(data => {
 
-        //Lat = 45.546645;
-        //Long = -73.536455;
-
-        Promise.all([
-          console.log("1"),
-
-          //PROBLEM STARTS HERE
           this.watch = Geolocation.watchPosition().filter((p: any) => p.code === undefined).subscribe((position: Geoposition) => {
             this.user_lat = position.coords.latitude;
             this.user_lon = position.coords.longitude;            
-            this.applyHaversine( data, this.user_lat, this.user_lon ); //This works by itself when its not surrounded by Geolocation
+            
+
+            Promise.all([
+              // 1 - Create and calculate 'distance' value for each item in the array
+              this.applyHaversine( data, this.user_lat, this.user_lon ),  
+              // 2 - Sort array
+              data.sort((busStopA,busStopB) => {
+                return busStopA.distance - busStopB.distance;
+              }),
+              // 3 - Show only the first 50
+              this.data = data.slice(0,50),
+
+              resolve(this.data)
+              
+            ]);
+
           }, (err) => {
             console.log(err);
-          }),
+          });
 
-          console.log("2"),
-          data.sort((busStopA,busStopB) => {
-            return busStopA.distance - busStopB.distance;
-          }),
-          console.log("3"),
-          this.data = data.slice(0,50),
-          console.log("4"),
-          resolve(this.data)
-        ]);
- 
           
         });
     });
@@ -77,9 +75,7 @@ export class BusStopService {
   * the user's location and the item's location. This calculation is called the Haversine formulas which is called at this.getDistanceBetweenPoints
   */
   applyHaversine(busStopJSONarr, userLat : number, userLon : number){
-    
-      console.log(userLat);
-      console.log(userLon);
+
       let usersLocation = {
 
           lat: userLat, 
