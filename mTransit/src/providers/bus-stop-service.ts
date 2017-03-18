@@ -35,15 +35,16 @@ export class BusStopService {
         .map(res => res.json().bus_stops)
         .subscribe(data => {
 
-        this.user_lat = 45.546645;//position.coords.latitude;
-        this.user_lon = -73.536455;//position.coords.longitude;
-
+        //Lat = 45.546645;
+        //Long = -73.536455;
 
         Promise.all([
           console.log("1"),
 
           //PROBLEM STARTS HERE
-          this.watch = Geolocation.watchPosition().subscribe(( position: Geoposition) => {
+          this.watch = Geolocation.watchPosition().filter((p: any) => p.code === undefined).subscribe((position: Geoposition) => {
+            this.user_lat = position.coords.latitude;
+            this.user_lon = position.coords.longitude;            
             this.applyHaversine( data, this.user_lat, this.user_lon ); //This works by itself when its not surrounded by Geolocation
           }, (err) => {
             console.log(err);
@@ -56,8 +57,7 @@ export class BusStopService {
           console.log("3"),
           this.data = data.slice(0,50),
           console.log("4"),
-          resolve(this.data),
-          console.log("5")
+          resolve(this.data)
         ]);
  
           
