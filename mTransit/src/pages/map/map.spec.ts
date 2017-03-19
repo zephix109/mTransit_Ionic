@@ -1,19 +1,19 @@
 import { ComponentFixture, async } from '@angular/core/testing';
 import { TestUtils }               from '../../test';
-import { HomePage }          from './home';
+import { MapPage }          from './map';
 
-let fixture: ComponentFixture<HomePage> = null;
+let fixture: ComponentFixture<MapPage> = null;
 let instance: any = null;
 
-describe('Pages: Home', () => {
+describe('Pages: Map', () => {
 
-  beforeEach(async(() => TestUtils.beforeEachCompiler([HomePage]).then(compiled => {
+  beforeEach(async(() => TestUtils.beforeEachCompiler([MapPage]).then(compiled => {
     fixture = compiled.fixture;
     instance = compiled.instance;
 
   })));
 
-  it('should create the home page', async(() => {
+  it('should create the map page', async(() => {
     expect(instance).toBeTruthy();
   }));
 });

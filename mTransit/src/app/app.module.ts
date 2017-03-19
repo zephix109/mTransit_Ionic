@@ -12,8 +12,6 @@ import { Storage } from '@ionic/storage';
 
 import firebase from 'firebase';
 
-import { Test } from '../providers/test';
-
 let storage: Storage = new Storage();
 
 @NgModule({
@@ -38,7 +36,7 @@ let storage: Storage = new Storage();
     MapPage,
     SmsPage,
   ],
-  providers: [{provide: ErrorHandler, useClass:IonicErrorHandler}, Test]
+  providers: [{provide: ErrorHandler, useClass:IonicErrorHandler}]
 })
 export class AppModule {}
 export function createTranslateLoader(http: Http) {
