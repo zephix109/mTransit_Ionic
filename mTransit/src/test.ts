@@ -13,6 +13,7 @@ import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@ang
 import { App, Config, Form, IonicModule, Keyboard, DomController, MenuController, NavController, Platform } from 'ionic-angular';
 import { ConfigMock, PlatformMock } from './mocks';
 import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate/ng2-translate';
+import { HomePage }          from 'pages/home/home';
 
 
 // Unfortunately there's no typing for the `__karma__` variable. Just declare it as any.
@@ -58,6 +59,7 @@ export class TestUtils {
         App, Form, Keyboard, DomController, MenuController, NavController,
         {provide: Platform, useClass: PlatformMock},
         {provide: Config, useClass: ConfigMock},
+        {provide: HomePage}
       ],
       imports: [
         FormsModule,
