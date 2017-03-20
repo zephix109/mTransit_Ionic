@@ -124,4 +124,13 @@ export class StopInit {
     
     }
 
+    isMapLoaded(){
+      this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
+        return true;
+      });  
+
+      return false;
+
+    }
+
 }

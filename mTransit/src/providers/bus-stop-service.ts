@@ -45,7 +45,7 @@ export class BusStopService {
                 return busStopA.distance - busStopB.distance;
               }),
               // 3 - Show only the first 50
-              this.data = data.slice(0,50),
+              this.data = data.slice(0,10),
 
               resolve(this.data)
               

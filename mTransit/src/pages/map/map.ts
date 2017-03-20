@@ -1,11 +1,10 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { StopInit } from '../../services/map/stops_Init';
-import { BusStopCatalog } from '../../components/bus-stop-catalog';
 import { BusStop } from '../../components/bus-stop';
 import { BusStopService } from '../../providers/bus-stop-service';
 import { Http } from '@angular/http'
-import { GoogleMaps } from '../../providers/google-maps';
+import { BusStopCatalog } from "../../components/bus-stop-catalog/bus-stop-catalog";
  
 @Component({
   selector: 'map-page',
@@ -13,29 +12,25 @@ import { GoogleMaps } from '../../providers/google-maps';
 })
 export class MapPage {
 
-  @ViewChild('map') mapElement: ElementRef;
-  @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
+  busCatalog : BusStopCatalog
 
-  constructor(public navCtrl: NavController, public maps: GoogleMaps, public platform: Platform, public bus_stop: BusStopService, public stopinit : StopInit) {}
+  constructor(public navCtrl: NavController, public platform: Platform, public bus_stop: BusStopService, public stopinit : StopInit) {}
 
   ionViewDidLoad(){
     this.platform.ready().then(() => {
-      let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
-      let locationsLoaded = this.bus_stop.load();
-      Promise.all([
-        mapLoaded,
-        locationsLoaded
-      ]).then((result) => {
-        let locations = result[1];
-        for(let location of locations){
-            this.maps.addMarker(location.latitude, location.longitude);
-        }
-      }); 
+      if(this.stopinit.isMapLoaded){
+        //this.busCatalog = new BusStopCatalog(this.bus_stop);'
+        alert("Map loaded");
+      } else {
+        alert("Map failed");
+      }
+      
     });
   } 
 
-  showStops(){
-    this.stopinit.showStops();
+  findNearBusStops(){
+    this.busCatalog.getNearBusStops();
+
   }
 
   //Moved all source code to ../services/map/stop_Init.ts in order to not cluster map.ts

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 //import { SMSAuthService } from '../../services/auth/SMS_auth';
 import { BusStopService } from '../../providers/bus-stop-service';
+import { Http } from "@angular/http";
 
 /*
   Generated class for the SMSreg page.
@@ -14,12 +15,17 @@ import { BusStopService } from '../../providers/bus-stop-service';
   templateUrl: 'sm-sreg.html'
 })
 export class SMSregPage {
-
-  constructor(public navCtrl: NavController, public bss: BusStopService ) {}
+  http : Http;
+  constructor(public navCtrl: NavController,public platform: Platform,  public bss: BusStopService ) {
+    bss = new BusStopService(this.http);
+  }
 
   ionViewDidLoad() {
-    this.bss.load();
-    console.log("Hello from bustop test");
+    this.platform.ready().then(() => {
+      this.bss.load();
+      console.log("Hello from test page");
+    });
+  }
 
   } 
 
