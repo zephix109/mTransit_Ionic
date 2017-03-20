@@ -3,7 +3,9 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
-import {SmsPage} from '../pages/sms/sms';
+import { SmsPage } from '../pages/sms/sms';
+import { SmsCodePage } from '../pages/sms-code/sms-code';
+import { DriverLoginPage } from '../pages/driver-login/driver-login';
 import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate/ng2-translate';
 
 import { provide } from 'angular/core';
@@ -20,6 +22,8 @@ let storage: Storage = new Storage();
     HomePage,
     MapPage,
     SmsPage,
+    SmsCodePage,
+    DriverLoginPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -35,6 +39,8 @@ let storage: Storage = new Storage();
     HomePage,
     MapPage,
     SmsPage,
+    SmsCodePage,
+    DriverLoginPage
   ],
   
 })

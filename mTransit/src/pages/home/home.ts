@@ -3,6 +3,7 @@ import { TranslateService } from 'ng2-translate';
 import { NavController } from 'ionic-angular';
 import { MapPage } from '../map/map';
 import { SmsPage } from '../sms/sms';
+import { DriverLoginPage } from '../driver-login/driver-login';
 import {Facebook} from '@ionic-native/facebook';
 import firebase from 'firebase';
 
@@ -34,6 +35,7 @@ export class HomePage {
       }).catch((error) => { console.log(error) });
   }
 
+
   //function that loads the map page
   goToMap(){
       this.navCtrl.push(MapPage);
@@ -44,6 +46,12 @@ export class HomePage {
       this.navCtrl.push(SmsPage);
   }
 
+  //function that loads the driver login page
+  goToDriverLogin(){
+      this.navCtrl.push(DriverLoginPage);
+  }
+
+  //function that changes the language from Englishs to French and vice versa
   swapLanguage() {
     if(this.translateService.currentLang == "en")
       this.translateService.use('fr');

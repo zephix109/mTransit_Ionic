@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {SmsCodePage} from '../sms-code/sms-code';
+import { SmsCodePage } from '../sms-code/sms-code';
 
-import {SMS} from 'ionic-native'; //allows us to send SMS
+import { SMS } from 'ionic-native'; //allows us to send SMS
 /*
   Generated class for the Sms page.
 
