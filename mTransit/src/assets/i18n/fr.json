@@ -1,7 +1,10 @@
 {
     "LANGUAGE_CHANGE": "En",
+	"OR": "- ou -",
     "LOGIN": "Se Connecter",
-    "LOGIN_WITH": "Se connecter avec",
-    "DRIVER_TEXT": "Si vous êtes un conducteur ou une conductrice, entrez votre code et tapez sur un bouton au-dessus pour connecter",
-    "ENTER_CODE": "Entrez code ici"
+    "LOGIN_WITH": "Connectez-vous avec",
+	"FACEBOOK_LOGIN": "Facebook",
+    "DRIVER_TEXT": "Si vous êtes un(e) chauffeur(e), pesez sur le bouton ci-dessous",
+    "DRIVER_LOGIN": "Connexion pour chauffeur(e)s",
+	"DRIVER_PROMPT": "S'il vous plait entrez votre code de chauffeur(e), le numéro de bus et le numéro de route"
 }
