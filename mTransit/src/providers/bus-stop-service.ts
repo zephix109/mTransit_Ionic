@@ -1,8 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { BusStop } from "../components/bus-stop/bus-stop";
-import { BusStopCatalog } from "../components/bus-stop-catalog/bus-stop-catalog";
 import { Geolocation, Geoposition , BackgroundGeolocation} from 'ionic-native';
 
 @Injectable()
@@ -10,7 +8,6 @@ export class BusStopService {
 
   zone: NgZone;
   data: any;
-  busCatalog: BusStopCatalog;
   user_lat : number;
   user_lon : number;
   watch: any;
@@ -62,26 +59,7 @@ export class BusStopService {
         });
     });
   }
-  
-  // applyHaversine(locations){
-  //   let usersLocation = {
-  //     lat: 40.713744, 
-  //     lng: -74.009056
-  //   };
- 
-  //   locations.map((location) => {
- 
-  //   let placeLocation = {
-  //     lat: location.latitude,
-  //     lng: location.longitude
-  //   };
- 
-  //   location.distance = this.getDistanceBetweenPoints(
-  //       usersLocation,
-  //       placeLocation,
-  //       'miles'
-  //     ).toFixed(2);
-  //   });
+
 
   /*
   * Function applyHaversine

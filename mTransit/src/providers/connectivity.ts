@@ -14,16 +14,16 @@ export class Connectivity {
   }
 
   isOnline(): boolean {
-    if(this.onDevice && Network.onConnect){
-      return Network.onConnect !== Connection.NONE;
+    if(this.onDevice && Network.type){
+      return Network.type !== Connection.NONE;
     } else {
       return navigator.onLine; 
     }
   }
 
   isOffline(): boolean {
-    if(this.onDevice && Network.onConnect){
-      return Network.onConnect === Connection.NONE;
+    if(this.onDevice && Network.type){
+      return Network.type === Connection.NONE;
     } else {
       return !navigator.onLine;   
     }
