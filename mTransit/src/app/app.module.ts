@@ -42,7 +42,7 @@ let storage: Storage = new Storage();
     SmsCodePage,
     DriverLoginPage
   ],
-  
+  providers: [{provide: ErrorHandler, useClass:IonicErrorHandler}]
 })
 export class AppModule {}
 export function createTranslateLoader(http: Http) {
