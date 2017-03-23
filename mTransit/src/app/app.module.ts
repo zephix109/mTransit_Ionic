@@ -3,47 +3,49 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
-import { SMSregPage } from '../pages/sm-sreg/sm-sreg';
+import { SmsPage } from '../pages/sms/sms';
+import { SmsCodePage } from '../pages/sms-code/sms-code';
+import { DriverLoginPage } from '../pages/driver-login/driver-login';
+import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate/ng2-translate';
 
 import { provide } from 'angular/core';
-import { Auth} from "../providers/auth/auth";
-import { AuthConfig, AuthHttp } from 'angular2-jwt';
-import { AuthService } from '../services/auth/auth.service';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
 
-let storage: Storage = new Storage();
+import firebase from 'firebase';
 
-export function getAuthHttp(http) {
-  return new AuthHttp(new AuthConfig({
-    noJwtError: true,
-    globalHeaders: [{'Accept': 'application/json'}],
-    tokenGetter: (() => storage.get('id_token'))
-  }), http);
-}
+let storage: Storage = new Storage();
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     MapPage,
-    SMSregPage
+    SmsPage,
+    SmsCodePage,
+    DriverLoginPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    TranslateModule.forRoot({
+      provide: TranslateLoader,
+      useFactory: (createTranslateLoader),
+      deps: [Http]
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
     MapPage,
-    SMSregPage
+    SmsPage,
+    SmsCodePage,
+    DriverLoginPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},AuthService,
-    {
-      provide: AuthHttp,
-      useFactory: getAuthHttp,
-      deps: [Http]
-    }]
+  providers: [{provide: ErrorHandler, useClass:IonicErrorHandler}]
 })
 export class AppModule {}
+export function createTranslateLoader(http: Http) {
+  return new TranslateStaticLoader(http, 'assets/i18n',
+  '.json');
+}
