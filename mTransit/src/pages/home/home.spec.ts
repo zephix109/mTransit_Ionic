@@ -1,6 +1,6 @@
 
-import { TestUtils }               from '../../test';
-import { HomePage }          from './home';
+import { TestUtils } from '../../test';
+import { HomePage } from './home';
 import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';

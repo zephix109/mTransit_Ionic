@@ -1,6 +1,6 @@
 import { ComponentFixture, async } from '@angular/core/testing';
-import { TestUtils }               from '../../test';
-import { SmsPage }          from './sms';
+import { TestUtils } from '../../test';
+import { SmsPage } from './sms';
 
 let fixture: ComponentFixture<SmsPage> = null;
 let instance: any = null;

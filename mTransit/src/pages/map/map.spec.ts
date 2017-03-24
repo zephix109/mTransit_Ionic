@@ -1,6 +1,6 @@
 import { ComponentFixture, async } from '@angular/core/testing';
-import { TestUtils }               from '../../test';
-import { MapPage }          from './map';
+import { TestUtils } from '../../test';
+import { MapPage } from './map';
 
 let fixture: ComponentFixture<MapPage> = null;
 let instance: any = null;
