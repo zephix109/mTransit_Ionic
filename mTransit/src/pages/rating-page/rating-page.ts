@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController  } from 'ionic-angular';
+
 
 /*
   Generated class for the RatingPage page.
@@ -13,10 +14,20 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class RatingPagePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  private rate: number;
+  private comment: string;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RatingPagePage');
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl : AlertController) {}
+
+  onModelChange(){
+    
   }
 
+  finishReview() {
+    if(this.rate > 0){
+      console.log(this.rate);
+      console.log(this.comment);
+    }
+  }
+  
 }

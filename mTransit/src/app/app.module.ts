@@ -6,8 +6,9 @@ import { MapPage } from '../pages/map/map';
 import { SmsPage } from '../pages/sms/sms';
 import { SmsCodePage } from '../pages/sms-code/sms-code';
 import { DriverLoginPage } from '../pages/driver-login/driver-login';
+import { RatingPagePage } from '../pages/rating-page/rating-page';
 import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate/ng2-translate';
-
+import { Ionic2RatingModule } from 'ionic2-rating';
 import { provide } from 'angular/core';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
@@ -23,10 +24,12 @@ let storage: Storage = new Storage();
     MapPage,
     SmsPage,
     SmsCodePage,
-    DriverLoginPage
+    DriverLoginPage,
+    RatingPagePage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
+    Ionic2RatingModule,
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),
@@ -40,7 +43,8 @@ let storage: Storage = new Storage();
     MapPage,
     SmsPage,
     SmsCodePage,
-    DriverLoginPage
+    DriverLoginPage,
+    RatingPagePage
   ],
   providers: [{provide: ErrorHandler, useClass:IonicErrorHandler}]
 })
