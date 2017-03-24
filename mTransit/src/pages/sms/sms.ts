@@ -3,7 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import {SmsCodePage} from '../sms-code/sms-code';
 import { Sim } from 'ionic-native';
 import {SMS} from 'ionic-native'; //allows us to send SMS
-import twilio from 'twilio';
+import * as twilio from 'twilio';
+
 /*
   Generated class for the Sms page.
 
@@ -28,7 +29,7 @@ export class SmsPage {
     var authToken = '85aa464bcffd521a2a09ca66c64591f1'; 
     
     //require the Twilio module and create a REST client
-    var client = require('twilio')(accountSid, authToken); 
+    var client = twilio(accountSid, authToken); 
     
     client.messages.create({ 
         to: "+15147067272", 
