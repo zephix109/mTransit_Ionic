@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
+import { RatingPagePage } from '../rating-page/rating-page';
 import { 
   GoogleMap, 
   GoogleMapsEvent, 
@@ -22,6 +23,10 @@ export class MapPage {
       platform.ready().then(() => {
           this.loadMap();
       });
+  }
+
+  goToRating(){
+      this.navCtrl.push(RatingPagePage);
   }
 
   loadMap(){

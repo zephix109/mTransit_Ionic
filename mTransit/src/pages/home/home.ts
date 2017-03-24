@@ -3,6 +3,7 @@ import { TranslateService } from 'ng2-translate';
 import { NavController } from 'ionic-angular';
 import { MapPage } from '../map/map';
 import { SmsPage } from '../sms/sms';
+import { RatingPagePage } from '../rating-page/rating-page';
 import { DriverLoginPage } from '../driver-login/driver-login';
 import {Facebook} from '@ionic-native/facebook';
 import firebase from 'firebase';
@@ -50,7 +51,9 @@ export class HomePage {
   goToDriverLogin(){
       this.navCtrl.push(DriverLoginPage);
   }
-
+  goToRating(){
+      this.navCtrl.push(RatingPagePage);
+  }
   //function that changes the language from Englishs to French and vice versa
   swapLanguage() {
     if(this.translateService.currentLang == "en")
@@ -58,5 +61,7 @@ export class HomePage {
     else
       this.translateService.use('en');
   }
+
+
 
 }
