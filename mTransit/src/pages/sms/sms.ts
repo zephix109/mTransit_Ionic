@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import {SmsCodePage} from '../sms-code/sms-code';
 import { Sim } from 'ionic-native';
 import {SMS} from 'ionic-native'; //allows us to send SMS
+import twilio from 'twilio';
 /*
   Generated class for the Sms page.
 
@@ -16,27 +17,29 @@ var userNumber;
   selector: 'sms-page',
   templateUrl: 'sms.html'
 })
+
 export class SmsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
-  sendSMS(  ){
-    var options={
-      replaceLineBreaks: false,
-      android: {
-        intent: 'INTENT'  
-        //intent:''
-      }
-    } 
-    this.navCtrl.push(SmsCodePage); 
-    SMS.send('5149447896','1234',options)
-      .then(()=>{
-        //alert("success");
-        //this.navCtrl.push(SmsCodePage);
-      },()=>{
-        //alert failed
-        alert(userNumber);  
-      });
+  twilioSMS() {
+    // Twilio Credentials 
+    var accountSid = 'AC9b6f2ff05983a8b535433b078903b2e4'; 
+    var authToken = '85aa464bcffd521a2a09ca66c64591f1'; 
+    
+    //require the Twilio module and create a REST client
+    var client = require('twilio')(accountSid, authToken); 
+    
+    client.messages.create({ 
+        to: "+15147067272", 
+        from: "+14387933164", 
+        body: "This is the ship that made the Kessel Run in fourteen parsecs?", 
+    }, function(err, message) { 
+      alert("in error section");
+        console.log(message.sid);
+        
+    });
+    alert("create function complete");
   }
 
   changeText(){
