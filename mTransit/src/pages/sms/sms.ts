@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { SmsCodePage } from '../sms-code/sms-code';
+//import { SmsCodePage } from '../sms-code/sms-code';
 
 import { SMS } from 'ionic-native'; //allows us to send SMS
 /*
@@ -22,14 +22,14 @@ export class SmsPage {
     var options={
       replaceLineBreaks: false,
       android: {
-        intent: 'INTENT'  
-        //intent:''
+        //intent: 'INTENT'  
+        intent:''
       }
     } 
-    this.navCtrl.push(SmsCodePage); 
-    SMS.send('5149447896','1234',options)
+    //this.navCtrl.push(SmsCodePage); 
+    SMS.send('5149949091','1234',options)
       .then(()=>{
-        //alert("success");
+        alert("success");
         //this.navCtrl.push(SmsCodePage);
       },()=>{
         alert("failed");  
