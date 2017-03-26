@@ -27,7 +27,7 @@ export class MapPage {
   ionViewDidLoad(){
     this.platform.ready().then(() => {
       if(this.stopinit.isMapLoaded){
-        this.busCatalog = new BusStopCatalog();
+        //this.busCatalog = new BusStopCatalog();
         //alert("Map loaded");
       } else {
         //alert("Map failed");

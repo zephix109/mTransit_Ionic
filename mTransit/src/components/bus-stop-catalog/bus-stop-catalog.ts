@@ -1,14 +1,18 @@
 import { Component } from '@angular/core';
-import { BusStop } from '../bus-stop/bus-stop';
 import { BusStopService } from '../../providers/bus-stop-service';
+import { BusStop } from '../bus-stop/bus-stop';
+
 
 export class BusStopCatalog {
 
     stop_services: BusStopService;
     catalog: BusStop[]
+    x:any;
+    y:any;
 
     constructor() {
-        
+        this.stop_services = new BusStopService();
+
     }
 
     createStopObjArray( ){
@@ -26,4 +30,4 @@ export class BusStopCatalog {
         return this.catalog;
     }
 
-}
+}  

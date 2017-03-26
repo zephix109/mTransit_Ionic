@@ -12,9 +12,10 @@ export class BusStopService {
   user_lat : number;
   user_lon : number;
   watch: any;
+  pf: Platform;
+  http: Http;
 
-
-  constructor(public http: Http, public pf: Platform ) {
+  constructor() {
 
     console.log("Hello from BusStopService contructor");
 
@@ -43,7 +44,8 @@ export class BusStopService {
         .map(res => res.json().bus_stops)
         .subscribe(data => {
 
-          this.watch = Geolocation.watchPosition().subscribe((position: Geoposition) => {
+          //this.watch = Geolocation.watchPosition().subscribe((position: Geoposition) => {
+          Geolocation.getCurrentPosition().then( position => {
             this.user_lat = position.coords.latitude;
             this.user_lon = position.coords.longitude;            
             

@@ -18,15 +18,15 @@ import { Http } from "@angular/http";
 export class SMSregPage {
   http : Http;
   constructor(public navCtrl: NavController,public platform: Platform,  public bsc: BusStopCatalog ) {
-    
+    console.log("yoyo")
   }
 
   ionViewDidLoad() {
     this.platform.ready().then(() => {
-      this.bsc.createStopObjArray;
+      this.bsc.createStopObjArray();
       
       console.log("Hello from test page");
-      console.log(this.bsc.getNearBusStops.length)
+
     });
   }
 
