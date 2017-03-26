@@ -1,10 +1,17 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
-import { StopInit } from '../../services/map/stops_Init';
-import { BusStop } from '../../components/bus-stop';
-import { BusStopService } from '../../providers/bus-stop-service';
-import { Http } from '@angular/http'
+import { RatingPagePage } from '../rating-page/rating-page';
+import { 
+  GoogleMap, 
+  GoogleMapsEvent, 
+  GoogleMapsLatLng, 
+  Geolocation, 
+  GoogleMapsMarker, 
+  GoogleMapsMarkerOptions,
+  Geoposition
+} from 'ionic-native';
 import { BusStopCatalog } from "../../components/bus-stop-catalog/bus-stop-catalog";
+import { StopInit } from '../../services/map/stops_Init';
  
 @Component({
   selector: 'map-page',
@@ -14,7 +21,8 @@ export class MapPage {
 
   busCatalog : BusStopCatalog
 
-  constructor(public navCtrl: NavController, public platform: Platform, public bus_stop: BusStopService, public stopinit : StopInit) {}
+
+  constructor(public navCtrl: NavController, public platform: Platform, public stopinit : StopInit) {}
 
   ionViewDidLoad(){
     this.platform.ready().then(() => {
@@ -32,7 +40,10 @@ export class MapPage {
     this.busCatalog.getNearBusStops();
 
   }
-
+  
+  goToRating(){
+      this.navCtrl.push(RatingPagePage);
+  }
   //Moved all source code to ../services/map/stop_Init.ts in order to not cluster map.ts
 
 }
