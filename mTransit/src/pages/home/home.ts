@@ -5,6 +5,7 @@ import { MapPage } from '../map/map';
 import { SmsPage } from '../sms/sms';
 import { RatingPagePage } from '../rating-page/rating-page';
 import { DriverLoginPage } from '../driver-login/driver-login';
+import { SMSregPage } from '../sm-sreg/sm-sreg';
 import {Facebook} from '@ionic-native/facebook';
 import firebase from 'firebase';
 
@@ -62,6 +63,8 @@ export class HomePage {
       this.translateService.use('en');
   }
 
-
+  testJSON(){
+      this.navCtrl.push(SMSregPage);
+  }
 
 }

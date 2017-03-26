@@ -19,19 +19,19 @@ export class BusStop {
     
     }
 
-    getName(){
+    public getName(){
         return this.stop_name;
     }
 
-    getLat(){
+    public getLat(){
         return this.stop_lat;
     }
 
-    getLon(){
+    public getLon(){
         return this.stop_lon;
     }  
 
-    getWheelChairCount(){
+    public getWheelChairCount(){
         return this.stop_wheelChair;
     }
 
