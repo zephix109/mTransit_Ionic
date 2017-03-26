@@ -17,7 +17,7 @@ import { Http } from "@angular/http";
 export class SMSregPage {
   http : Http;
   constructor(public navCtrl: NavController,public platform: Platform,  public bss: BusStopService ) {
-    bss = new BusStopService(this.http);
+    //bss = new BusStopService(this.http);
   }
 
   ionViewDidLoad() {

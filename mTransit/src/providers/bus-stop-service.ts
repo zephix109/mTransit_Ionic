@@ -12,9 +12,9 @@ export class BusStopService {
   user_lat : number;
   user_lon : number;
   watch: any;
-  pf: Platform;
 
-  constructor(public http: Http) {
+
+  constructor(public http: Http, public pf: Platform ) {
 
     console.log("Hello from BusStopService contructor");
 
@@ -27,13 +27,14 @@ export class BusStopService {
       return Promise.resolve(this.data);
 
     }
-
+ 
     // don't have the data yet
     return new Promise(resolve => {
 
       var url = '../assets/bus_stops/stm_stops.json';
-      if (this.pf.is('cordova') && this.pf.is('android')) {
-        url = "/android_asset/www/" + url;
+      //this.pf.is('cordova') && 
+      if (this.pf.is('android')) {
+        url = "/android_asset/www/src/" + url;
       }
 
 
