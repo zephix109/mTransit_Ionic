@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 //import { SMSAuthService } from '../../services/auth/SMS_auth';
-import { BusStopService } from '../../providers/bus-stop-service';
+//import { BusStopService } from '../../providers/bus-stop-service';
+import { BusStopCatalog } from '../../components/bus-stop-catalog/bus-stop-catalog';
 import { Http } from "@angular/http";
 
 /*
@@ -16,13 +17,13 @@ import { Http } from "@angular/http";
 })
 export class SMSregPage {
   http : Http;
-  constructor(public navCtrl: NavController,public platform: Platform,  public bss: BusStopService ) {
-    //bss = new BusStopService(this.http);
+  constructor(public navCtrl: NavController,public platform: Platform,  public bsc: BusStopCatalog ) {
+    
   }
 
   ionViewDidLoad() {
     this.platform.ready().then(() => {
-      this.bss.load();
+      this.bsc.createStopObjArray;
       console.log("Hello from test page");
     });
   }

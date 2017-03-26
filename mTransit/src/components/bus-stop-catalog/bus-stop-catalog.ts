@@ -15,7 +15,7 @@ export class BusStopCatalog {
         for(let bs of this.stop_services.data){
 
             let currentStop = new BusStop(bs.stop_id, bs.stop_name, bs.stop_lat, bs.stop_lon, bs.wheelchair_boarding);
-            this.addBusStop(currentStop);
+             this.catalog.push(currentStop);
 
         } 
 
@@ -25,7 +25,4 @@ export class BusStopCatalog {
         return this.catalog;
     }
 
-    addBusStop(busStop) {
-        this.catalog.push(busStop);
-    }
 }

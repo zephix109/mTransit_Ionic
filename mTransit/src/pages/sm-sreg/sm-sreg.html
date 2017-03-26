@@ -15,7 +15,7 @@
 
 <ion-content padding>
     <ion-list no-lines>
-        <ion-item *ngFor="let b of bss.data">
+        <ion-item *ngFor="let b of bsc.getNearBusStops()">
             <h2>{{b.stop_name}}</h2>
             <p>Latitude = {{b.stop_lat}}, Longitude = {{b.stop_lon}}, Distance = {{b.distance}} km</p>
 
