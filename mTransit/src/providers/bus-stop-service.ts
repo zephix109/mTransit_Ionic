@@ -2,6 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Geolocation, Geoposition , BackgroundGeolocation} from 'ionic-native';
+import { Platform } from 'ionic-angular';
 
 @Injectable()
 export class BusStopService {
@@ -11,6 +12,7 @@ export class BusStopService {
   user_lat : number;
   user_lon : number;
   watch: any;
+  pf: Platform;
 
   constructor(public http: Http) {
 
@@ -28,11 +30,19 @@ export class BusStopService {
 
     // don't have the data yet
     return new Promise(resolve => {
-      this.http.get('../assets/bus_stops/stm_stops.json')
+
+      var url = '../assets/bus_stops/stm_stops.json';
+      if (this.pf.is('cordova') && this.pf.is('android')) {
+        url = "/android_asset/www/" + url;
+      }
+
+
+
+      this.http.get(url)
         .map(res => res.json().bus_stops)
         .subscribe(data => {
 
-          this.watch = Geolocation.watchPosition().filter((p: any) => p.code === undefined).subscribe((position: Geoposition) => {
+          this.watch = Geolocation.watchPosition().subscribe((position: Geoposition) => {
             this.user_lat = position.coords.latitude;
             this.user_lon = position.coords.longitude;            
             
