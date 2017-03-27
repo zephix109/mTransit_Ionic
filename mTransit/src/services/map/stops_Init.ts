@@ -17,8 +17,9 @@ export class StopInit {
 
   map: GoogleMap;
 
-  constructor(){
+  constructor(){ }//End of constructor
 
+  loadMap(){
     Geolocation.watchPosition().subscribe((position) => {
       let location = new GoogleMapsLatLng(position.coords.latitude, position.coords.longitude); 
     
@@ -51,9 +52,7 @@ export class StopInit {
     }, (err) => {
       console.log(err);
     });
-
-  }//End of constructor
-
+  }
 
   /*
   * function loadMapMarkers 
