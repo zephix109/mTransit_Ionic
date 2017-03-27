@@ -4,6 +4,7 @@ import { NavController, NavParams, Platform } from 'ionic-angular';
 //import { BusStopService } from '../../providers/bus-stop-service';
 import { BusStopCatalog } from '../../components/bus-stop-catalog/bus-stop-catalog';
 import { Http } from "@angular/http";
+import { BusStopService } from '../../providers/bus-stop-service';
 
 /*
   Generated class for the SMSreg page.
@@ -13,12 +14,15 @@ import { Http } from "@angular/http";
 */
 @Component({
   selector: 'page-sm-sreg',
-  templateUrl: 'sm-sreg.html'
+  templateUrl: 'sm-sreg.html',
+  providers:[BusStopService]
 })
+
 export class SMSregPage {
   http : Http;
-  constructor(public navCtrl: NavController,public platform: Platform,  public bsc: BusStopCatalog ) {
-    console.log("yoyo")
+
+  constructor(public navCtrl: NavController,public platform: Platform, public busSrv:BusStopService, public bsc: BusStopCatalog = new BusStopCatalog(busSrv) ) {
+
   }
 
   ionViewDidLoad() {
@@ -26,7 +30,7 @@ export class SMSregPage {
       this.bsc.createStopObjArray();
       
       console.log("Hello from test page");
-
+      //console.log(this.bsc.getNearBusStops());
     });
   }
 

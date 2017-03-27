@@ -8,22 +8,20 @@ import { Platform } from 'ionic-angular';
 export class BusStopService {
 
   zone: NgZone;
-  data: any;
+  public data: any;
   user_lat : number;
   user_lon : number;
   watch: any;
-  pf: Platform;
-  http: Http;
 
-  constructor() {
+  constructor(public  http: Http, public pf: Platform) {
 
-    console.log("Hello from BusStopService contructor");
+    console.log("Hello from BusStopService contructor :D");
 
   }
 
   //Load stm bus stop from JSON file into array.
   //Current problem surrounds Goelocation that surrounds this.applyHaversine(...)
-  load() {
+  public load() {
     if (this.data) {
       return Promise.resolve(this.data);
 
@@ -49,7 +47,7 @@ export class BusStopService {
             this.user_lat = position.coords.latitude;
             this.user_lon = position.coords.longitude;            
             
-
+            console.log("in load");
             Promise.all([
               // 1 - Create and calculate 'distance' value for each item in the array
               this.applyHaversine( data, this.user_lat, this.user_lon ),  
