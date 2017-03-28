@@ -47,6 +47,14 @@ export class StopInit {
       
       this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
         console.log('Map is ready!');
+
+      });
+
+      this.map.on(GoogleMapsEvent.MAP_CLICK).subscribe((location) => {
+        //Geolocation.getCurrentPosition().then()
+        //console.log(position.latitude);
+        
+        this.map.moveCamera("clicked");
       });
 
     }, (err) => {
@@ -95,33 +103,35 @@ export class StopInit {
 
     }
 
-    /*
-    * function showStops would display all bus stops within a certain vicinity of the user
-    */
-    showStops(){
+    // /*
+    // * function showStops would display all bus stops within a certain vicinity of the user
+    // */
+    // showStops(){
       
-      var all_stops = [];
+    //   var all_stops = [];
 
-      //let stop1 = new BusStop{};
+    //   //let stop1 = new BusStop{};
 
-      let testLocation = new GoogleMapsLatLng(45.495677,-73.579057);
-      let testStop_name = "Station Guy-Concordia";
+    //   let testLocation = new GoogleMapsLatLng(45.495677,-73.579057);
+    //   let testStop_name = "Station Guy-Concordia";
 
-      let testLocation2 = new GoogleMapsLatLng(45.495939,-73.579665);
-      let testStop_name2 = "Station Guy-Concordia (Guy / De Maisonneuve)";
+    //   let testLocation2 = new GoogleMapsLatLng(45.495939,-73.579665);
+    //   let testStop_name2 = "Station Guy-Concordia (Guy / De Maisonneuve)";
 
-      let testLocation3 = new GoogleMapsLatLng(45.497525,-73.578074);
-      let testStop_name3 = "De Maisonneuve / Bishop";
+    //   let testLocation3 = new GoogleMapsLatLng(45.497525,-73.578074);
+    //   let testStop_name3 = "De Maisonneuve / Bishop";
 
-      let testLocation4 = new GoogleMapsLatLng(45.495301,-73.578222);
-      let testStop_name4 = "Station Guy-Concordia (Guy / De Maisonneuve)";
+    //   let testLocation4 = new GoogleMapsLatLng(45.495301,-73.578222);
+    //   let testStop_name4 = "Station Guy-Concordia (Guy / De Maisonneuve)";
 
-      this.loadMapMarkers(testLocation, testStop_name);
-      this.loadMapMarkers(testLocation2, testStop_name2);
-      this.loadMapMarkers(testLocation3, testStop_name3);
-      this.loadMapMarkers(testLocation4, testStop_name4);
+    //   this.loadMapMarkers(testLocation, testStop_name);
+    //   this.loadMapMarkers(testLocation2, testStop_name2);
+    //   this.loadMapMarkers(testLocation3, testStop_name3);
+    //   this.loadMapMarkers(testLocation4, testStop_name4);
     
-    }
+    // }
+
+    selectDropOffLocation(){}
 
     isMapLoaded(){
       this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
@@ -131,5 +141,9 @@ export class StopInit {
       return false;
 
     }
+
+    
+
+    
 
 }

@@ -34,8 +34,9 @@ export class MapPage {
           for(let bss of bus_stop_service){
             
             let tempLatLng = new GoogleMapsLatLng(bss.stop_lat,bss.stop_lon);
-
+            console.log("addMerker");
             this.stopinit.loadMapMarkers(tempLatLng,bss.stop_name);
+
           }
 
         })
@@ -49,6 +50,9 @@ export class MapPage {
 
   }
 
+  allowClick(){
+    //this.stopinit.selectDropOffLocation();
+  }
   //Moved all source code to ../services/map/stop_Init.ts in order to not cluster map.ts
 
 }
