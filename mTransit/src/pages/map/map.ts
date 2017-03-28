@@ -21,20 +21,25 @@ export class MapPage {
     this.platform.ready().then(() => {
      
         //this.busCatalog = new BusStopCatalog(this.bus_stop);
-        let mapLoaded = this.stopinit.loadMap();
+        let mapLoaded = new Promise((resolve) => {
+          setTimeout(resolve, 100, this.stopinit.loadMap());
+        });
+
         let stopLoaded = this.bus_stop_service.load();
 
         Promise.all([
           mapLoaded,
           stopLoaded
+          
         ]).then((result) => {
 
           let bus_stop_service = result[1];
-
+          console.log("boutta loop" + result[1]);
+          
           for(let bss of bus_stop_service){
-            
+          //for(let bss of result[1]){
+            //console.log(bss.stop_name);
             let tempLatLng = new GoogleMapsLatLng(bss.stop_lat,bss.stop_lon);
-            console.log("addMerker");
             this.stopinit.loadMapMarkers(tempLatLng,bss.stop_name);
 
           }

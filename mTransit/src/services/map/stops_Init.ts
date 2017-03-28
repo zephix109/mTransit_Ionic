@@ -20,45 +20,53 @@ export class StopInit {
   constructor(){ }//End of constructor
 
   loadMap(){
-    Geolocation.watchPosition().subscribe((position) => {
-      let location = new GoogleMapsLatLng(position.coords.latitude, position.coords.longitude); 
-    
-      this.map = new GoogleMap('map', {
-        'backgroundColor': 'white',
-        'controls': {
-          'compass': true,
-          'myLocationButton': true,
-          'indoorPicker': true,
-          'zoom': true
-        },
-        'gestures': {
-          'scroll': true,
-          'tilt': true,
-          'rotate': true,
-          'zoom': true
-        },
-        'camera': {
-          'latLng': location,
-          'tilt': 30,
-          'zoom': 15,
-          'bearing': 50
-        }
-      });
+
+    return new Promise((resolve) => {
+
+      Geolocation.watchPosition({timeout: 30000}).subscribe((position) => {
+        let location = new GoogleMapsLatLng(position.coords.latitude, position.coords.longitude); 
       
-      this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
-        console.log('Map is ready!');
-
-      });
-
-      this.map.on(GoogleMapsEvent.MAP_CLICK).subscribe((location) => {
-        //Geolocation.getCurrentPosition().then()
-        //console.log(position.latitude);
+        this.map = new GoogleMap('map', {
+          'backgroundColor': 'white',
+          'controls': {
+            'compass': true,
+            'myLocationButton': true,
+            'indoorPicker': true,
+            'zoom': true
+          },
+          'gestures': {
+            'scroll': true,
+            'tilt': true,
+            'rotate': true,
+            'zoom': true
+          },
+          'camera': {
+            'latLng': location,
+            'tilt': 30,
+            'zoom': 15,
+            'bearing': 50
+          }
+        });
         
-        this.map.moveCamera("clicked");
+        this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
+          console.log('Map is ready!');
+
+        });
+
+        this.map.on(GoogleMapsEvent.MAP_CLICK).subscribe(() => {
+          Geolocation.getCurrentPosition().then((position) => {
+            //let latlng = new GoogleMapsLatLng(position.coords.latitude, position.coords.longitude);
+            console.log(position.coords.latitude + " and " + position.coords.longitude);
+          });         
+        });
+
+
+      }, (err) => {
+        console.log(err);
       });
 
-    }, (err) => {
-      console.log(err);
+        resolve(true);
+
     });
   }
 
@@ -76,9 +84,11 @@ export class StopInit {
   loadMapMarkers(stop_lat_lng : GoogleMapsLatLng, stop_name : string ) {
     
       let markerOptions: GoogleMapsMarkerOptions = {
+
         position: stop_lat_lng,
         title: stop_name,
         snippet: "List bus numbers here",
+        icon: 'http://www.google.com/intl/en_us/mapfiles/ms/icons/blue-dot.png',
         styles : {
           'text-align': 'center',
           'font-weight': 'bold',
@@ -86,6 +96,7 @@ export class StopInit {
         },
         'markerClick' : function(marker) {
           marker.showInfoWindow();
+          marker.icon = 'black';
         },
         'infoClick': function(marker) {
           var confirmation_status = window.confirm("Are you sure you want to select this destination?\n\nAt: " + stop_name);
@@ -97,9 +108,10 @@ export class StopInit {
         }
 
       };
-
-      
-      this.map.addMarker(markerOptions);
+      //marker.set
+        this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
+          this.map.addMarker(markerOptions);
+        });
 
     }
 
