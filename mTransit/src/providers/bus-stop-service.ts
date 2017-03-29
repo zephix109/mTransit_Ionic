@@ -1,18 +1,21 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { Geolocation, Geoposition , BackgroundGeolocation} from 'ionic-native';
+import { Geolocation, Geoposition } from 'ionic-native';
 import { Platform } from 'ionic-angular';
+import { StopInit } from '../services/map/stops_Init';
 
 @Injectable()
 export class BusStopService {
 
   zone: NgZone;
   data: any;
+  data_destination: any;
   user_lat : number;
   user_lon : number;
   watch: any;
-
+  watch_dest: any;
+  mapObj: StopInit;
 
   constructor(public http: Http, public pf: Platform ) {
 
@@ -20,12 +23,11 @@ export class BusStopService {
 
   }
 
-  //Load stm bus stop from JSON file into array.
-  //Current problem surrounds Goelocation that surrounds this.applyHaversine(...)
-  load() {
+  //Load closest 10 stm bus stops near the user's location.
+  load_Near_User() {
+
     if (this.data) {
       return Promise.resolve(this.data);
-
     }
  
     // don't have the data yet
@@ -44,9 +46,10 @@ export class BusStopService {
         .subscribe(data => {
 
           this.watch = Geolocation.watchPosition().subscribe((position: Geoposition) => {
+
             this.user_lat = position.coords.latitude;
             this.user_lon = position.coords.longitude;            
-            
+            console.log("Observable from near user");
 
             Promise.all([
               // 1 - Create and calculate 'distance' value for each item in the array
@@ -55,19 +58,76 @@ export class BusStopService {
               data.sort((busStopA,busStopB) => {
                 return busStopA.distance - busStopB.distance;
               }),
-              // 3 - Show only the first 50
-              this.data = data.slice(0,10),
+              // 3 - Show only the first 20
+              this.data = data.slice(0,20),
 
               resolve(this.data)
               
             ]);
 
+            if(this.mapObj.wantsToTravel){
+
+              Promise.resolve(this.load_Destination(this.mapObj.clickedCoord.lat,this.mapObj.clickedCoord.lng))
+                .then(data => {
+                  this.mapObj.showMarkers(data);
+                });
+            } else {
+              this.mapObj.clearMarkers();
+              this.data_destination = null;
+            }
+
           }, (err) => {
             console.log(err);
           });
 
+      });
           
-        });
+        
+    });
+  }
+
+  /*
+  *
+  * Load closest bus stops around clicked location
+  *
+  */
+  load_Destination(lat: number, lng: number) {
+
+    if (this.data_destination) {
+      console.log("Destinations already exist");
+      return Promise.resolve(this.data_destination);
+    }
+ 
+    // don't have the data yet
+    return new Promise(resolve => {
+
+      console.log("Getting new destination");
+
+      var url = '../assets/bus_stops/stm_stops.json';
+      if (this.pf.is('android')) {
+        url = "/android_asset/www/src/" + url;
+      }
+
+      this.http.get(url)
+        .map(res => res.json().bus_stops)
+        .subscribe(data => {
+
+            Promise.all([
+              // 1 - Create and calculate 'distance' value for each item in the array
+              this.applyHaversine( data, lat, lng ),  
+              // 2 - Sort array
+              data.sort((busStopA,busStopB) => {
+                return busStopA.distance - busStopB.distance;
+              }),
+              // 3 - Show only the first 50
+              this.data_destination = data.slice(0,10),
+
+              resolve(this.data_destination)
+              
+            ]);
+
+      });
+        
     });
   }
 
@@ -143,5 +203,9 @@ export class BusStopService {
       return x * Math.PI / 180;
   }
 
+  setMap(newMap: StopInit){
+      this.mapObj = newMap;
+  }
+  
 }
 

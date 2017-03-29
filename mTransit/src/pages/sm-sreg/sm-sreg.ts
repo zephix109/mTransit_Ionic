@@ -22,7 +22,7 @@ export class SMSregPage {
 
   ionViewDidLoad() {
     this.platform.ready().then(() => {
-      this.bss.load();
+      //this.bss.load();
       
       //console.log("Hello from test page" + this.bss.data.length);
     });

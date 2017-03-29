@@ -6,7 +6,8 @@ import { BusStopService } from '../../providers/bus-stop-service';
 import { Http } from '@angular/http'
 import { BusStopCatalog } from "../../components/bus-stop-catalog/bus-stop-catalog";
 import { GoogleMapsLatLng } from "ionic-native/dist/es5";
- 
+ import { Geolocation, Geoposition} from 'ionic-native';
+
 @Component({
   selector: 'map-page',
   templateUrl: 'map.html'
@@ -19,44 +20,65 @@ export class MapPage {
 
   ionViewDidLoad(){
     this.platform.ready().then(() => {
-     
+        
         //this.busCatalog = new BusStopCatalog(this.bus_stop);
         let mapLoaded = new Promise((resolve) => {
-          setTimeout(resolve, 100, this.stopinit.loadMap());
+          setTimeout(resolve, 100, this.stopinit.mapIsLoaded());
+          //setTimeout(resolve, 100, this.stopinit.loadMap());
         });
 
-        let stopLoaded = this.bus_stop_service.load();
-
-        Promise.all([
-          mapLoaded,
-          stopLoaded
+          let stopLoaded = this.bus_stop_service.load_Near_User();
           
-        ]).then((result) => {
+          //console.log("Clicked coord is " + this.stopinit.clickedCoord.lat);
+          //let targetStopLoad = this.bus_stop_service.load_Destination(this.stopinit.clickedCoord.lat, this.stopinit.clickedCoord.lng);
 
-          let bus_stop_service = result[1];
-          console.log("boutta loop" + result[1]);
-          
-          for(let bss of bus_stop_service){
-          //for(let bss of result[1]){
-            //console.log(bss.stop_name);
-            let tempLatLng = new GoogleMapsLatLng(bss.stop_lat,bss.stop_lon);
-            this.stopinit.loadMapMarkers(tempLatLng,bss.stop_name);
 
-          }
+          Promise.all([
+            mapLoaded,
+            stopLoaded
+            //targetStopLoad
+            
+          ]).then((result) => {
 
-        })
+            let stops_near_me = result[1];
 
+            console.log(this.stopinit.wantsToTravel);
+
+            this.stopinit.showMarkers(stops_near_me);
+            
+            // for(let bss of bus_stop_service){
+            // //for(let bss of result[1]){
+            //   //console.log(bss.stop_name);
+            //   let tempLatLng = new GoogleMapsLatLng(bss.stop_lat,bss.stop_lon);
+            //   this.stopinit.loadMapMarkers(tempLatLng,bss.stop_name);
+
+            // }
+
+          });
 
     });
   } 
+
+  ionViewDidEnter(){
+    this.platform.ready().then(() => {
+
+        console.log("welcome to after enter!");
+        this.bus_stop_service.setMap(this.stopinit);
+    });
+  }
 
   findNearBusStops(){
    // this.busCatalog.getNearBusStops();
 
   }
 
+  cancel(){
+    this.stopinit.cancelSearch();
+  }
+
   allowClick(){
     //this.stopinit.selectDropOffLocation();
+    console.log(this.stopinit.clickedCoord.lat + " ahaaaaaaaaaaaa " + this.stopinit.clickedCoord.lng);
   }
   //Moved all source code to ../services/map/stop_Init.ts in order to not cluster map.ts
 

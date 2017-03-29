@@ -7,7 +7,7 @@ export class BusStopCatalog {
     catalog: BusStop[]
 
     constructor(public stop_services : BusStopService) {
-        stop_services.load();
+        //stop_services.load();
     }
 
     createStopObjArray( ){
