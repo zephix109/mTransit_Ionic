@@ -29,6 +29,7 @@ plugins/ios.json
 www/
 www/build/
 $RECYCLE.BIN/
+report-task.txt
 
 .DS_Store
 Thumbs.db
