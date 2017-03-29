@@ -16,6 +16,7 @@ npm-debug.log*
 .sass-cache/
 .tmp/
 .versions/
+.scannerwork/
 coverage/
 dist/
 node_modules/
@@ -29,7 +30,6 @@ plugins/ios.json
 www/
 www/build/
 $RECYCLE.BIN/
-report-task.txt
 
 .DS_Store
 Thumbs.db
