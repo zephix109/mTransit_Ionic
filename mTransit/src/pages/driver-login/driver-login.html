@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{ "DRIVER_LOGIN" | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<p>{{ "DRIVER_PROMPT" | translate }}</p>
+	<ion-item>
+		<ion-input type="number" placeholder="Enter your driver code"></ion-input>
+	</ion-item>	
+  	<ion-item>
+		<ion-input type="number" placeholder="Enter your bus number"></ion-input>
+	</ion-item>	
+  	<ion-item>
+		<ion-input type="number" placeholder="Enter your route number"></ion-input>
+	</ion-item>	
+	<p>
+	<button ion-button (click)="goToMap()">{{ "LOGIN" | translate }}</button>
+	</p>
+</ion-content>
