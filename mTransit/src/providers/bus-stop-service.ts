@@ -14,7 +14,6 @@ export class BusStopService {
   user_lat : number;
   user_lon : number;
   watch: any;
-  watch_dest: any;
   mapObj: StopInit;
 
   constructor(public http: Http, public pf: Platform ) {
@@ -72,8 +71,10 @@ export class BusStopService {
                   this.mapObj.showMarkers(data);
                 });
             } else {
-              this.mapObj.clearMarkers();
+
               this.data_destination = null;
+              this.mapObj.clearMarkers();
+              
             }
 
           }, (err) => {

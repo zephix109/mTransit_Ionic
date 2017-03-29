@@ -20,6 +20,7 @@ export class StopInit {
   mapActive: boolean
   clickedCoord: GoogleMapsLatLng;
   wantsToTravel: boolean;
+  markers: any = [];
 
   constructor(){
     console.log("welcome to stop init!");
@@ -144,11 +145,12 @@ export class StopInit {
     
     clearMarkers(){
       this.map.clear();
+      this.map.empty();
     }
 
     cancelSearch(){
       this.wantsToTravel = false;
-      this.clearMarkers();
+     // this.clearMarkers();
     }
 
     isMapLoaded(){
