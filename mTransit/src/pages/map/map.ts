@@ -5,8 +5,8 @@ import { StopInit } from '../../services/map/stops_Init';
 import { BusStopService } from '../../providers/bus-stop-service';
 import { Http } from '@angular/http'
 import { BusStopCatalog } from "../../components/bus-stop-catalog/bus-stop-catalog";
-import { GoogleMapsLatLng } from "ionic-native/dist/es5";
- import { Geolocation, Geoposition} from 'ionic-native';
+//import { GoogleMapsLatLng } from "ionic-native/dist/es5";
+import { Geolocation, Geoposition, GoogleMapsEvent } from 'ionic-native';
 
 @Component({
   selector: 'map-page',
@@ -15,6 +15,7 @@ import { GoogleMapsLatLng } from "ionic-native/dist/es5";
 export class MapPage {
 
   //busCatalog : BusStopCatalog
+  //clickedCoord: GoogleMapsLatLng
 
   constructor(public navCtrl: NavController, public platform: Platform, public bus_stop_service: BusStopService, public stopinit : StopInit) {}
 
@@ -53,6 +54,13 @@ export class MapPage {
             //   this.stopinit.loadMapMarkers(tempLatLng,bss.stop_name);
 
             // }
+            this.stopinit.map.on(GoogleMapsEvent.MAP_CLICK).subscribe((event) => {
+
+              this.bus_stop_service.load_Destination(event.lat,event.lng).then(res => {
+                this.stopinit.showMarkers(res);
+              });
+
+            });
 
           });
 

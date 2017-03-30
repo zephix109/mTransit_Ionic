@@ -71,11 +71,11 @@ export class StopInit {
 
         });
 
-        this.map.on(GoogleMapsEvent.MAP_CLICK).subscribe((event) => {
-          this.clickedCoord = null;
-          this.wantsToTravel = true;
-          this.clickedCoord = new GoogleMapsLatLng(event.lat, event.lng);
-        });
+        // this.map.on(GoogleMapsEvent.MAP_CLICK).subscribe((event) => {
+        //   this.clickedCoord = null;
+        //   this.wantsToTravel = true;
+        //   this.clickedCoord = new GoogleMapsLatLng(event.lat, event.lng);
+        // });
 
         this.mapActive = true;
 
