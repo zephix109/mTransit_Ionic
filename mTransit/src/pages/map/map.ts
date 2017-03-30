@@ -11,7 +11,7 @@ import {
   Geoposition
 } from 'ionic-native';
 import { BusStopCatalog } from "../../components/bus-stop-catalog/bus-stop-catalog";
-import { StopInit } from '../../services/map/stops_Init';
+
  
 @Component({
   selector: 'map-page',
@@ -19,19 +19,34 @@ import { StopInit } from '../../services/map/stops_Init';
 })
 export class MapPage {
 
-  busCatalog : BusStopCatalog
+  map: GoogleMap
+
+  constructor(public navCtrl: NavController, public platform: Platform, public busCatalog : BusStopCatalog) {}
 
 
-  constructor(public navCtrl: NavController, public platform: Platform, public stopinit : StopInit) {}
-
+    
   ionViewDidLoad(){
     this.platform.ready().then(() => {
-      if(this.stopinit.isMapLoaded){
-        //this.busCatalog = new BusStopCatalog();
-        //alert("Map loaded");
-      } else {
-        //alert("Map failed");
-      }
+
+      
+
+      Geolocation.watchPosition().subscribe((position) => {
+        //Load map and its observerable
+        this.busCatalog.mapObj.loadMap(position);
+        
+        //Load bus stops near user and its observerable
+        this.busCatalog.findNearBusStops();
+        //console.log(this.busCatalog.mapObj.wantsToTravel);
+
+        if(this.busCatalog.mapObj.wantsToTravel){
+          console.log("Wants to travel");
+          this.busCatalog.getDestinationArray();
+        }
+
+      }, (err) => {
+        console.log(err);
+      });      
+      this.map = this.busCatalog.mapObj.map;
       
     });
   } 
@@ -45,6 +60,9 @@ export class MapPage {
       this.navCtrl.push(RatingPagePage);
   }
 
+  cancel(){
+    this.busCatalog.mapObj.wantsToTravel = false;
+  }
   //Moved all source code to ../services/map/stop_Init.ts in order to not cluster map.ts
 
 }

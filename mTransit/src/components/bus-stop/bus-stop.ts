@@ -42,4 +42,8 @@ export class BusStop {
     setPassengerCount( count : number){
         this.stop_passengerCount += count;
     }
+
+    public toString(): string {
+        return "Bus stop: " + this.getName() + " at Latitude: " + this.getLat() + " and Longitude " + this.getLon() + " has " + this.getWheelChairCount() + " wheelchair(s) space"
+    }
 }

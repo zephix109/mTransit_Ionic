@@ -21,14 +21,14 @@ import { BusStopService } from '../../providers/bus-stop-service';
 export class SMSregPage {
   http : Http;
 
-  constructor(public navCtrl: NavController,public platform: Platform, public busSrv:BusStopService, public bsc: BusStopCatalog = new BusStopCatalog(busSrv) ) {
+  constructor(public navCtrl: NavController,public platform: Platform, public busSrv:BusStopService, public bsc: BusStopCatalog ) {
 
   }
 
   ionViewDidLoad() {
     this.platform.ready().then(() => {
-      this.bsc.createStopObjArray();
-      
+      //this.bsc.createCurrStopArray();
+
       console.log("Hello from test page");
       //console.log(this.bsc.getNearBusStops());
     });

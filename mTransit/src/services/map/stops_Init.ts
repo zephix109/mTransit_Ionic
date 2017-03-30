@@ -11,7 +11,8 @@ import {
 } from 'ionic-native';
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { BusStop } from '../../../components/bus-stop/bus-stop'
+import { BusStop } from '../../components/bus-stop/bus-stop'
+
 
 @Injectable()
 export class StopInit {
@@ -28,20 +29,20 @@ export class StopInit {
     this.clickedCoord = new GoogleMapsLatLng(0, 0);
   }//End of constructor
 
-  mapIsLoaded(){
+  mapIsLoaded(position: Geoposition){
 
     return new Promise((resolve) => {
       if(!this.mapActive){
-        resolve(this.loadMap());
+        resolve(this.loadMap(position));
       }
     });
   }
 
-  loadMap(){
+  loadMap(position: Geoposition){
 
     return new Promise((resolve) => {
 
-      Geolocation.watchPosition().subscribe((position) => {
+      //Geolocation.watchPosition().subscribe((position) => {
         let location = new GoogleMapsLatLng(position.coords.latitude, position.coords.longitude); 
       
         this.map = new GoogleMap('map', {
@@ -75,13 +76,14 @@ export class StopInit {
           this.clickedCoord = null;
           this.wantsToTravel = true;
           this.clickedCoord = new GoogleMapsLatLng(event.lat, event.lng);
+          console.log(this.clickedCoord.lat + " and " + this.clickedCoord.lng);
         });
 
         this.mapActive = true;
 
-      }, (err) => {
-        console.log(err);
-      });
+      // }, (err) => {
+      //   console.log(err);
+      // });
 
         resolve(true);
 
@@ -130,6 +132,8 @@ export class StopInit {
 
       };
       //marker.set
+        let marker = new GoogleMapsMarker(markerOptions);
+
         this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
           this.map.addMarker(markerOptions);
         });
@@ -139,7 +143,14 @@ export class StopInit {
     showMarkers(dataArr:any){
       for(let data of dataArr){
         let tempLatLng = new GoogleMapsLatLng(data.stop_lat,data.stop_lon);
-        this.loadMapMarkers(tempLatLng,data.stop_name);   
+        // this.loadMapMarkers(tempLatLng,data.stop_name);   
+      }
+    }
+
+    showMarkers1(arr: BusStop[]){
+      for(let data of arr){
+        let tempLatLng = new GoogleMapsLatLng(data.getLat(),data.getLon());
+         this.loadMapMarkers(tempLatLng,data.getName());   
       }
     }
     
