@@ -113,6 +113,8 @@ export class StopInit {
           'color': 'blue'
         },
         'markerClick' : function(marker) {
+          console.log("Clicked");
+          //setTimeout(1000,)
           marker.showInfoWindow();
           marker.setIcon("blue");
         },
@@ -144,8 +146,12 @@ export class StopInit {
     showMarkers1(dataArr:any){
       for(let data of dataArr){
         this.map.addMarker(data).then((marker: GoogleMapsMarker) => {
-          marker.addEventListener(GoogleMapsEvent.MAP_CLICK).subscribe(() => {
+          marker.addListenerOnce(GoogleMapsEvent.MAP_CLICK).then(() => {
             marker.remove();
+            console.log("removed")
+          });
+          marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+            marker.showInfoWindow();
           });
         });  
       }
@@ -161,7 +167,7 @@ export class StopInit {
     addToArray(dataArr:any){
       
       console.log("Before pushing: " + this.markers.length);
-      
+
       while(this.markers.length > 0){
         this.markers.splice(-1,1);
         // let tempMarker = this.markers.pop();

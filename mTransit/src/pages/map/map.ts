@@ -55,7 +55,7 @@ export class MapPage {
 
             // }
             this.stopinit.map.on(GoogleMapsEvent.MAP_CLICK).subscribe((event) => {
-
+              console.log("MAP_CLICK observerable");
               //this.stopinit.map.clear();
 
               this.bus_stop_service.load_Destination(event.lat,event.lng).then(res => {
@@ -68,7 +68,7 @@ export class MapPage {
             });
 
             this.stopinit.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
-                console.log("Are we gucci?");
+                console.log("MAP_Ready observerable");
                 this.stopinit.showMarkers1(this.stopinit.markOptionsArr);
             });
 
