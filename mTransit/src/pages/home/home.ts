@@ -6,7 +6,7 @@ import { SmsPage } from '../sms/sms';
 import { RatingPagePage } from '../rating-page/rating-page';
 import { DriverLoginPage } from '../driver-login/driver-login';
 import {Facebook} from '@ionic-native/facebook';
-import firebase from 'firebase';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'home-page',

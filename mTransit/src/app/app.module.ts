@@ -46,7 +46,7 @@ let storage: Storage = new Storage();
     DriverLoginPage,
     RatingPagePage
   ],
-  providers: [{provide: ErrorHandler, useClass:IonicErrorHandler}]
+  providers: [{provide: ErrorHandler, useClass:IonicErrorHandler}, MapPage]
 })
 export class AppModule {}
 export function createTranslateLoader(http: Http) {
