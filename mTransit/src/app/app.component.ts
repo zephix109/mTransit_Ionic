@@ -5,7 +5,7 @@ import { TranslateService } from 'ng2-translate';
 
 import { HomePage } from '../pages/home/home';
 
-import firebase from 'firebase';
+import * as firebase from 'firebase';
 
 @Component({
   templateUrl: 'app.html'
