@@ -17,6 +17,7 @@ npm-debug.log*
 .tmp/
 .versions/
 .scannerwork/
+.scannerwork/report-task.txt
 coverage/
 dist/
 node_modules/
