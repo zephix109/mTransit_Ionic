@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Injectable } from 'angular2/core';
+import { Injectable } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { RatingPagePage } from '../rating-page/rating-page';
 import { 
