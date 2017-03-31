@@ -65,9 +65,13 @@ describe('Page: Home Page', () => {
 
     expect(fixture).toBeTruthy();
     expect(comp).toBeTruthy();
-
   });
-
+  it('should change language', ()=> {
+    expect(comp.swapLanguage());
+  });
+  it('should change login through facebook', ()=> {
+    expect(comp.facebookLogin());
+  });
 
 
 });
