@@ -20,7 +20,8 @@ export class StopInit {
   mapActive: boolean
   clickedCoord: GoogleMapsLatLng;
   wantsToTravel: boolean;
-  markers: any = [];
+  markers: GoogleMapsMarker[] = [];
+  markOptionsArr: GoogleMapsMarkerOptions[] = [];
 
   constructor(){
     console.log("welcome to stop init!");
@@ -38,6 +39,7 @@ export class StopInit {
   }
 
   loadMap(){
+
 
     return new Promise((resolve) => {
 
@@ -65,11 +67,6 @@ export class StopInit {
             'bearing': 50
           }
         });
-      
-        this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
-          console.log('Observable Map is ready! and wants2travel is ' + this.wantsToTravel);
-
-        });
 
         // this.map.on(GoogleMapsEvent.MAP_CLICK).subscribe((event) => {
         //   this.clickedCoord = null;
@@ -87,7 +84,6 @@ export class StopInit {
 
     });
   }
-
 
 
   /*
@@ -108,7 +104,8 @@ export class StopInit {
         position: stop_lat_lng,
         title: stop_name,
         snippet: "List bus numbers here",
-        icon: '#000',
+        icon: '#000000',
+        //map: this.map,
         //'animation': GoogleMapsAnimation.DROP,
         styles : {
           'text-align': 'center',
@@ -129,11 +126,29 @@ export class StopInit {
         }
 
       };
-      //marker.set
-        this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
-          this.map.addMarker(markerOptions);
-        });
+     
+      let marker = new GoogleMapsMarker(markerOptions);
+      
+        //this.map.on(GoogleMapsEvent.MAP_READY).subscribe((marker: GoogleMapsMarker) => {
+        //  const marker: GoogleMapsMarker =  this.map.addMarker(markerOptions)
+        //   .then((marker: GoogleMapsMarker) => {
+      this.markers.push(marker);
+      this.markOptionsArr.push(markerOptions);
 
+      console.log("Marker length= " + this.markers.length);
+        //  });
+       // });
+
+    }
+
+    showMarkers1(dataArr:any){
+      for(let data of dataArr){
+        this.map.addMarker(data).then((marker: GoogleMapsMarker) => {
+          marker.addEventListener(GoogleMapsEvent.MAP_CLICK).subscribe(() => {
+            marker.remove();
+          });
+        });  
+      }
     }
 
     showMarkers(dataArr:any){
@@ -141,6 +156,33 @@ export class StopInit {
         let tempLatLng = new GoogleMapsLatLng(data.stop_lat,data.stop_lon);
         this.loadMapMarkers(tempLatLng,data.stop_name);   
       }
+    }
+
+    addToArray(dataArr:any){
+      
+      console.log("Before pushing: " + this.markers.length);
+      
+      while(this.markers.length > 0){
+        this.markers.splice(-1,1);
+        // let tempMarker = this.markers.pop();
+        // tempMarker.remove();
+        this.markOptionsArr.splice(-1,1);
+
+      }
+
+      this.map.clear();
+      // for(let data of dataArr){
+      //   this.markers.push(data);
+      // }
+
+     this.showMarkers(dataArr);
+
+      // for(let data of this.markers){
+      //   let tempLatLng = new GoogleMapsLatLng(data.stop_lat,data.stop_lon);
+      //   this.loadMapMarkers(tempLatLng,data.stop_name);           
+      // }
+      
+      console.log("After pushing: " + this.markers.length);
     }
     
     clearMarkers(){

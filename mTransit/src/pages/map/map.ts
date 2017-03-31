@@ -16,7 +16,7 @@ export class MapPage {
 
   //busCatalog : BusStopCatalog
   //clickedCoord: GoogleMapsLatLng
-
+  markers: any[] = [];
   constructor(public navCtrl: NavController, public platform: Platform, public bus_stop_service: BusStopService, public stopinit : StopInit) {}
 
   ionViewDidLoad(){
@@ -43,9 +43,9 @@ export class MapPage {
 
             let stops_near_me = result[1];
 
-            console.log(this.stopinit.wantsToTravel);
+           // console.log(this.stopinit.wantsToTravel);
 
-            this.stopinit.showMarkers(stops_near_me);
+            //this.stopinit.showMarkers(stops_near_me);
             
             // for(let bss of bus_stop_service){
             // //for(let bss of result[1]){
@@ -56,10 +56,20 @@ export class MapPage {
             // }
             this.stopinit.map.on(GoogleMapsEvent.MAP_CLICK).subscribe((event) => {
 
+              //this.stopinit.map.clear();
+
               this.bus_stop_service.load_Destination(event.lat,event.lng).then(res => {
-                this.stopinit.showMarkers(res);
+                //this.stopinit.showMarkers(res);
+                //this.stopinit.markers = [];
+                this.stopinit.addToArray(res);
+
               });
 
+            });
+
+            this.stopinit.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
+                console.log("Are we gucci?");
+                this.stopinit.showMarkers1(this.stopinit.markOptionsArr);
             });
 
           });

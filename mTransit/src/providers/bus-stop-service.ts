@@ -64,18 +64,18 @@ export class BusStopService {
               
             ]);
 
-            if(this.mapObj.wantsToTravel){
+            // if(this.mapObj.wantsToTravel){
 
-              Promise.resolve(this.load_Destination(this.mapObj.clickedCoord.lat,this.mapObj.clickedCoord.lng))
-                .then(data => {
-                  this.mapObj.showMarkers(data);
-                });
-            } else {
+            //   Promise.resolve(this.load_Destination(this.mapObj.clickedCoord.lat,this.mapObj.clickedCoord.lng))
+            //     .then(data => {
+            //       this.mapObj.showMarkers(data);
+            //     });
+            // } else {
 
-              this.data_destination = null;
-              this.mapObj.clearMarkers();
+            //   this.data_destination = null;
+            //   this.mapObj.clearMarkers();
               
-            }
+            // }
 
           }, (err) => {
             console.log(err);
@@ -94,10 +94,10 @@ export class BusStopService {
   */
   load_Destination(lat: number, lng: number) {
 
-    if (this.data_destination) {
-      console.log("Destinations already exist");
-      return Promise.resolve(this.data_destination);
-    }
+    // if (this.data_destination) {
+    //   console.log("Destinations already exist");
+    //   return Promise.resolve(this.data_destination);
+    // }
  
     // don't have the data yet
     return new Promise(resolve => {
