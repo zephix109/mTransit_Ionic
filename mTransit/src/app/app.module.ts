@@ -54,7 +54,7 @@ export function getAuthHttp(http) {
       provide: AuthHttp,
       useFactory: getAuthHttp,
       deps: [Http]
-    }, StopInit, BusStopService]
+    }, StopInit, BusStopService, GoogleMaps, Connectivity]
 })
 export class AppModule {}
 export function createTranslateLoader(http: Http) {

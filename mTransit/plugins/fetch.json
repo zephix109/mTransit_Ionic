@@ -88,5 +88,13 @@
         "variables": {
             "API_KEY_FOR_ANDROID": "AIzaSyApveMIrtj5hoxWezmwCNbGLjKwhxsd3W0"
         }
+    },
+    "cordova-plugin-network-information": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-network-information"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

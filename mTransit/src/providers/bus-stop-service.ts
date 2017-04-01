@@ -50,32 +50,19 @@ export class BusStopService {
             this.user_lon = position.coords.longitude;            
             console.log("Observable from near user");
 
-            Promise.all([
+          //  Promise.all([
               // 1 - Create and calculate 'distance' value for each item in the array
-              this.applyHaversine( data, this.user_lat, this.user_lon ),  
+              this.applyHaversine( data, this.user_lat, this.user_lon )//,  
               // 2 - Sort array
               data.sort((busStopA,busStopB) => {
                 return busStopA.distance - busStopB.distance;
-              }),
+              })//,
               // 3 - Show only the first 20
-              this.data = data.slice(0,20),
-
+              this.data = data.slice(0,20)//,
+              
               resolve(this.data)
               
-            ]);
-
-            // if(this.mapObj.wantsToTravel){
-
-            //   Promise.resolve(this.load_Destination(this.mapObj.clickedCoord.lat,this.mapObj.clickedCoord.lng))
-            //     .then(data => {
-            //       this.mapObj.showMarkers(data);
-            //     });
-            // } else {
-
-            //   this.data_destination = null;
-            //   this.mapObj.clearMarkers();
-              
-            // }
+            //]);
 
           }, (err) => {
             console.log(err);
