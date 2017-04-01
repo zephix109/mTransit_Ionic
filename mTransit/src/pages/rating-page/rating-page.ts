@@ -1,6 +1,6 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NavController, NavParams, AlertController  } from 'ionic-angular';
-
+import { Ionic2RatingModule } from 'ionic2-rating';
 
 /*
   Generated class for the RatingPage page.

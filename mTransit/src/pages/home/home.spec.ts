@@ -8,7 +8,7 @@ import { IonicModule, NavController } from 'ionic-angular';
 import { MyApp } from '../../app/app.component';
 import { NavMock } from '../../mocks';
 import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate/ng2-translate';
-
+import { TranslateService } from 'ng2-translate';
 
 
 let fixture: ComponentFixture<HomePage> = null;
@@ -66,10 +66,20 @@ describe('Page: Home Page', () => {
     expect(fixture).toBeTruthy();
     expect(comp).toBeTruthy();
   });
-  it('should change language', ()=> {
+  it('should include the swapLanguage function', ()=> {
     expect(comp.swapLanguage());
   });
-  it('should change login through facebook', ()=> {
+  it('should change language to French', ()=> {
+    comp.swapLanguage();
+    if(comp.translateService.currentLang == "en")
+      expect(comp.translateService.use('fr'));
+  });
+  it('should change language to English', ()=> {
+    comp.swapLanguage();
+    if(comp.translateService.currentLang == "fr")
+      expect(comp.translateService.use('en'));
+  });
+  it('should include facebookLogin function', ()=> {
     expect(comp.facebookLogin());
   });
 
