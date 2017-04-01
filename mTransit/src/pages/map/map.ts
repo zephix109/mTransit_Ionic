@@ -130,6 +130,11 @@ export class MapPage {
         let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
         let stopLoaded = this.bus_stop_service.load_Near_User();
 
+          // Promise.resolve(mapLoaded)
+          // Promise.resolve(result => {
+          //   console.log("Result length = " + result.length);
+          // });
+          
           Promise.all([
             mapLoaded,
             stopLoaded

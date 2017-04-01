@@ -44,25 +44,26 @@ export class BusStopService {
         .map(res => res.json().bus_stops)
         .subscribe(data => {
 
-          this.watch = Geolocation.watchPosition().subscribe((position: Geoposition) => {
+          //this.watch = Geolocation.watchPosition().subscribe((position: Geoposition) => {
+          Geolocation.getCurrentPosition().then((position) => {
 
             this.user_lat = position.coords.latitude;
             this.user_lon = position.coords.longitude;            
             console.log("Observable from near user");
 
-          //  Promise.all([
+            Promise.all([
               // 1 - Create and calculate 'distance' value for each item in the array
-              this.applyHaversine( data, this.user_lat, this.user_lon )//,  
+              this.applyHaversine( data, this.user_lat, this.user_lon ),  
               // 2 - Sort array
               data.sort((busStopA,busStopB) => {
                 return busStopA.distance - busStopB.distance;
-              })//,
+              }),
               // 3 - Show only the first 20
-              this.data = data.slice(0,20)//,
+              this.data = data.slice(0,20),
               
               resolve(this.data)
               
-            //]);
+            ]);
 
           }, (err) => {
             console.log(err);

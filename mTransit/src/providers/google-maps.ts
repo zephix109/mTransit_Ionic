@@ -17,7 +17,7 @@ export class GoogleMaps {
   apiKey: string;//"AIzaSyApveMIrtj5hoxWezmwCNbGLjKwhxsd3W0";
  
   constructor(public connectivityService: Connectivity) {
- 
+     //google.maps.event.addDomListener(window, "load", this.initMap());
   }
  
   init(mapElement: any, pleaseConnect: any): Promise<any> {
@@ -26,7 +26,7 @@ export class GoogleMaps {
     this.pleaseConnect = pleaseConnect;
  
     return this.loadGoogleMaps();
- 
+    //eturn this.initMap();
   }
  
   loadGoogleMaps(): Promise<any> {
@@ -66,7 +66,10 @@ export class GoogleMaps {
       else {
  
         if(this.connectivityService.isOnline()){
-          this.initMap();
+          console.log("We're online 2nd attempt?");
+          this.initMap().then(() => {
+              resolve(true);
+            });
           this.enableMap();
         }
         else {
@@ -84,7 +87,7 @@ export class GoogleMaps {
   initMap(): Promise<any> {
  
     this.mapInitialised = true;
- 
+
     return new Promise((resolve) => {
  
       Geolocation.getCurrentPosition().then((position) => {
