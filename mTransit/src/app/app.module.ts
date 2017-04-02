@@ -3,39 +3,36 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
-import { SMSregPage } from '../pages/sm-sreg/sm-sreg';
+import { SmsPage } from '../pages/sms/sms';
+import { SmsCodePage } from '../pages/sms-code/sms-code';
+import { DriverLoginPage } from '../pages/driver-login/driver-login';
+import { RatingPagePage } from '../pages/rating-page/rating-page';
 import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate/ng2-translate';
-
-//import { provide } from 'angular/core';
-import { Auth} from "../providers/auth/auth";
-import { AuthConfig, AuthHttp } from 'angular2-jwt';
-import { AuthService } from '../services/auth/auth.service';
-import { StopInit } from '../services/map/stops_Init';
+import { Ionic2RatingModule } from 'ionic2-rating';
+import { provide } from 'angular/core';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { BusStopService } from '../providers/bus-stop-service';
 import { GoogleMaps } from '../providers/google-maps';
 import { Connectivity } from '../providers/connectivity';
 
-let storage: Storage = new Storage();
+import firebase from 'firebase';
 
-export function getAuthHttp(http) {
-  return new AuthHttp(new AuthConfig({
-    noJwtError: true,
-    globalHeaders: [{'Accept': 'application/json'}],
-    tokenGetter: (() => storage.get('id_token'))
-  }), http);
-}
+let storage: Storage = new Storage();
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     MapPage,
-    SMSregPage
+    SmsPage,
+    SmsCodePage,
+    DriverLoginPage,
+    RatingPagePage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
+    Ionic2RatingModule,
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),
@@ -47,14 +44,13 @@ export function getAuthHttp(http) {
     MyApp,
     HomePage,
     MapPage,
-    SMSregPage
+    SmsPage,
+    SmsCodePage,
+    DriverLoginPage,
+    RatingPagePage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},AuthService,
-    {
-      provide: AuthHttp,
-      useFactory: getAuthHttp,
-      deps: [Http]
-    }, StopInit, BusStopService, GoogleMaps, Connectivity]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
+    BusStopService, GoogleMaps, Connectivity]
 })
 export class AppModule {}
 export function createTranslateLoader(http: Http) {
