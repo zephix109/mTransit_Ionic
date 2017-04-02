@@ -69,6 +69,10 @@ describe('Page: Home Page', () => {
   it('should include the swapLanguage function', ()=> {
     expect(comp.swapLanguage());
   });
+  it('should have called swapLanguage function', ()=> {
+    comp.swapLanguage();
+    expect(comp.swapLanguage()).toHaveBeenCalled();
+  });
   it('should change language to French', ()=> {
     comp.swapLanguage();
     if(comp.translateService.currentLang == "en")
@@ -82,6 +86,10 @@ describe('Page: Home Page', () => {
   it('should include facebookLogin function', ()=> {
     expect(comp.facebookLogin());
   });
-
+  it('should have called facebookLogin function', ()=> {
+    spyOn(comp,'facebookLogin');
+    comp.facebookLogin();
+    expect(comp.facebookLogin()).toHaveBeenCalled();
+  });
 
 });
