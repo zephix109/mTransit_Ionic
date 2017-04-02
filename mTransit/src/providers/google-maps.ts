@@ -264,11 +264,11 @@ export class GoogleMaps {
     var request = {
       origin: this.myLocation,
       destination: new google.maps.LatLng(lat, lng),
-      travelMode: 'TRANSIT',
-      transitOptions: {
+      travelMode: 'DRIVING',
+      provideRouteAlternatives: false,
+      drivingOptions: {
         departureTime: new Date(Date.now()),
-        modes: ['BUS'],
-        routingPreference: 'FEWER_TRANSFERS'
+        trafficModel: 'pessimistic'
       },
       unitSystem: google.maps.UnitSystem.IMPERIAL
     };
@@ -276,7 +276,7 @@ export class GoogleMaps {
     console.log("Request done");
 
     this.directionsService.route(request, (response, status) =>{
-        console.log("in the direction service")
+        console.log(status);
         if(status == google.maps.DirectionsStatus.OK) {
           this.directionsDisplay.setDirections(response);
         } else if(status == google.maps.DirectionsStatus.NOT_FOUND){

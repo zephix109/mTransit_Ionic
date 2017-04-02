@@ -140,7 +140,7 @@ export class MapPage {
 
           this.maps.map.addListener('click', (pos) =>{
 
-           this.maps.directionsDisplay.setMap(null);
+           //this.maps.directionsDisplay.setMap(null);
 
             this.bus_stop_service.load_Destination(pos.latLng.lat(),pos.latLng.lng()).then((result) => {
               this.maps.showMarkers(result);
