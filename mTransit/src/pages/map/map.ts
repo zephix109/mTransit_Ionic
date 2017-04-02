@@ -140,12 +140,15 @@ export class MapPage {
 
           this.maps.map.addListener('click', (pos) =>{
 
-           //this.maps.directionsDisplay.setMap(null);
+            //Clear current displayed paths on map
+            this.maps.clearDisplayedPaths();
+          
 
             this.bus_stop_service.load_Destination(pos.latLng.lat(),pos.latLng.lng()).then((result) => {
               this.maps.showMarkers(result);
             });
-            
+          
+
             
 
           });
