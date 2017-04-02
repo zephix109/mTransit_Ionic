@@ -12,6 +12,9 @@ import { Ionic2RatingModule } from 'ionic2-rating';
 import { provide } from 'angular/core';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
+import { BusStopService } from '../providers/bus-stop-service';
+import { GoogleMaps } from '../providers/google-maps';
+import { Connectivity } from '../providers/connectivity';
 
 import firebase from 'firebase';
 
@@ -46,7 +49,8 @@ let storage: Storage = new Storage();
     DriverLoginPage,
     RatingPagePage
   ],
-  providers: [{provide: ErrorHandler, useClass:IonicErrorHandler}, MapPage]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
+    BusStopService, GoogleMaps, Connectivity]
 })
 export class AppModule {}
 export function createTranslateLoader(http: Http) {

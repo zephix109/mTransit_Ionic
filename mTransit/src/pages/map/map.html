@@ -1,11 +1,36 @@
-<ion-header>
+<!--<ion-header>
   <ion-navbar>
     <ion-title>
       Map <button ion-button class="rate_button" (click)="goToRating()">Rate</button>
     </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)=allowClick()>Select destination</button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button name= "cancel" (click)=cancel()>Cancel search</button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
  
 <ion-content>
     <div id="map"></div>
+</ion-content>-->
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Nearby
+    </ion-title>
+  </ion-navbar>
+ 
+</ion-header>
+ 
+<ion-content>
+ 
+  <div #pleaseConnect id="please-connect">
+    <p>Please connect to the Internet...</p>
+  </div>
+ 
+  <div #map id="map"></div>
+ 
 </ion-content>

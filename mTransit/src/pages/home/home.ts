@@ -56,7 +56,7 @@ export class HomePage {
   }
   //function that changes the language from Englishs to French and vice versa
   swapLanguage() {
-    if(this.translateService.currentLang == "en")
+    if (this.translateService.currentLang == "en")
       this.translateService.use('fr');
     else
       this.translateService.use('en');
