@@ -129,38 +129,30 @@ export class MapPage {
  
         let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
         let stopLoaded = this.bus_stop_service.load_Near_User();
-
-          // Promise.resolve(mapLoaded)
-          // Promise.resolve(result => {
-          //   console.log("Result length = " + result.length);
-          // });
           
-          Promise.all([
-            mapLoaded,
-            stopLoaded
+        Promise.all([
+          mapLoaded,
+          stopLoaded
       
-          ]).then((result) => {
+        ]).then((result) => {
 
-            console.log("Result length = " + result[1].length);
-            //let stops_near_me = result[1];
+          console.log("Result length = " + result[1].length);
 
-            // for(let location of stops_near_me){
-            //   this.maps.addMarker(location.stop_lat, location.stop_lon, location.stop_name);
-            // }
-            //this.map = this.maps.map;
-            
-            this.maps.map.addListener('click', (pos) =>{
+          this.maps.map.addListener('click', (pos) =>{
 
-              this.bus_stop_service.load_Destination(pos.latLng.lat(),pos.latLng.lng()).then((result) => {
-                this.maps.showMarkers(result);
-              });
+           this.maps.directionsDisplay.setMap(null);
 
+            this.bus_stop_service.load_Destination(pos.latLng.lat(),pos.latLng.lng()).then((result) => {
+              this.maps.showMarkers(result);
             });
+            
+            
 
-          }).catch( rej => {
-            console.log(rej);
           });
 
+        }).catch( rej => {
+          console.log(rej);
+        });
 
     });
  

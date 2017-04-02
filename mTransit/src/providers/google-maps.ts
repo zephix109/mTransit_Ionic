@@ -132,47 +132,7 @@ export class GoogleMaps {
  
   }
  
-/*
-  * function loadMapMarkers 
-  * 
-  * Takes as input:
-  * 1 - stop_lat_lng as a GoogleMapsLatLng object containing Latitude and Longitude values
-  * 2- stop_name as String and is name of the road of which the bus stop is located on.
-  *
-  * This function creates a marker on to this.map object. Clicking the marker would open the markers
-  * infoWindow, prompting the user to confirm their bus ride confirmation. Clicking the infoWindow 
-  * would confirm the user to this bus stop and any bus that would eventually pass.
-  */
 
-  addMarker1(lat: number, lng: number ): void {
-    
-     // let markerOptions: GoogleMapsMarkerOptions = {
-        let latLng = new google.maps.LatLng(lat, lng);
-
-        var marker = new google.maps.Marker({
-          map: this.map,
-          position: latLng,
-          //title: stop_name,
-          //snippet: "List bus numbers here",
-          
-          icon: '#000000'//,
-  
-        })
-     // };
-     
-      //let marker = new GoogleMapsMarker(markerOptions);
-      
-        //this.map.on(GoogleMapsEvent.MAP_READY).subscribe((marker: GoogleMapsMarker) => {
-        //  const marker: GoogleMapsMarker =  this.map.addMarker(markerOptions)
-        //   .then((marker: GoogleMapsMarker) => {
-      this.markers.push(marker);
-      //this.markOptionsArr.push(markerOptions);
-
-      console.log("Marker length= " + this.markers.length);
-        //  });
-       // });
-
-  }
 
   showMarkers(dataArr:any){
       console.log(this.markers.length);
@@ -192,7 +152,17 @@ export class GoogleMaps {
       }
   }
 
-
+  /*
+  * function addMarkers 
+  * 
+  * Takes as input:
+  * 1 - stop_lat_lng as a GoogleMapsLatLng object containing Latitude and Longitude values
+  * 2- stop_name as String and is name of the road of which the bus stop is located on.
+  *
+  * This function creates a marker on to this.map object. Clicking the marker would open the markers
+  * infoWindow, prompting the user to confirm their bus ride confirmation. Clicking the infoWindow 
+  * would confirm the user to this bus stop and any bus that would eventually pass.
+  */
   addMarker(laT: number, lnG: number, stop_name : string): void {
     //let latLng = new google.maps.LatLng(lat, lng);
     var image = 'http://www.stevestonmarine.com/image/cache/data/map-marker-13-32x32_0.png';
@@ -281,17 +251,25 @@ export class GoogleMaps {
  
   }
   
+  /*
+  *
+  * Calculate and displays route onto map.
+  * Inaddtiion, options are defined here
+  * 
+  * Input: Destination's latitude and longitude
+  *
+  */
   calcRoute(lat: number, lng: number){
 
     var request = {
       origin: this.myLocation,
       destination: new google.maps.LatLng(lat, lng),
       travelMode: 'TRANSIT',
-      // transitOptions: {
-      //   departureTime: Date.now(),
-      //   modes: ['BUS'],
-      //   routingPreference: 'FEWER_TRANSERS'
-      // },//google.maps.TravelMode['Transit'],
+      transitOptions: {
+        departureTime: new Date(Date.now()),
+        modes: ['BUS'],
+        routingPreference: 'FEWER_TRANSFERS'
+      },
       unitSystem: google.maps.UnitSystem.IMPERIAL
     };
 
@@ -309,23 +287,24 @@ export class GoogleMaps {
     })
   }
 
+
   selectedDest(dest: any){
-
-    //var index = this.markers.indexOf();
-
 
       for(let marker of this.markers){
 
-        if(dest != marker.position){
-          marker.setMap(null);
-          // var index = this.markers.indexOf(marker);
-          // this.markers.splice(index, 1);
+        if(dest == marker.position){
+          //marker.setMap(null);
+          var tempMark = marker;
+          //this.markers.splice(index, 1);
+        } else {
+            marker.setMap(null);
         }
         
       }
 
       this.markers.length = 0;
-      //console.log(dest.lat());
+      this.markers.push(tempMark);
+
       this.calcRoute(dest.lat(),dest.lng());
 
   }
