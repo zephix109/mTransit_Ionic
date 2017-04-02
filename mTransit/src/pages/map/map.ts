@@ -142,16 +142,26 @@ export class MapPage {
           ]).then((result) => {
 
             console.log("Result length = " + result[1].length);
-            let stops_near_me = result[1];
+            //let stops_near_me = result[1];
 
-                for(let location of stops_near_me){
-                    console.log("Added");
-                    this.maps.addMarker(location.stop_lat, location.stop_lon);
-                }
+            // for(let location of stops_near_me){
+            //   this.maps.addMarker(location.stop_lat, location.stop_lon, location.stop_name);
+            // }
+            //this.map = this.maps.map;
+            
+            this.maps.map.addListener('click', (pos) =>{
+
+              this.bus_stop_service.load_Destination(pos.latLng.lat(),pos.latLng.lng()).then((result) => {
+                this.maps.showMarkers(result);
+              });
+
+            });
 
           }).catch( rej => {
-            console.log("Get rejected");
+            console.log(rej);
           });
+
+
     });
  
   }

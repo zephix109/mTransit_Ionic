@@ -3,7 +3,6 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Geolocation, Geoposition } from 'ionic-native';
 import { Platform } from 'ionic-angular';
-import { StopInit } from '../services/map/stops_Init';
 
 @Injectable()
 export class BusStopService {
@@ -14,7 +13,7 @@ export class BusStopService {
   user_lat : number;
   user_lon : number;
   watch: any;
-  mapObj: StopInit;
+
 
   constructor(public http: Http, public pf: Platform ) {
 
@@ -80,13 +79,13 @@ export class BusStopService {
   * Load closest bus stops around clicked location
   *
   */
-  load_Destination(lat: number, lng: number) {
+  public load_Destination(lat: number, lng: number) {
 
     // if (this.data_destination) {
     //   console.log("Destinations already exist");
     //   return Promise.resolve(this.data_destination);
     // }
- 
+    console.log("Inside load_destination");
     // don't have the data yet
     return new Promise(resolve => {
 
@@ -192,9 +191,6 @@ export class BusStopService {
       return x * Math.PI / 180;
   }
 
-  setMap(newMap: StopInit){
-      this.mapObj = newMap;
-  }
   
 }
 
