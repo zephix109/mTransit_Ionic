@@ -28,7 +28,9 @@ export class MapPage {
  
         let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
         let stopLoaded = this.bus_stop_service.load_Near_User();
-          
+        let input = document.getElementById('searchInput');       
+
+
         Promise.all([
           mapLoaded,
           stopLoaded
@@ -38,15 +40,20 @@ export class MapPage {
           console.log("Result length = " + result[1].length);
 
           this.maps.map.addListener('click', (pos) =>{
-          this.maps.selectedPath = false;
+            this.maps.selectedPath = false;
             this.maps.clearDisplayedPaths();
-          this.bus_stop_service.load_Destination(pos.latLng.lat(),pos.latLng.lng()).then((result) => {
-            this.maps.showMarkers(result);
+            this.bus_stop_service.load_Destination(pos.latLng.lat(),pos.latLng.lng()).then((result) => {
+              this.maps.showMarkers(result);
+            });
           });
-        });
+
+          this.maps.loadSearchBar(input);
+
       }).catch( rej => {
           console.log(rej);
         });
+
+
     });
   }
         

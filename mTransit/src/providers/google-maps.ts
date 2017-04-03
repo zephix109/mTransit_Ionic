@@ -213,18 +213,58 @@ export class GoogleMaps {
  
   }
  
+  loadSearchBar(input: any){
+    
+    var searchBox = new google.maps.places.SearchBox(input);
 
+    searchBox.addListener('places_changed', () => {
+        var places = searchBox.getPlaces();
+
+        if (places.length == 0) {
+          return;
+        }
+        
+        this.clearMarkers();
+
+        var bounds =  new google.maps.LatLngBounds();
+        places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            this.markers.push(new google.maps.Marker({
+              map: this.map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+        });
+        //var bounds = new google.maps.LatLngBounds();
+        
+      });
+  }
 
   showMarkers(dataArr:any){
       console.log(this.markers.length);
 
       if(this.markers.length > 0){
-        for(let marker of this.markers){
-          marker.setMap(null);
-        }
-
-        this.markers.length = 0;
-
+        this.clearMarkers();
       }
 
       for(let data of dataArr){
@@ -297,6 +337,8 @@ export class GoogleMaps {
           position: {lat: position.coords.latitude, lng: position.coords.longitude},
           icon: image
         });    
+
+        this.markers.push(tempMarker);
 
       });
 
@@ -402,16 +444,7 @@ export class GoogleMaps {
     })
   }
   
-  clearDisplayedPaths(){
-      for(let path of this.directionArr){
-        path.setMap(null);
-      }
 
-      for(let path of this.polylines){
-        path.setMap(null);
-      }
-
-  }
   
   renderDirectionsPolylines(response) {
 
@@ -469,5 +502,25 @@ export class GoogleMaps {
       this.calcRoute(dest.lat(),dest.lng());
 
   }
- 
+
+  clearDisplayedPaths(){
+      for(let path of this.directionArr){
+        path.setMap(null);
+      }
+
+      for(let path of this.polylines){
+        path.setMap(null);
+      }
+
+  }
+
+  clearMarkers(){
+
+    for(let marker of this.markers){
+      marker.setMap(null);
+    }
+
+    this.markers.length = 0;   
+
+  }
 }

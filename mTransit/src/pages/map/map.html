@@ -17,7 +17,7 @@
 </ion-content>-->
 
 <ion-header>
-  <ion-navbar>
+  <ion-navbar hideBackButton="true">
     <button persistent="true" ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -25,7 +25,7 @@
       Nearby
     </ion-title>-->
     <ion-item>
-      <ion-input [(ngModel)]="searchInput"  placeholder="Search destination or select map"></ion-input>
+      <input id="searchInput"  class="controls" type="input" placeholder="Search destination or select map">
     </ion-item>
   </ion-navbar>
  
