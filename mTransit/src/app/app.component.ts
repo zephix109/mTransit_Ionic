@@ -18,8 +18,7 @@ export class MyApp {
   rootPage : any = HomePage;
   pages: Array<{title: string, component: any}>;
 
-  constructor(platform: Platform, translate: TranslateService, public statusBar: StatusBar, public splashScreen: Splashscreen) {
-    translate.setDefaultLang('en');
+  constructor(platform: Platform, public translate: TranslateService, public statusBar: StatusBar, public splashScreen: Splashscreen) {
     
     const firebaseConfig = {
       apiKey: "AIzaSyClOWx3rRxBGM1yshjpC-brIQfoyMG4k0M",
@@ -30,7 +29,7 @@ export class MyApp {
     };
 
     this.pages = [
-      { title: 'Home Page', component: HomePage },
+     // { title: 'Home Page', component: HomePage },
       { title: 'Map Page', component: MapPage },
       { title: 'Rating Page', component: RatingPagePage }
     ];
@@ -38,16 +37,30 @@ export class MyApp {
     firebase.initializeApp(firebaseConfig);
 
     platform.ready().then(() => {
+      this.translate.use('en');
       StatusBar.styleDefault();
       Splashscreen.hide();
     });
   }
 
-    openPage(page) {
+  openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
+
+  swapLanguage() {
+    
+    if (this.translate.currentLang == "en")
+      this.translate.use('fr');
+    else
+      this.translate.use('en');
+  }
+
+  logout(){
+    this.nav.setRoot(HomePage);
+  }
+  
 
 }
 

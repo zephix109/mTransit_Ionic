@@ -21,9 +21,12 @@
     <button persistent="true" ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>
+    <!--<ion-title>
       Nearby
-    </ion-title>
+    </ion-title>-->
+    <ion-item>
+      <ion-input [(ngModel)]="searchInput"  placeholder="Search destination or select map"></ion-input>
+    </ion-item>
   </ion-navbar>
  
 </ion-header>
@@ -35,17 +38,5 @@
   </div>
  
   <div #map id="map"></div>
- <ion-list>
-  <ion-item-sliding #item>
-    <ion-item>
-      Item
-    </ion-item>
-    <ion-item>
-      Item 1
-    </ion-item>
-    <ion-item>
-      Item 2
-    </ion-item>
-  </ion-item-sliding>
-</ion-list>
+
 </ion-content>

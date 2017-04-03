@@ -14,7 +14,12 @@ import * as firebase from 'firebase';
 })
 export class HomePage {
 
-    constructor(public navCtrl: NavController, public translateService: TranslateService) {}
+
+
+constructor(public navCtrl: NavController, public translateService: TranslateService) {}
+  ionViewDidLoad(){
+    this.translateService.setDefaultLang('en');
+  }
 
   //function that logs the user in. It currently redirects to map page, but will redirect to SMS when that functionality is completed.
   facebookLogin(){
