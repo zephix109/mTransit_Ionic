@@ -186,7 +186,8 @@ export class GoogleMaps {
               elementType: 'labels.text.stroke',
               stylers: [{color: '#17263c'}]
             }
-          ]
+          ],
+
         }
  
         this.map = new google.maps.Map(this.mapElement, mapOptions);
@@ -369,11 +370,14 @@ export class GoogleMaps {
     directionsService.route(request, (response, status) =>{
         console.log(status);
         if(status == google.maps.DirectionsStatus.OK) {
-          directionsDisplay.setDirections(response);
-          directionsDisplay.setMap(this.map);
+
+          //directionsDisplay.setDirections(response);
+          //directionsDisplay.setOptions({ preserveViewport: true });
+          //directionsDisplay.setMap(this.map);
+          this.renderDirectionsPolylines(response);
           this.directionArr.push(directionsDisplay);
-         // this.directionsDisplay.setMap(this.map);
-          //this.renderDirectionsPolylines(response);
+
+
         } else if(status == google.maps.DirectionsStatus.NOT_FOUND){
           console.log("Syntax err");
         } else if(status == google.maps.DirectionsStatus.ZERO_RESULTS){
@@ -391,14 +395,15 @@ export class GoogleMaps {
   renderDirectionsPolylines(response) {
 
     let polylineOptions = {
-      strokeColor: 'red',
-      strokeOpacity: 1,
-      strokeWeight: 4
+      strokeColor: '#000000',
+      strokeOpacity: 10,
+      strokeWeight: 7
     };
 
     for (var i=0; i<this.polylines.length; i++) {
       this.polylines[i].setMap(null);
     }
+
     var legs = response.routes[0].legs;
     for (i = 0; i < legs.length; i++) {
       var steps = legs[i].steps;
