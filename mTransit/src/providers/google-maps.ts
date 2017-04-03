@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Connectivity } from './connectivity';
-import { Geolocation, GoogleMapsLatLng } from 'ionic-native';
+import { Geolocation, GoogleMapsLatLng, Geoposition } from 'ionic-native';
  
 declare var google;
  
@@ -16,6 +16,8 @@ export class GoogleMaps {
   markers: any[] = [];
   apiKey: string;//"AIzaSyApveMIrtj5hoxWezmwCNbGLjKwhxsd3W0";
   myLocation: any;
+  watch: any;
+  selectedPath: boolean;
 
   directionArr: any[] =[];
 
@@ -283,8 +285,22 @@ export class GoogleMaps {
 
     marker.addListener('rightclick', () =>{
       //alert("Buses that come here: ..")
+      marker.setIcon(selectedMarker);
       this.clearDisplayedPaths();
+      this.selectedPath = true;
       this.selectedDest(marker.position);
+
+      this.watch = Geolocation.watchPosition().subscribe((position: Geoposition) => {
+
+        let tempMarker = new google.maps.Marker({
+          map: this.map,
+          position: {lat: position.coords.latitude, lng: position.coords.longitude},
+          icon: image
+        });    
+
+      });
+
+
     });
 
     this.markers.push(marker);  
@@ -390,6 +406,11 @@ export class GoogleMaps {
       for(let path of this.directionArr){
         path.setMap(null);
       }
+
+      for(let path of this.polylines){
+        path.setMap(null);
+      }
+
   }
   
   renderDirectionsPolylines(response) {
@@ -400,12 +421,12 @@ export class GoogleMaps {
       strokeWeight: 7
     };
 
-    for (var i=0; i<this.polylines.length; i++) {
-      this.polylines[i].setMap(null);
-    }
+    // for (var i=0; i<this.polylines.length; i++) {
+    //   this.polylines[i].setMap(null);
+    // }
 
     var legs = response.routes[0].legs;
-    for (i = 0; i < legs.length; i++) {
+    for (var i = 0; i < legs.length; i++) {
       var steps = legs[i].steps;
       for (var j = 0; j < steps.length; j++) {
         var nextSegment = steps[j].path;
@@ -414,6 +435,11 @@ export class GoogleMaps {
           stepPolyline.getPath().push(nextSegment[k]);
         }
         this.polylines.push(stepPolyline);
+        if(this.selectedPath){
+          stepPolyline.setOptions({
+              strokeColor: 'blue'
+          });
+        }
         stepPolyline.setMap(this.map);
         // route click listeners, different one on each step
         google.maps.event.addListener(stepPolyline, 'click', function(evt) {

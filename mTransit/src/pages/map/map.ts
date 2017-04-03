@@ -38,7 +38,7 @@ export class MapPage {
           console.log("Result length = " + result[1].length);
 
           this.maps.map.addListener('click', (pos) =>{
-    
+          this.maps.selectedPath = false;
             this.maps.clearDisplayedPaths();
           this.bus_stop_service.load_Destination(pos.latLng.lat(),pos.latLng.lng()).then((result) => {
             this.maps.showMarkers(result);
