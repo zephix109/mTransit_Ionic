@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { TranslateService } from 'ng2-translate';
-import { NavController } from 'ionic-angular';
+import { NavController, Nav } from 'ionic-angular';
 import { MapPage } from '../map/map';
 import { SmsPage } from '../sms/sms';
 import { RatingPagePage } from '../rating-page/rating-page';
 import { DriverLoginPage } from '../driver-login/driver-login';
-import {Facebook} from '@ionic-native/facebook';
+import { Facebook } from '@ionic-native/facebook';
 import * as firebase from 'firebase';
 
 @Component({
@@ -39,7 +39,9 @@ export class HomePage {
 
   //function that loads the map page
   goToMap(){
-      this.navCtrl.push(MapPage);
+    //let nav: Nav
+    this.navCtrl.push(MapPage);
+    //nav.setRoot(MapPage);
   }
 
   //function that loads the SMS verification page

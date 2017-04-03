@@ -18,6 +18,9 @@
 
 <ion-header>
   <ion-navbar>
+    <button persistent="true" ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>
       Nearby
     </ion-title>
@@ -32,5 +35,17 @@
   </div>
  
   <div #map id="map"></div>
- 
+ <ion-list>
+  <ion-item-sliding #item>
+    <ion-item>
+      Item
+    </ion-item>
+    <ion-item>
+      Item 1
+    </ion-item>
+    <ion-item>
+      Item 2
+    </ion-item>
+  </ion-item-sliding>
+</ion-list>
 </ion-content>
