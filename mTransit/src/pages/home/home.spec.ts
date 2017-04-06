@@ -9,7 +9,6 @@ import { MyApp } from '../../app/app.component';
 import { NavMock } from '../../mocks';
 import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate/ng2-translate';
 import { TranslateService } from 'ng2-translate';
-import { tick, fakeAsync } from '@angular/core/testing';
 
 
 let fixture: ComponentFixture<HomePage> = null;
@@ -90,7 +89,7 @@ describe('Page: Home Page', () => {
   });
   it('should have called facebookLogin function', ()=> {
     spyOn(comp,'facebookLogin');
-    comp.
+    comp.facebookLogin();
     expect(comp.facebookLogin).toHaveBeenCalled();
   });
 
