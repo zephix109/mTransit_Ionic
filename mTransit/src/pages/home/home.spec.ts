@@ -9,6 +9,7 @@ import { MyApp } from '../../app/app.component';
 import { NavMock } from '../../mocks';
 import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate/ng2-translate';
 import { TranslateService } from 'ng2-translate';
+import { tick, fakeAsync } from '@angular/core/testing';
 
 
 let fixture: ComponentFixture<HomePage> = null;
@@ -69,9 +70,10 @@ describe('Page: Home Page', () => {
   it('should include the swapLanguage function', ()=> {
     expect(comp.swapLanguage());
   });
-  it('should have called swapLanguage function', ()=> {
+  it('should have called swapLanguage function',  ()=> {
+    spyOn(comp, 'swapLanguage');
     comp.swapLanguage();
-    expect(comp.swapLanguage()).toHaveBeenCalled();
+    expect(comp.swapLanguage).toHaveBeenCalled();
   });
   it('should change language to French', ()=> {
     comp.swapLanguage();
@@ -88,8 +90,8 @@ describe('Page: Home Page', () => {
   });
   it('should have called facebookLogin function', ()=> {
     spyOn(comp,'facebookLogin');
-    comp.facebookLogin();
-    expect(comp.facebookLogin()).toHaveBeenCalled();
+    comp.
+    expect(comp.facebookLogin).toHaveBeenCalled();
   });
 
 });
