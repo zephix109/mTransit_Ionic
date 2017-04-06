@@ -23,9 +23,7 @@ export class GoogleMaps {
 
   polylines = [];
 
-  constructor(public connectivityService: Connectivity, zone:NgZone) {
-     //google.maps.event.addDomListener(window, "load", this.initMap());
-  }
+  constructor(public connectivityService: Connectivity, zone:NgZone) {}
  
   init(mapElement: any, pleaseConnect: any): Promise<any> {
  
@@ -33,7 +31,6 @@ export class GoogleMaps {
     this.pleaseConnect = pleaseConnect;
  
     return this.loadGoogleMaps();
-    //eturn this.initMap();
   }
  
   loadGoogleMaps(): Promise<any> {
@@ -193,18 +190,6 @@ export class GoogleMaps {
         }
  
         this.map = new google.maps.Map(this.mapElement, mapOptions);
-        
-        //this.directionsDisplay.setMap(this.map)
-
-        //var transitLayer = new google.maps.TransitMode.BUS();
-        //transitLayer.setMap(this.map);
-        // this.map.addListener(google.maps.event.MAP_READY, function(){
-        
-        //       for(let res of this.markers){
-        //         this.map.addMarker(res.stop_lat, res.stop_lon, res.stop_name);
-        //       }        
-
-        // })
         resolve(true);
  
       });
@@ -255,8 +240,6 @@ export class GoogleMaps {
               bounds.extend(place.geometry.location);
             }
         });
-        //var bounds = new google.maps.LatLngBounds();
-        
       });
   }
 
@@ -268,7 +251,6 @@ export class GoogleMaps {
       }
 
       for(let data of dataArr){
-        //let tempLatLng = new GoogleMapsLatLng(data.stop_lat,data.stop_lon);
         this.addMarker(data.stop_lat,data.stop_lon,data.stop_name);   
       }
   }
@@ -285,7 +267,6 @@ export class GoogleMaps {
   * would confirm the user to this bus stop and any bus that would eventually pass.
   */
   addMarker(laT: number, lnG: number, stop_name : string): void {
-    //let latLng = new google.maps.LatLng(lat, lng);
     var image = 'https://www.givepulse.com/images/search/blueMarker.png';
     var selectedMarker = 'https://www.londondrugs.com/on/demandware.static/Sites-LondonDrugs-Site/-/default/dw2a9afa9b/img/map_marker_default.png';
 
@@ -295,10 +276,8 @@ export class GoogleMaps {
       icon: image
     });                
     
-    //let clickRoute = this.calcRoute(marker.position.lat(), marker.position.lng());
     var contentString =  "<p>" + stop_name + "</p>" +
-                        "<button ng-click='clickR()'>Click me</button>"                   
-    //var compiled = $compile(contentString)($scope);     
+                        "<button ng-click='clickR()'>Click me</button>"                       
 
     var infowindow = new google.maps.InfoWindow({
           content: contentString
@@ -311,20 +290,14 @@ export class GoogleMaps {
 
     });
 
- 
     marker.addListener('click', () => {
+    marker.setIcon(selectedMarker);
+    infowindow.open(this.map, marker);
 
-      marker.setIcon(selectedMarker);
-      //infowindow.setContent()
-                   
-      infowindow.open(this.map, marker);
-
-      this.calcRoute(marker.position.lat(), marker.position.lng());
-
-    });
+    this.calcRoute(marker.position.lat(), marker.position.lng());
+  });
 
     marker.addListener('rightclick', () =>{
-      //alert("Buses that come here: ..")
       marker.setIcon(selectedMarker);
       this.clearDisplayedPaths();
       this.selectedPath = true;
@@ -339,30 +312,24 @@ export class GoogleMaps {
         });    
 
         this.markers.push(tempMarker);
-
       });
-
-
     });
 
     this.markers.push(marker);  
- 
   }
-    
+ 
   disableMap(): void {
  
     if(this.pleaseConnect){
       this.pleaseConnect.style.display = "block";
     }
- 
   }
  
   enableMap(): void {
- 
+
     if(this.pleaseConnect){
       this.pleaseConnect.style.display = "none";
     }
- 
   }
  
   addConnectivityListeners(): void {
@@ -373,16 +340,14 @@ export class GoogleMaps {
  
       setTimeout(() => {
  
-        if(typeof google == "undefined" || typeof google.maps == "undefined"){
-          this.loadGoogleMaps();
-        } 
-        else {
-          if(!this.mapInitialised){
-            this.initMap();
-          }
- 
-          this.enableMap();
+      if(typeof google == "undefined" || typeof google.maps == "undefined") {
+        this.loadGoogleMaps();
+      } else {
+        if(!this.mapInitialised) {
+          this.initMap();
         }
+        this.enableMap();
+      }
  
       }, 2000);
  
@@ -428,13 +393,9 @@ export class GoogleMaps {
     directionsService.route(request, (response, status) =>{
         console.log(status);
         if(status == google.maps.DirectionsStatus.OK) {
-
-          //directionsDisplay.setDirections(response);
-          //directionsDisplay.setOptions({ preserveViewport: true });
-          //directionsDisplay.setMap(this.map);
+          
           this.renderDirectionsPolylines(response);
           this.directionArr.push(directionsDisplay);
-
 
         } else if(status == google.maps.DirectionsStatus.NOT_FOUND){
           console.log("Syntax err");
@@ -445,7 +406,6 @@ export class GoogleMaps {
   }
   
 
-  
   renderDirectionsPolylines(response) {
 
     let polylineOptions = {
@@ -453,10 +413,6 @@ export class GoogleMaps {
       strokeOpacity: 10,
       strokeWeight: 7
     };
-
-    // for (var i=0; i<this.polylines.length; i++) {
-    //   this.polylines[i].setMap(null);
-    // }
 
     var legs = response.routes[0].legs;
     for (var i = 0; i < legs.length; i++) {
@@ -487,13 +443,10 @@ export class GoogleMaps {
       for(let marker of this.markers){
 
         if(dest == marker.position){
-          //marker.setMap(null);
           var tempMark = marker;
-          //this.markers.splice(index, 1);
         } else {
-            marker.setMap(null);
+          marker.setMap(null);
         }
-        
       }
 
       this.markers.length = 0;
@@ -511,7 +464,6 @@ export class GoogleMaps {
       for(let path of this.polylines){
         path.setMap(null);
       }
-
   }
 
   clearMarkers(){
@@ -519,8 +471,6 @@ export class GoogleMaps {
     for(let marker of this.markers){
       marker.setMap(null);
     }
-
     this.markers.length = 0;   
-
   }
 }
