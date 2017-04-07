@@ -17,28 +17,18 @@ export class MapPage {
   map: any;
   mapInitialised: boolean = false;
 
- 
-  constructor(public navCtrl: NavController, public maps: GoogleMaps, public platform: Platform, public bus_stop_service: BusStopService) {
- 
-  }
+  constructor(public navCtrl: NavController, public maps: GoogleMaps, public platform: Platform, public bus_stop_service: BusStopService) {}
  
   ionViewDidLoad(){
- 
     this.platform.ready().then(() => {
- 
         let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
         let stopLoaded = this.bus_stop_service.load_Near_User();
         let input = document.getElementById('searchInput');       
 
-
         Promise.all([
           mapLoaded,
           stopLoaded
-      
         ]).then((result) => {
-
-          console.log("Result length = " + result[1].length);
-
           this.maps.map.addListener('click', (pos) =>{
             this.maps.selectedPath = false;
             this.maps.clearDisplayedPaths();
@@ -48,17 +38,12 @@ export class MapPage {
           });
 
           this.maps.loadSearchBar(input);
-
-      }).catch( rej => {
-          console.log(rej);
-        });
-
-
+        }).catch( rej => {});
     });
   }
         
   goToRating(){
-      this.navCtrl.push(RatingPagePage);
+    this.navCtrl.push(RatingPagePage);
   }
  
 }

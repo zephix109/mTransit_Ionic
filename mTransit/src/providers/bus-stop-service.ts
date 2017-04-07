@@ -15,11 +15,7 @@ export class BusStopService {
   watch: any;
 
 
-  constructor(public http: Http, public pf: Platform ) {
-
-    console.log("Hello from BusStopService contructor");
-
-  }
+  constructor(public http: Http, public pf: Platform ) {}
 
   //Load closest 10 stm bus stops near the user's location.
   load_Near_User() {
@@ -30,25 +26,19 @@ export class BusStopService {
  
     // don't have the data yet
     return new Promise(resolve => {
-
-      var url = '../assets/bus_stops/stm_stops.json';
-      //this.pf.is('cordova') && 
+      var url = '../assets/bus_stops/stm_stops.json'; 
       if (this.pf.is('android')) {
         url = "/android_asset/www/src/" + url;
       }
-
-
 
       this.http.get(url)
         .map(res => res.json().bus_stops)
         .subscribe(data => {
 
-          //this.watch = Geolocation.watchPosition().subscribe((position: Geoposition) => {
           Geolocation.getCurrentPosition().then((position) => {
 
             this.user_lat = position.coords.latitude;
             this.user_lon = position.coords.longitude;            
-            console.log("Observable from near user");
 
             Promise.all([
               // 1 - Create and calculate 'distance' value for each item in the array
@@ -57,20 +47,13 @@ export class BusStopService {
               data.sort((busStopA,busStopB) => {
                 return busStopA.distance - busStopB.distance;
               }),
+              
               // 3 - Show only the first 20
               this.data = data.slice(0,20),
-              
               resolve(this.data)
-              
             ]);
-
-          }, (err) => {
-            console.log(err);
-          });
-
+          }, (err) => {});
       });
-          
-        
     });
   }
 
@@ -80,17 +63,8 @@ export class BusStopService {
   *
   */
   public load_Destination(lat: number, lng: number) {
-
-    // if (this.data_destination) {
-    //   console.log("Destinations already exist");
-    //   return Promise.resolve(this.data_destination);
-    // }
-    console.log("Inside load_destination");
     // don't have the data yet
     return new Promise(resolve => {
-
-      console.log("Getting new destination");
-
       var url = '../assets/bus_stops/stm_stops.json';
       if (this.pf.is('android')) {
         url = "/android_asset/www/src/" + url;
@@ -107,18 +81,14 @@ export class BusStopService {
               data.sort((busStopA,busStopB) => {
                 return busStopA.distance - busStopB.distance;
               }),
+
               // 3 - Show only the first 50
               this.data_destination = data.slice(0,10),
-
               resolve(this.data_destination)
-              
             ]);
-
-      });
-        
+        });
     });
   }
-
 
   /*
   * Function applyHaversine
@@ -134,14 +104,11 @@ export class BusStopService {
   applyHaversine(busStopJSONarr, userLat : number, userLon : number){
 
       let usersLocation = {
-
           lat: userLat, 
           lng: userLon
-
       };
 
       busStopJSONarr.map((location) => {
-  
         let placeLocation = {
           lat: location.stop_lat,
           lng: location.stop_lon
@@ -152,17 +119,11 @@ export class BusStopService {
             placeLocation,
             'km'
           ).toFixed(2);
-
       });
-    
-      //return locations;
-
-
   }
 
   //Calculation for Haversine formulas
   getDistanceBetweenPoints(start, end, units){
- 
         let earthRadius = {
             miles: 3958.8,
             km: 6371
@@ -184,13 +145,11 @@ export class BusStopService {
         let d = R * c;
  
         return d;
- 
   }
  
   toRad(x){
       return x * Math.PI / 180;
   }
 
-  
 }
 

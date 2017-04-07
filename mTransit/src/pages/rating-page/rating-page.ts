@@ -12,23 +12,16 @@ import { Ionic2RatingModule } from 'ionic2-rating';
   selector: 'page-rating-page',
   templateUrl: 'rating-page.html'
 })
-
 export class RatingPagePage {
-
   private rate: number;
   private comment: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl : AlertController) {}
 
-  onModelChange(){
-    
-  }
+  onModelChange(){}
 
   finishReview() {
-    if(this.rate > 0){
-      console.log(this.rate);
-      console.log(this.comment);
-    }
+    if(this.rate > 0){}
   }
   
 }

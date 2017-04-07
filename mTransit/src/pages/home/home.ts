@@ -14,9 +14,8 @@ import * as firebase from 'firebase';
 })
 export class HomePage {
 
-
-
-constructor(public navCtrl: NavController, public translateService: TranslateService) {}
+  constructor(public navCtrl: NavController, public translateService: TranslateService) {}
+  
   ionViewDidLoad(){
     this.translateService.setDefaultLang('en');
   }
@@ -26,20 +25,13 @@ constructor(public navCtrl: NavController, public translateService: TranslateSer
       Facebook.login(['email']).then( (response) => {
           const facebookCredential = firebase.auth.FacebookAuthProvider
               .credential(response.authResponse.accessToken);
-
           firebase.auth().signInWithCredential(facebookCredential)
           .then((success) => {
-              console.log("Firebase success: " + JSON.stringify(success));
               this.goToMap();
           })
-          .catch((error) => {
-              console.log("Firebase failure: " + JSON.stringify(error));
-              alert("Oops, you couldn't login.");
-          });
-
-      }).catch((error) => { console.log(error) });
+          .catch((error) => {});
+      }).catch((error) => {});
   }
-
 
   //function that loads the map page
   goToMap(){
@@ -48,16 +40,19 @@ constructor(public navCtrl: NavController, public translateService: TranslateSer
 
   //function that loads the SMS verification page
   goToSMS(){
-      this.navCtrl.push(SmsPage);
+    this.navCtrl.push(SmsPage);
   }
 
   //function that loads the driver login page
   goToDriverLogin(){
       this.navCtrl.push(DriverLoginPage);
   }
+
+  //function that loads the rating page
   goToRating(){
       this.navCtrl.push(RatingPagePage);
   }
+
   //function that changes the language from Englishs to French and vice versa
   swapLanguage() {
     if (this.translateService.currentLang == "en")
@@ -65,7 +60,5 @@ constructor(public navCtrl: NavController, public translateService: TranslateSer
     else
       this.translateService.use('en');
   }
-
-
 
 }
