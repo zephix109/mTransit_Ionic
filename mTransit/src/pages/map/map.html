@@ -17,10 +17,16 @@
 </ion-content>-->
 
 <ion-header>
-  <ion-navbar>
-    <ion-title>
+  <ion-navbar hideBackButton="true">
+    <button persistent="true" ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <!--<ion-title>
       Nearby
-    </ion-title>
+    </ion-title>-->
+    <ion-item>
+      <input id="searchInput"  class="controls" type="input" placeholder="Search destination or select map">
+    </ion-item>
   </ion-navbar>
  
 </ion-header>
@@ -32,5 +38,5 @@
   </div>
  
   <div #map id="map"></div>
- 
+
 </ion-content>

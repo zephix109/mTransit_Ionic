@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Connectivity } from './connectivity';
-import { Geolocation, GoogleMapsLatLng } from 'ionic-native';
+import { Geolocation, GoogleMapsLatLng, Geoposition } from 'ionic-native';
  
 declare var google;
  
@@ -16,13 +16,14 @@ export class GoogleMaps {
   markers: any[] = [];
   apiKey: string;//"AIzaSyApveMIrtj5hoxWezmwCNbGLjKwhxsd3W0";
   myLocation: any;
+  watch: any;
+  selectedPath: boolean;
 
-  directionsService: any;
-  directionsDisplay: any;
+  directionArr: any[] =[];
 
-  constructor(public connectivityService: Connectivity) {
-     //google.maps.event.addDomListener(window, "load", this.initMap());
-  }
+  polylines = [];
+
+  constructor(public connectivityService: Connectivity, zone:NgZone) {}
  
   init(mapElement: any, pleaseConnect: any): Promise<any> {
  
@@ -30,7 +31,6 @@ export class GoogleMaps {
     this.pleaseConnect = pleaseConnect;
  
     return this.loadGoogleMaps();
-    //eturn this.initMap();
   }
  
   loadGoogleMaps(): Promise<any> {
@@ -105,25 +105,91 @@ export class GoogleMaps {
           tilt: 30,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           backgroundColor: 'white',
- 
+          disableDefaultUI: true,
+          styles: [
+            {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+            {
+              featureType: 'administrative.locality',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'geometry',
+              stylers: [{color: '#263c3f'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#6b9a76'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry',
+              stylers: [{color: '#38414e'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#212a37'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#9ca5b3'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry',
+              stylers: [{color: '#746855'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#1f2835'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#f3d19c'}]
+            },
+            {
+              featureType: 'transit',
+              elementType: 'geometry',
+              stylers: [{color: '#2f3948'}]
+            },
+            {
+              featureType: 'transit.station',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'geometry',
+              stylers: [{color: '#17263c'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#515c6d'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.stroke',
+              stylers: [{color: '#17263c'}]
+            }
+          ],
+
         }
  
         this.map = new google.maps.Map(this.mapElement, mapOptions);
-
-        this.directionsService = new google.maps.DirectionsService();
-        this.directionsDisplay = new google.maps.DirectionsRenderer();
-        
-        this.directionsDisplay.setMap(this.map)
-
-        //var transitLayer = new google.maps.TransitMode.BUS();
-        //transitLayer.setMap(this.map);
-        // this.map.addListener(google.maps.event.MAP_READY, function(){
-        
-        //       for(let res of this.markers){
-        //         this.map.addMarker(res.stop_lat, res.stop_lon, res.stop_name);
-        //       }        
-
-        // })
         resolve(true);
  
       });
@@ -132,22 +198,59 @@ export class GoogleMaps {
  
   }
  
+  loadSearchBar(input: any){
+    
+    var searchBox = new google.maps.places.SearchBox(input);
 
+    searchBox.addListener('places_changed', () => {
+        var places = searchBox.getPlaces();
+
+        if (places.length == 0) {
+          return;
+        }
+        
+        this.clearMarkers();
+
+        var bounds =  new google.maps.LatLngBounds();
+        places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            this.markers.push(new google.maps.Marker({
+              map: this.map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+        });
+      });
+  }
 
   showMarkers(dataArr:any){
       console.log(this.markers.length);
 
       if(this.markers.length > 0){
-        for(let marker of this.markers){
-          marker.setMap(null);
-        }
-
-        this.markers.length = 0;
-
+        this.clearMarkers();
       }
 
       for(let data of dataArr){
-        //let tempLatLng = new GoogleMapsLatLng(data.stop_lat,data.stop_lon);
         this.addMarker(data.stop_lat,data.stop_lon,data.stop_name);   
       }
   }
@@ -164,21 +267,20 @@ export class GoogleMaps {
   * would confirm the user to this bus stop and any bus that would eventually pass.
   */
   addMarker(laT: number, lnG: number, stop_name : string): void {
-    //let latLng = new google.maps.LatLng(lat, lng);
-    var image = 'http://www.stevestonmarine.com/image/cache/data/map-marker-13-32x32_0.png';
+    var image = 'https://www.givepulse.com/images/search/blueMarker.png';
     var selectedMarker = 'https://www.londondrugs.com/on/demandware.static/Sites-LondonDrugs-Site/-/default/dw2a9afa9b/img/map_marker_default.png';
 
     let marker = new google.maps.Marker({
       map: this.map,
       position: {lat: laT, lng: lnG},
       icon: image
-    });
-    var contentStirng = "<h2>" + stop_name +"</h2>" 
-                        //"<button onclick="+ this.selectedDest(marker.position); +">Click Me</button>"
-                        
+    });                
+    
+    var contentString =  "<p>" + stop_name + "</p>" +
+                        "<button ng-click='clickR()'>Click me</button>"                       
 
     var infowindow = new google.maps.InfoWindow({
-          content: contentStirng
+          content: contentString
     });
 
     infowindow.addListener('click', () =>{
@@ -187,35 +289,47 @@ export class GoogleMaps {
       
 
     });
- 
-    marker.addListener('click', function(){
-      marker.setIcon(selectedMarker);
-      infowindow.open(this.map, marker);
-    });
 
-    marker.addListener('dblclick', () =>{
-      //alert("Buses that come here: ..")
+    marker.addListener('click', () => {
+    marker.setIcon(selectedMarker);
+    infowindow.open(this.map, marker);
+
+    this.calcRoute(marker.position.lat(), marker.position.lng());
+  });
+
+    marker.addListener('rightclick', () =>{
+      marker.setIcon(selectedMarker);
+      this.clearDisplayedPaths();
+      this.selectedPath = true;
       this.selectedDest(marker.position);
+
+      this.watch = Geolocation.watchPosition().subscribe((position: Geoposition) => {
+
+        let tempMarker = new google.maps.Marker({
+          map: this.map,
+          position: {lat: position.coords.latitude, lng: position.coords.longitude},
+          icon: image
+        });    
+
+        this.markers.push(tempMarker);
+      });
     });
 
     this.markers.push(marker);  
- 
   }
-
+ 
   disableMap(): void {
  
     if(this.pleaseConnect){
       this.pleaseConnect.style.display = "block";
     }
- 
   }
  
   enableMap(): void {
- 
+
     if(this.pleaseConnect){
       this.pleaseConnect.style.display = "none";
     }
- 
   }
  
   addConnectivityListeners(): void {
@@ -226,16 +340,14 @@ export class GoogleMaps {
  
       setTimeout(() => {
  
-        if(typeof google == "undefined" || typeof google.maps == "undefined"){
-          this.loadGoogleMaps();
-        } 
-        else {
-          if(!this.mapInitialised){
-            this.initMap();
-          }
- 
-          this.enableMap();
+      if(typeof google == "undefined" || typeof google.maps == "undefined") {
+        this.loadGoogleMaps();
+      } else {
+        if(!this.mapInitialised) {
+          this.initMap();
         }
+        this.enableMap();
+      }
  
       }, 2000);
  
@@ -261,6 +373,9 @@ export class GoogleMaps {
   */
   calcRoute(lat: number, lng: number){
 
+    var directionsService = new google.maps.DirectionsService();
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+
     var request = {
       origin: this.myLocation,
       destination: new google.maps.LatLng(lat, lng),
@@ -275,10 +390,13 @@ export class GoogleMaps {
 
     console.log("Request done");
 
-    this.directionsService.route(request, (response, status) =>{
+    directionsService.route(request, (response, status) =>{
         console.log(status);
         if(status == google.maps.DirectionsStatus.OK) {
-          this.directionsDisplay.setDirections(response);
+          
+          this.renderDirectionsPolylines(response);
+          this.directionArr.push(directionsDisplay);
+
         } else if(status == google.maps.DirectionsStatus.NOT_FOUND){
           console.log("Syntax err");
         } else if(status == google.maps.DirectionsStatus.ZERO_RESULTS){
@@ -286,20 +404,49 @@ export class GoogleMaps {
         }
     })
   }
+  
 
+  renderDirectionsPolylines(response) {
+
+    let polylineOptions = {
+      strokeColor: '#000000',
+      strokeOpacity: 10,
+      strokeWeight: 7
+    };
+
+    var legs = response.routes[0].legs;
+    for (var i = 0; i < legs.length; i++) {
+      var steps = legs[i].steps;
+      for (var j = 0; j < steps.length; j++) {
+        var nextSegment = steps[j].path;
+        var stepPolyline = new google.maps.Polyline(polylineOptions);
+        for (var k = 0; k < nextSegment.length; k++) {
+          stepPolyline.getPath().push(nextSegment[k]);
+        }
+        this.polylines.push(stepPolyline);
+        if(this.selectedPath){
+          stepPolyline.setOptions({
+              strokeColor: 'blue'
+          });
+        }
+        stepPolyline.setMap(this.map);
+        // route click listeners, different one on each step
+        google.maps.event.addListener(stepPolyline, 'click', function(evt) {
+          console.log("clicked");
+        })
+      }
+    }
+  }
 
   selectedDest(dest: any){
 
       for(let marker of this.markers){
 
         if(dest == marker.position){
-          //marker.setMap(null);
           var tempMark = marker;
-          //this.markers.splice(index, 1);
         } else {
-            marker.setMap(null);
+          marker.setMap(null);
         }
-        
       }
 
       this.markers.length = 0;
@@ -308,5 +455,22 @@ export class GoogleMaps {
       this.calcRoute(dest.lat(),dest.lng());
 
   }
- 
+
+  clearDisplayedPaths(){
+      for(let path of this.directionArr){
+        path.setMap(null);
+      }
+
+      for(let path of this.polylines){
+        path.setMap(null);
+      }
+  }
+
+  clearMarkers(){
+
+    for(let marker of this.markers){
+      marker.setMap(null);
+    }
+    this.markers.length = 0;   
+  }
 }

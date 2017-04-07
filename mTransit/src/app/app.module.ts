@@ -15,6 +15,7 @@ import { Storage } from '@ionic/storage';
 import { BusStopService } from '../providers/bus-stop-service';
 import { GoogleMaps } from '../providers/google-maps';
 import { Connectivity } from '../providers/connectivity';
+import { StatusBar, Splashscreen } from 'ionic-native';
 
 import firebase from 'firebase';
 
@@ -49,7 +50,7 @@ let storage: Storage = new Storage();
     DriverLoginPage,
     RatingPagePage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},StatusBar, Splashscreen,
     BusStopService, GoogleMaps, Connectivity]
 })
 export class AppModule {}
