@@ -13,10 +13,13 @@ import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@ang
 import { App, Config, Form, IonicModule, Keyboard, DomController, MenuController, NavController, Platform } from 'ionic-angular';
 import { ConfigMock, PlatformMock } from './mocks';
 import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate/ng2-translate';
-import { HomePage }          from 'pages/home/home';
+import { HomePage }          from './pages/home/home';
 import {Facebook} from '@ionic-native/facebook';
 import * as firebase from 'firebase';
-import {RatingPagePage} from 'pages/rating-page/rating-page';
+import {RatingPagePage} from './pages/rating-page/rating-page';
+import { BusStopService } from './providers/bus-stop-service';
+import { GoogleMaps } from './providers/google-maps';
+import { Connectivity } from './providers/connectivity';
 
 // Unfortunately there's no typing for the `__karma__` variable. Just declare it as any.
 declare var __karma__: any;

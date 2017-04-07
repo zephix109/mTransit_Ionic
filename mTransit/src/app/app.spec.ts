@@ -1,4 +1,4 @@
-/*import { TestBed, ComponentFixture, async } from '@angular/core/testing';
+import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import { IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -39,15 +39,15 @@ describe('Component: Root Component', () => {
         comp = null;
     });
  
-    it('is created', () => {
+    xit('is created', () => {
  
         expect(fixture).toBeTruthy();
         expect(comp).toBeTruthy();
  
     });
  
-    it('initialises with a root page of HomePage', () => {
+    xit('initialises with a root page of HomePage', () => {
         expect(comp['rootPage']).toBe(HomePage);
     });
  
-});*/
+});

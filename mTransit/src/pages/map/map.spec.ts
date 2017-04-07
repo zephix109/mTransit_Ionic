@@ -15,11 +15,14 @@ import { BusStopService } from '../../providers/bus-stop-service';
 import { Connectivity } from '../../providers/connectivity';
 
 let fixture: ComponentFixture<MapPage> = null;
+let fixture2: ComponentFixture<GoogleMaps> = null;
 let instance: any = null;
 let comp: MapPage;
 let de: DebugElement;
 let el: HTMLElement;
-
+let maps: GoogleMaps;
+let mapElement: any;
+let pleaseConnect: any;
 describe('Pages: Map', () => {
 
   beforeEach(async(() => {
@@ -64,7 +67,9 @@ describe('Pages: Map', () => {
   beforeEach(() => {
 
     fixture = TestBed.createComponent(MapPage);
+    fixture2 = TestBed.createComponent(GoogleMaps);
     comp    = fixture.componentInstance;
+    maps = fixture2.componentInstance;
 
   });
 
@@ -86,6 +91,7 @@ describe('Pages: Map', () => {
   it('should have called loadMap function',  ()=> {
     spyOn(comp, 'ionViewDidLoad');
     comp.ionViewDidLoad();
+    expect(comp).toBeDefined();
     expect(comp.ionViewDidLoad).toHaveBeenCalled();
   });
 
@@ -95,6 +101,21 @@ describe('Pages: Map', () => {
     it('should have called goToRating function',  ()=> {
     spyOn(comp, 'goToRating');
     comp.goToRating();
+    expect(comp).toBeDefined();
     expect(comp.goToRating).toHaveBeenCalled();
   });
+  it('should include the init function', () => {
+    expect(maps.init(mapElement, pleaseConnect));
+  });
+    it('should have called init function',  ()=> {
+    spyOn(maps, 'init');
+    maps.init(mapElement, pleaseConnect);
+    expect(maps).toBeDefined();
+    expect(maps.init).toHaveBeenCalled();
+  });
+
+
+
+
+
 });

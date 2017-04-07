@@ -55,7 +55,7 @@ export class MapPage {
 
 
     });
-  }
+  } 
         
   goToRating(){
       this.navCtrl.push(RatingPagePage);
