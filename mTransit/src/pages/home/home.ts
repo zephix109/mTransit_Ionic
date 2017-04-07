@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { TranslateService } from 'ng2-translate';
-import { NavController } from 'ionic-angular';
+import { NavController, Nav } from 'ionic-angular';
 import { MapPage } from '../map/map';
 import { SmsPage } from '../sms/sms';
 import { RatingPagePage } from '../rating-page/rating-page';
 import { DriverLoginPage } from '../driver-login/driver-login';
-import {Facebook} from '@ionic-native/facebook';
+import { Facebook } from '@ionic-native/facebook';
 import * as firebase from 'firebase';
 
 @Component({
@@ -14,7 +14,12 @@ import * as firebase from 'firebase';
 })
 export class HomePage {
 
-    constructor(public navCtrl: NavController, public translateService: TranslateService) {}
+
+
+constructor(public navCtrl: NavController, public translateService: TranslateService) {}
+  ionViewDidLoad(){
+    this.translateService.setDefaultLang('en');
+  }
 
   //function that logs the user in. It currently redirects to map page, but will redirect to SMS when that functionality is completed.
   facebookLogin(){
@@ -26,7 +31,6 @@ export class HomePage {
           .then((success) => {
               console.log("Firebase success: " + JSON.stringify(success));
               this.goToMap();
-              //this.goToSMS();
           })
           .catch((error) => {
               console.log("Firebase failure: " + JSON.stringify(error));
@@ -39,7 +43,7 @@ export class HomePage {
 
   //function that loads the map page
   goToMap(){
-      this.navCtrl.push(MapPage);
+    this.navCtrl.push(MapPage);
   }
 
   //function that loads the SMS verification page
@@ -56,7 +60,7 @@ export class HomePage {
   }
   //function that changes the language from Englishs to French and vice versa
   swapLanguage() {
-    if(this.translateService.currentLang == "en")
+    if (this.translateService.currentLang == "en")
       this.translateService.use('fr');
     else
       this.translateService.use('en');

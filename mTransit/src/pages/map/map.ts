@@ -1,79 +1,64 @@
-import { Component } from '@angular/core';
-import { Injectable } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { BusStopService } from '../../providers/bus-stop-service';
+import { GoogleMaps } from '../../providers/google-maps';
 import { NavController, Platform } from 'ionic-angular';
+import { Injectable } from '@angular/core';
 import { RatingPagePage } from '../rating-page/rating-page';
-import { 
-  GoogleMap, 
-  GoogleMapsEvent, 
-  GoogleMapsLatLng, 
-  Geolocation, 
-  GoogleMapsMarker, 
-  GoogleMapsMarkerOptions,
-  Geoposition
-} from 'ionic-native';
  
 @Component({
-  selector: 'map-page',
+  selector: 'page-map',
   templateUrl: 'map.html'
 })
 export class MapPage {
  
-  map: GoogleMap;
+  @ViewChild('map') mapElement: ElementRef;
+  @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
 
-  constructor(public navCtrl: NavController, public platform: Platform) {
-      platform.ready().then(() => {
-          this.loadMap();
-      });
+  map: any;
+  mapInitialised: boolean = false;
+
+ 
+  constructor(public navCtrl: NavController, public maps: GoogleMaps, public platform: Platform, public bus_stop_service: BusStopService) {
+ 
   }
+ 
+  ionViewDidLoad(){
+ 
+    this.platform.ready().then(() => {
+ 
+        let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
+        let stopLoaded = this.bus_stop_service.load_Near_User();
+        let input = document.getElementById('searchInput');       
 
+
+        Promise.all([
+          mapLoaded,
+          stopLoaded
+      
+        ]).then((result) => {
+
+          console.log("Result length = " + result[1].length);
+
+          this.maps.map.addListener('click', (pos) =>{
+            this.maps.selectedPath = false;
+            this.maps.clearDisplayedPaths();
+            this.bus_stop_service.load_Destination(pos.latLng.lat(),pos.latLng.lng()).then((result) => {
+              this.maps.showMarkers(result);
+            });
+          });
+
+          this.maps.loadSearchBar(input);
+
+      }).catch( rej => {
+          console.log(rej);
+        });
+
+
+    });
+  }
+        
   goToRating(){
       this.navCtrl.push(RatingPagePage);
   }
-
-  loadMap(){
-
-    Geolocation.watchPosition().subscribe((position) => {
-      let location = new GoogleMapsLatLng(position.coords.latitude, position.coords.longitude); 
-    
-      this.map = new GoogleMap('map', {
-        'backgroundColor': 'white',
-        'controls': {
-          'compass': true,
-          'myLocationButton': true,
-          'indoorPicker': true,
-          'zoom': true
-        },
-        'gestures': {
-          'scroll': true,
-          'tilt': true,
-          'rotate': true,
-          'zoom': true
-        },
-        'camera': {
-          'latLng': location,
-          'tilt': 30,
-          'zoom': 15,
-          'bearing': 50
-        }
-      });
-    
-      this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
-        console.log('Map is ready!');
-      });
-    }, (err) => {
-      console.log(err);
-    });
-
-/*
-      //Create new marker
-      let markerOptions: GoogleMapsMarkerOptions = {
-        position: location,
-        title: 'Ionic'
-      };
-
-      this.map.addMarker(markerOptions).then((marker: GoogleMapsMarker) => {
-            marker.showInfoWindow();
-      });
-*/
-  }
+ 
 }

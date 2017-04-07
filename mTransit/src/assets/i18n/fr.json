@@ -6,5 +6,6 @@
 	"FACEBOOK_LOGIN": "Facebook",
     "DRIVER_TEXT": "Si vous êtes un(e) chauffeur(e), pesez sur le bouton ci-dessous",
     "DRIVER_LOGIN": "Connexion pour chauffeur(e)s",
-	"DRIVER_PROMPT": "S'il vous plait entrez votre code de chauffeur(e), le numéro de bus et le numéro de route"
+	"DRIVER_PROMPT": "S'il vous plait entrez votre code de chauffeur(e), le numéro de bus et le numéro de route",
+    "LOGOUT": "Se Déconnecter"
 }
