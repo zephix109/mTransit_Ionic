@@ -64,12 +64,15 @@ export class TestUtils {
         App, Form, Keyboard, DomController, MenuController, NavController,
         {provide: Platform, useClass: PlatformMock},
         {provide: Config, useClass: ConfigMock},
-        {provide: HomePage, Facebook, firebase}
+        {provide: HomePage, Facebook, firebase, BusStopService, GoogleMaps, Connectivity}
       ],
       imports: [
         FormsModule,
         IonicModule,
         ReactiveFormsModule,
+        BusStopService,
+        GoogleMaps,
+        Connectivity,
         TranslateModule.forRoot()
       ],
     });
