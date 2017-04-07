@@ -65,12 +65,12 @@ describe('Pages: Map', () => {
   }));
 
   it('should include the loadMap function', () => {
-    expect(comp.loadMap());
+    expect(comp.ionViewDidLoad());
   });
   it('should have called loadMap function',  ()=> {
-    spyOn(comp, 'loadMap');
-    comp.loadMap();
-    expect(comp.loadMap).toHaveBeenCalled();
+    spyOn(comp, 'ionViewDidLoad');
+    comp.ionViewDidLoad();
+    expect(comp.ionViewDidLoad).toHaveBeenCalled();
   });
 
   it('should include the goToRating function', () => {
