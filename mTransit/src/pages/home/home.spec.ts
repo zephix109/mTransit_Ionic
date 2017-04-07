@@ -66,6 +66,38 @@ describe('Page: Home Page', () => {
     expect(fixture).toBeTruthy();
     expect(comp).toBeTruthy();
   });
+  it('should include the goToMap function', ()=> {
+    expect(comp.goToMap());
+  });
+  it('should have called goToMap function',  ()=> {
+    spyOn(comp, 'goToMap');
+    comp.goToMap();
+    expect(comp.goToMap).toHaveBeenCalled();
+  });
+  it('should include the goToSMS function', ()=> {
+    expect(comp.goToSMS());
+  });
+  it('should have called goToSMS function',  ()=> {
+    spyOn(comp, 'goToSMS');
+    comp.goToSMS();
+    expect(comp.goToSMS).toHaveBeenCalled();
+  });
+  it('should include the goToDriverLogin function', ()=> {
+    expect(comp.goToDriverLogin());
+  });
+  it('should have called goToDriverLogin function',  ()=> {
+    spyOn(comp, 'goToDriverLogin');
+    comp.goToDriverLogin();
+    expect(comp.goToDriverLogin).toHaveBeenCalled();
+  });
+  it('should include the goToRating function', () => {
+    expect(comp.goToRating());
+  });
+    it('should have called goToRating function',  ()=> {
+    spyOn(comp, 'goToRating');
+    comp.goToRating();
+    expect(comp.goToRating).toHaveBeenCalled();
+  });
   it('should include the swapLanguage function', ()=> {
     expect(comp.swapLanguage());
   });
