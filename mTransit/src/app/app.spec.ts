@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture, async } from '@angular/core/testing';
+/*import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import { IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -50,4 +50,4 @@ describe('Component: Root Component', () => {
         expect(comp['rootPage']).toBe(HomePage);
     });
  
-});
+});*/

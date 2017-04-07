@@ -9,7 +9,10 @@ import { MyApp } from '../../app/app.component';
 import { NavMock } from '../../mocks';
 import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate/ng2-translate';
 import { TranslateService } from 'ng2-translate';
-
+import { GoogleMaps } from '../../providers/google-maps';
+import { Injectable } from '@angular/core';
+import { BusStopService } from '../../providers/bus-stop-service';
+import { Connectivity } from '../../providers/connectivity';
 
 let fixture: ComponentFixture<MapPage> = null;
 let instance: any = null;
@@ -33,7 +36,20 @@ describe('Pages: Map', () => {
         {
           provide: MapPage,
           useClass: MapPage
+        },
+        {
+          provide: GoogleMaps,
+          useClass: GoogleMaps
+        },
+        {
+          provide: BusStopService,
+          useClass: BusStopService
+        },
+        {
+          provide: Connectivity,
+          useClass: Connectivity
         }
+        
       ],
 
       imports: [
