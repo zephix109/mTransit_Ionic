@@ -2,14 +2,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var routeSchema = new Schema({
-	stop_id : Number,
-	stop_code : Number,
-	stop_name : String,
-	stop_lat : Number,
-	stop_lon : Number,
-	stop_url : String,
-	wheelchair_boarding : Number
-	
+	stop_time : Number,
+	stop_code : Number
+
 });
 
 
