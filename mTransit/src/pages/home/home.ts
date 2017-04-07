@@ -16,7 +16,7 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, public translateService: TranslateService) {}
   
-  ionViewDidLoad(){
+  public ionViewDidLoad(){
     this.translateService.setDefaultLang('en');
   }
 
@@ -28,9 +28,8 @@ export class HomePage {
           firebase.auth().signInWithCredential(facebookCredential)
           .then((success) => {
               this.goToMap();
-          })
-          .catch((error) => {});
-      }).catch((error) => {});
+          });
+      });
   }
 
   //function that loads the map page

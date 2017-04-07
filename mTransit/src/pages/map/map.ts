@@ -11,19 +11,19 @@ import { RatingPagePage } from '../rating-page/rating-page';
 })
 export class MapPage {
  
-  @ViewChild('map') mapElement: ElementRef;
-  @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
+  @ViewChild('map') public mapElement: ElementRef;
+  @ViewChild('pleaseConnect') public pleaseConnect: ElementRef;
 
-  map: any;
-  mapInitialised: boolean = false;
+  public map: any;
+  public mapInitialised: boolean = false;
 
   constructor(public navCtrl: NavController, public maps: GoogleMaps, public platform: Platform, public bus_stop_service: BusStopService) {}
  
   ionViewDidLoad(){
     this.platform.ready().then(() => {
-        let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
+        const mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
         let stopLoaded = this.bus_stop_service.load_Near_User();
-        let input = document.getElementById('searchInput');       
+        const input = document.getElementById('searchInput');       
 
         Promise.all([
           mapLoaded,
@@ -38,7 +38,7 @@ export class MapPage {
           });
 
           this.maps.loadSearchBar(input);
-        }).catch( rej => {});
+        });
     });
   }
         

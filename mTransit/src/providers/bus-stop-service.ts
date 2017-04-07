@@ -7,26 +7,25 @@ import { Platform } from 'ionic-angular';
 @Injectable()
 export class BusStopService {
 
-  zone: NgZone;
-  data: any;
-  data_destination: any;
-  user_lat : number;
-  user_lon : number;
-  watch: any;
+  public zone: NgZone;
+  public data: any;
+  public data_destination: any;
+  public user_lat : number;
+  public user_lon : number;
+  public watch: any;
 
 
   constructor(public http: Http, public pf: Platform ) {}
 
   //Load closest 10 stm bus stops near the user's location.
-  load_Near_User() {
-
+  public load_Near_User() {
     if (this.data) {
       return Promise.resolve(this.data);
     }
  
     // don't have the data yet
     return new Promise(resolve => {
-      var url = '../assets/bus_stops/stm_stops.json'; 
+      let url = '../assets/bus_stops/stm_stops.json'; 
       if (this.pf.is('android')) {
         url = "/android_asset/www/src/" + url;
       }
@@ -52,7 +51,7 @@ export class BusStopService {
               this.data = data.slice(0,20),
               resolve(this.data)
             ]);
-          }, (err) => {});
+          });
       });
     });
   }
@@ -65,7 +64,7 @@ export class BusStopService {
   public load_Destination(lat: number, lng: number) {
     // don't have the data yet
     return new Promise(resolve => {
-      var url = '../assets/bus_stops/stm_stops.json';
+      let url = '../assets/bus_stops/stm_stops.json';
       if (this.pf.is('android')) {
         url = "/android_asset/www/src/" + url;
       }
@@ -101,15 +100,15 @@ export class BusStopService {
   * Function iterates through every item in the Array and creates a new field named "distance" which is the distance between 
   * the user's location and the item's location. This calculation is called the Haversine formulas which is called at this.getDistanceBetweenPoints
   */
-  applyHaversine(busStopJSONarr, userLat : number, userLon : number){
+  public applyHaversine(busStopJSONarr, userLat : number, userLon : number){
 
-      let usersLocation = {
+      const usersLocation = {
           lat: userLat, 
           lng: userLon
       };
 
       busStopJSONarr.map((location) => {
-        let placeLocation = {
+        const placeLocation = {
           lat: location.stop_lat,
           lng: location.stop_lon
         };
@@ -123,31 +122,31 @@ export class BusStopService {
   }
 
   //Calculation for Haversine formulas
-  getDistanceBetweenPoints(start, end, units){
-        let earthRadius = {
+  public getDistanceBetweenPoints(start, end, units){
+        const earthRadius = {
             miles: 3958.8,
             km: 6371
         };
  
-        let R = earthRadius[units || 'km'];
-        let lat1 = start.lat;
-        let lon1 = start.lng;
-        let lat2 = end.lat;
-        let lon2 = end.lng;
+        const R = earthRadius[units || 'km'];
+        const lat1 = start.lat;
+        const lon1 = start.lng;
+        const lat2 = end.lat;
+        const lon2 = end.lng;
  
-        let dLat = this.toRad((lat2 - lat1));
-        let dLon = this.toRad((lon2 - lon1));
-        let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        const dLat = this.toRad((lat2 - lat1));
+        const dLon = this.toRad((lon2 - lon1));
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.cos(this.toRad(lat1)) * Math.cos(this.toRad(lat2)) *
         Math.sin(dLon / 2) *
         Math.sin(dLon / 2);
-        let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        let d = R * c;
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const d = R * c;
  
         return d;
   }
  
-  toRad(x){
+  public toRad(x){
       return x * Math.PI / 180;
   }
 

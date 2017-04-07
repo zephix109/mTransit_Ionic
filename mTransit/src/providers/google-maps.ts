@@ -2,47 +2,48 @@ import { Injectable, NgZone } from '@angular/core';
 import { Connectivity } from './connectivity';
 import { Geolocation, GoogleMapsLatLng, Geoposition } from 'ionic-native';
  
-declare var google;
+declare const google;
  
 @Injectable()
 export class GoogleMaps {
  
-  mapElement: any;
-  pleaseConnect: any;
-  map: any;
-  mapInitialised: boolean = false;
-  mapLoaded: any;
-  mapLoadedObserver: any;
-  markers: any[] = [];
-  apiKey: string;//"AIzaSyApveMIrtj5hoxWezmwCNbGLjKwhxsd3W0";
-  myLocation: any;
-  watch: any;
-  selectedPath: boolean;
-  directionArr: any[] =[];
-  polylines = [];
+  public mapElement: any;
+  public pleaseConnect: any;
+  public map: any;
+  public mapInitialised: boolean = false;
+  public mapLoaded: any;
+  public mapLoadedObserver: any;
+  public markers: any[] = [];
+  public apiKey: string;//"AIzaSyApveMIrtj5hoxWezmwCNbGLjKwhxsd3W0";
+  public myLocation: any;
+  public watch: any;
+  public selectedPath: boolean;
+  public directionArr: any[] =[];
+  public polylines = [];
 
   constructor(public connectivityService: Connectivity, zone:NgZone) {}
  
-  init(mapElement: any, pleaseConnect: any): Promise<any> {
+  public init(mapElement: any, pleaseConnect: any): Promise<any> {
     this.mapElement = mapElement;
     this.pleaseConnect = pleaseConnect;
     return this.loadGoogleMaps();
   }
  
-  loadGoogleMaps(): Promise<any> {
+  public loadGoogleMaps(): Promise<any> {
     return new Promise((resolve) => {
+      const mapInit = 'mapInit';
       if (typeof google == "undefined" || typeof google.maps == "undefined") {
         this.disableMap();
         if (this.connectivityService.isOnline()) {
-          window['mapInit'] = () => {
+          window[mapInit] = () => {
             this.initMap().then(() => {
               resolve(true);
             });
  
             this.enableMap();
-          }
+          };
  
-          let script = document.createElement("script");
+          const script = document.createElement("script");
           script.id = "googleMaps";
  
           if (this.apiKey) {
@@ -68,14 +69,14 @@ export class GoogleMaps {
     });
   }
  
-  initMap(): Promise<any> {
+  public initMap(): Promise<any> {
     this.mapInitialised = true;
     return new Promise((resolve) => {
       Geolocation.getCurrentPosition().then((position) => {
-        let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        const latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         this.myLocation = latLng;
 
-        let mapOptions = {
+        const mapOptions = {
           center: latLng,
           zoom: 15,
           tilt: 30,
@@ -162,7 +163,7 @@ export class GoogleMaps {
               stylers: [{color: '#17263c'}]
             }
           ],
-        }
+        };
  
         this.map = new google.maps.Map(this.mapElement, mapOptions);
         resolve(true);
@@ -170,10 +171,10 @@ export class GoogleMaps {
     });
   }
  
-  loadSearchBar(input: any){
-    var searchBox = new google.maps.places.SearchBox(input);
+  public loadSearchBar(input: any){
+    const searchBox = new google.maps.places.SearchBox(input);
     searchBox.addListener('places_changed', () => {
-        var places = searchBox.getPlaces();
+        const places = searchBox.getPlaces();
 
         if (places.length == 0) {
           return;
@@ -181,12 +182,12 @@ export class GoogleMaps {
         
         this.clearMarkers();
 
-        var bounds =  new google.maps.LatLngBounds();
+        const bounds =  new google.maps.LatLngBounds();
         places.forEach(function(place) {
             if (!place.geometry) {
               return;
             }
-            var icon = {
+            const icon = {
               url: place.icon,
               size: new google.maps.Size(71, 71),
               origin: new google.maps.Point(0, 0),
@@ -212,12 +213,12 @@ export class GoogleMaps {
       });
   }
 
-  showMarkers(dataArr:any){
+  public showMarkers(dataArr:any){
       if(this.markers.length > 0){
         this.clearMarkers();
       }
 
-      for(let data of dataArr){
+      for(const data of dataArr){
         this.addMarker(data.stop_lat,data.stop_lon,data.stop_name);   
       }
   }
@@ -233,19 +234,19 @@ export class GoogleMaps {
   * infoWindow, prompting the user to confirm their bus ride confirmation. Clicking the infoWindow 
   * would confirm the user to this bus stop and any bus that would eventually pass.
   */
-  addMarker(laT: number, lnG: number, stop_name : string): void {
-    var image = 'https://www.givepulse.com/images/search/blueMarker.png';
-    var selectedMarker = 'https://www.londondrugs.com/on/demandware.static/Sites-LondonDrugs-Site/-/default/dw2a9afa9b/img/map_marker_default.png';
-    let marker = new google.maps.Marker({
+  public addMarker(laT: number, lnG: number, stop_name : string): void {
+    const image = 'https://www.givepulse.com/images/search/blueMarker.png';
+    const selectedMarker = 'https://www.londondrugs.com/on/demandware.static/Sites-LondonDrugs-Site/-/default/dw2a9afa9b/img/map_marker_default.png';
+    const marker = new google.maps.Marker({
       map: this.map,
       position: {lat: laT, lng: lnG},
       icon: image
     });                
     
-    var contentString =  "<p>" + stop_name + "</p>" +
-                        "<button ng-click='clickR()'>Click me</button>"                       
+    const contentString =  "<p>" + stop_name + "</p>" +
+                        "<button ng-click='clickR()'>Click me</button>";                       
 
-    var infowindow = new google.maps.InfoWindow({
+    const infowindow = new google.maps.InfoWindow({
           content: contentString
     });
 
@@ -262,7 +263,7 @@ export class GoogleMaps {
       this.selectedPath = true;
       this.selectedDest(marker.position);
       this.watch = Geolocation.watchPosition().subscribe((position: Geoposition) => {
-        let tempMarker = new google.maps.Marker({
+        const tempMarker = new google.maps.Marker({
           map: this.map,
           position: {lat: position.coords.latitude, lng: position.coords.longitude},
           icon: image
@@ -275,19 +276,19 @@ export class GoogleMaps {
     this.markers.push(marker);  
   }
  
-  disableMap(): void {
+  public disableMap(): void {
     if (this.pleaseConnect) {
       this.pleaseConnect.style.display = "block";
     }
   }
  
-  enableMap(): void {
+  public enableMap(): void {
     if (this.pleaseConnect) {
       this.pleaseConnect.style.display = "none";
     }
   }
  
-  addConnectivityListeners(): void {
+  public addConnectivityListeners(): void {
     document.addEventListener('online', () => {
       setTimeout(() => {
         if (typeof google == "undefined" || typeof google.maps == "undefined") {
@@ -315,10 +316,10 @@ export class GoogleMaps {
   * Input: Destination's latitude and longitude
   *
   */
-  calcRoute(lat: number, lng: number){
-    var directionsService = new google.maps.DirectionsService();
-    var directionsDisplay = new google.maps.DirectionsRenderer();
-    var request = {
+  public calcRoute(lat: number, lng: number){
+    const directionsService = new google.maps.DirectionsService();
+    const directionsDisplay = new google.maps.DirectionsRenderer();
+    const request = {
       origin: this.myLocation,
       destination: new google.maps.LatLng(lat, lng),
       travelMode: 'DRIVING',
@@ -335,24 +336,24 @@ export class GoogleMaps {
           this.renderDirectionsPolylines(response);
           this.directionArr.push(directionsDisplay);
         }
-    })
+    });
   }
   
 
-  renderDirectionsPolylines(response) {
-    let polylineOptions = {
+  public renderDirectionsPolylines(response) {
+    const polylineOptions = {
       strokeColor: '#000000',
       strokeOpacity: 10,
       strokeWeight: 7
     };
 
-    var legs = response.routes[0].legs;
-    for (var i = 0; i < legs.length; i++) {
-      var steps = legs[i].steps;
-      for (var j = 0; j < steps.length; j++) {
-        var nextSegment = steps[j].path;
-        var stepPolyline = new google.maps.Polyline(polylineOptions);
-        for (var k = 0; k < nextSegment.length; k++) {
+    const legs = response.routes[0].legs;
+    for (const i of legs) {
+      const steps = legs[i].steps;
+      for (const j of steps) {
+        const nextSegment = steps[j].path;
+        const stepPolyline = new google.maps.Polyline(polylineOptions);
+        for (const k of nextSegment) {
           stepPolyline.getPath().push(nextSegment[k]);
         }
         this.polylines.push(stepPolyline);
@@ -363,38 +364,39 @@ export class GoogleMaps {
         }
         stepPolyline.setMap(this.map);
         // route click listeners, different one on each step
-        google.maps.event.addListener(stepPolyline, 'click', function(evt) {
-        })
+        google.maps.event.addListener(stepPolyline, 'click', (evt) => {
+        });
       }
     }
   }
 
-  selectedDest(dest: any){
-      for(let marker of this.markers){
-        if(dest == marker.position){
-          var tempMark = marker;
-        } else {
-          marker.setMap(null);
-        }
+  public selectedDest(dest: any){
+    let tempMark;
+    for(const marker of this.markers){
+      if(dest == marker.position){
+        tempMark = marker;
+      } else {
+        marker.setMap(null);
       }
+    }
 
-      this.markers.length = 0;
-      this.markers.push(tempMark);
-      this.calcRoute(dest.lat(),dest.lng());
+    this.markers.length = 0;
+    this.markers.push(tempMark);
+    this.calcRoute(dest.lat(),dest.lng());
   }
 
-  clearDisplayedPaths(){
-      for(let path of this.directionArr){
+  public clearDisplayedPaths(){
+      for(const path of this.directionArr){
         path.setMap(null);
       }
 
-      for(let path of this.polylines){
+      for(const path of this.polylines){
         path.setMap(null);
       }
   }
 
-  clearMarkers(){
-    for(let marker of this.markers){
+  public clearMarkers(){
+    for(const marker of this.markers){
       marker.setMap(null);
     }
     this.markers.length = 0;   

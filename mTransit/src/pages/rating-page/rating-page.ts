@@ -18,7 +18,7 @@ export class RatingPagePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl : AlertController) {}
 
-  onModelChange(){}
+  //onModelChange(){}
 
   finishReview() {
     if(this.rate > 0){}

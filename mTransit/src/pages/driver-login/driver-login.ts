@@ -15,8 +15,6 @@ import { MapPage } from '../map/map';
 export class DriverLoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
-  
-  ionViewDidLoad() {}
 
   //function that loads the map page
   goToMap(){

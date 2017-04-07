@@ -10,6 +10,7 @@
     ],
 
     "callable-types": true,
+    "triple-equals": false,
     "interface-name": false,
     "interface-over-type-literal": true,
     "file-header": [true,
