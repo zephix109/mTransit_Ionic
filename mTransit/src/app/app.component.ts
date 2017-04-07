@@ -6,11 +6,12 @@ import { TranslateService } from 'ng2-translate';
 import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
 import { RatingPagePage } from '../pages/rating-page/rating-page';
-
+import { Auth } from '../providers/auth';
 import * as firebase from 'firebase';
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  providers: [Auth]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav; 
@@ -18,7 +19,8 @@ export class MyApp {
   rootPage : any = HomePage;
   pages: Array<{title: string, component: any}>;
 
-  constructor(platform: Platform, public translate: TranslateService, public statusBar: StatusBar, public splashScreen: Splashscreen) {
+
+  constructor(platform: Platform, public translate: TranslateService, public statusBar: StatusBar, public splashScreen: Splashscreen, public auth: Auth) {
     
     const firebaseConfig = {
       apiKey: "AIzaSyClOWx3rRxBGM1yshjpC-brIQfoyMG4k0M",
@@ -28,11 +30,18 @@ export class MyApp {
       messagingSenderId: "883599256403"
     };
 
-    this.pages = [
-     // { title: 'Home Page', component: HomePage },
-      { title: 'Map Page', component: MapPage },
-      { title: 'Rating Page', component: RatingPagePage }
+    this.pages= [
+        { title: 'Map Page', component: MapPage },
+        { title: 'Rating Page', component: RatingPagePage }
     ];
+
+    if(this.auth.checkAuthentication()){
+      this.pages = [
+      // { title: 'Home Page', component: HomePage },
+        { title: 'Map Page', component: MapPage },
+        { title: 'Rating Page', component: RatingPagePage }
+      ];
+    }
 
     firebase.initializeApp(firebaseConfig);
 
