@@ -40,7 +40,7 @@ export class MapPage {
           this.maps.loadSearchBar(input);
         });
     });
-  }
+  } 
         
   public goToRating(){
     this.navCtrl.push(RatingPagePage);

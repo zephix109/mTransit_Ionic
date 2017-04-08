@@ -4,6 +4,10 @@ import { EventEmitter}      from '@angular/core';
 import { FormBuilder }      from '@angular/forms';
 import {Facebook} from '@ionic-native/facebook';
 import * as firebase from 'firebase';
+import { BusStopService } from './providers/bus-stop-service';
+import { GoogleMaps } from './providers/google-maps';
+import { Connectivity } from './providers/connectivity';
+
 export class AlertMock {
 
   public create(): any {

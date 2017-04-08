@@ -72,6 +72,7 @@ describe('Page: Home Page', () => {
   it('should have called goToMap function',  ()=> {
     spyOn(comp, 'goToMap');
     comp.goToMap();
+    expect(comp).toBeDefined();
     expect(comp.goToMap).toHaveBeenCalled();
   });
   it('should include the goToSMS function', ()=> {
@@ -80,6 +81,7 @@ describe('Page: Home Page', () => {
   it('should have called goToSMS function',  ()=> {
     spyOn(comp, 'goToSMS');
     comp.goToSMS();
+    expect(comp).toBeDefined();
     expect(comp.goToSMS).toHaveBeenCalled();
   });
   it('should include the goToDriverLogin function', ()=> {
@@ -88,6 +90,7 @@ describe('Page: Home Page', () => {
   it('should have called goToDriverLogin function',  ()=> {
     spyOn(comp, 'goToDriverLogin');
     comp.goToDriverLogin();
+    expect(comp).toBeDefined();
     expect(comp.goToDriverLogin).toHaveBeenCalled();
   });
   it('should include the goToRating function', () => {
@@ -96,6 +99,7 @@ describe('Page: Home Page', () => {
     it('should have called goToRating function',  ()=> {
     spyOn(comp, 'goToRating');
     comp.goToRating();
+    expect(comp).toBeDefined();
     expect(comp.goToRating).toHaveBeenCalled();
   });
   it('should include the swapLanguage function', ()=> {
@@ -104,15 +108,18 @@ describe('Page: Home Page', () => {
   it('should have called swapLanguage function',  ()=> {
     spyOn(comp, 'swapLanguage');
     comp.swapLanguage();
+    expect(comp).toBeDefined();
     expect(comp.swapLanguage).toHaveBeenCalled();
   });
   it('should change language to French', ()=> {
     comp.swapLanguage();
+    expect(comp).toBeDefined();
     if(comp.translateService.currentLang == "en")
       expect(comp.translateService.use('fr'));
   });
   it('should change language to English', ()=> {
     comp.swapLanguage();
+    expect(comp).toBeDefined();
     if(comp.translateService.currentLang == "fr")
       expect(comp.translateService.use('en'));
   });
@@ -122,6 +129,7 @@ describe('Page: Home Page', () => {
   it('should have called facebookLogin function', ()=> {
     spyOn(comp,'facebookLogin');
     comp.facebookLogin();
+    expect(comp).toBeDefined();
     expect(comp.facebookLogin).toHaveBeenCalled();
   });
 
