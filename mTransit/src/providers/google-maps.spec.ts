@@ -43,7 +43,7 @@ let units: any;
 let x: any;
 let Connection: any;
 let connectivity: Connectivity;
-
+let maps2: GoogleMaps = null;
 describe('Providers: google-maps', () => {
 
   beforeEach(async(() => {
@@ -89,7 +89,7 @@ describe('Providers: google-maps', () => {
 
     fixture = TestBed.createComponent(MapPage);
     comp    = fixture.componentInstance;
-
+    maps2 = new GoogleMaps(connectivity, zone);
   });
 
   afterEach(() => {
@@ -100,139 +100,139 @@ describe('Providers: google-maps', () => {
   });
   
   it('should allow maps to have init function', () => {
-    expect(comp.maps.init(mapElement, pleaseConnect));
+    expect(maps2.init(mapElement, pleaseConnect));
   });
 
   it('should have called google maps init function',  ()=> {
-    spyOn(comp.maps, 'init');
-    comp.maps.init(mapElement, pleaseConnect);
-    expect(comp.maps).toBeDefined();
-    expect(comp.maps.init).toHaveBeenCalled();
+    spyOn(maps2, 'init');
+    maps2.init(mapElement, pleaseConnect);
+    expect(maps2).toBeDefined();
+    expect(maps2.init).toHaveBeenCalled();
   });
   it('should allow maps to have loadGoogleMaps function', () => {
-    expect(comp.maps.loadGoogleMaps());
+    expect(maps2.loadGoogleMaps());
   });
   it('should have called google maps loadGoogleMaps function',  ()=> {
-    spyOn(comp.maps, 'loadGoogleMaps');
-    comp.maps.loadGoogleMaps();
-    expect(comp.maps).toBeDefined();
-    expect(comp.maps.loadGoogleMaps).toHaveBeenCalled();
+    spyOn(maps2, 'loadGoogleMaps');
+    maps2.loadGoogleMaps();
+    expect(maps2).toBeDefined();
+    expect(maps2.loadGoogleMaps).toHaveBeenCalled();
   });
   it('should allow maps to have initMap function', () => {
-    expect(comp.maps.initMap());
+    expect(maps2.initMap());
   });
   it('should have called google maps initMap function',  ()=> {
-    spyOn(comp.maps, 'initMap');
-    comp.maps.initMap();
-    expect(comp.maps).toBeDefined();
-    expect(comp.maps.initMap).toHaveBeenCalled();
+    spyOn(maps2, 'initMap');
+    maps2.initMap();
+    expect(maps2).toBeDefined();
+    expect(maps2.initMap).toHaveBeenCalled();
   });
   it('should allow maps to have loadSearchBar function', () => {
-    expect(comp.maps.loadSearchBar(input));
+    expect(maps2.loadSearchBar(input));
   });
   it('should have called google maps loadSearchBar function',  ()=> {
-    spyOn(comp.maps, 'loadSearchBar');
-    comp.maps.loadSearchBar(input);
-    expect(comp.maps).toBeDefined();
-    expect(comp.maps.loadSearchBar).toHaveBeenCalled();
+    spyOn(maps2, 'loadSearchBar');
+    maps2.loadSearchBar(input);
+    expect(maps2).toBeDefined();
+    expect(maps2.loadSearchBar).toHaveBeenCalled();
   });
   it('should allow maps to have showMarkers function', () => {
-    expect(comp.maps.showMarkers(dataArr));
+    expect(maps2.showMarkers(dataArr));
   });
   it('should have called google maps showMarkers function',  ()=> {
-    spyOn(comp.maps, 'showMarkers');
-    comp.maps.showMarkers(dataArr);
-    expect(comp.maps).toBeDefined();
-    expect(comp.maps.showMarkers).toHaveBeenCalled();
+    spyOn(maps2, 'showMarkers');
+    maps2.showMarkers(dataArr);
+    expect(maps2).toBeDefined();
+    expect(maps2.showMarkers).toHaveBeenCalled();
   });
   it('should allow maps to have showMarkers function', () => {
-    expect(comp.maps.showMarkers(dataArr));
+    expect(maps2.showMarkers(dataArr));
   });
   it('should have called google maps showMarkers function',  ()=> {
-    spyOn(comp.maps, 'showMarkers');
-    comp.maps.showMarkers(dataArr);
-    expect(comp.maps).toBeDefined();
-    expect(comp.maps.showMarkers).toHaveBeenCalled();
+    spyOn(maps2, 'showMarkers');
+    maps2.showMarkers(dataArr);
+    expect(maps2).toBeDefined();
+    expect(maps2.showMarkers).toHaveBeenCalled();
   });
   it('should allow maps to have addMarker function', () => {
-    expect(comp.maps.addMarker(lat, lon, stopName));
+    expect(maps2.addMarker(lat, lon, stopName));
   });
   it('should have called google maps addMarker function',  ()=> {
-    spyOn(comp.maps, 'addMarker');
-    comp.maps.addMarker(lat, lon, stopName);
-    expect(comp.maps).toBeDefined();
-    expect(comp.maps.addMarker).toHaveBeenCalled();
+    spyOn(maps2, 'addMarker');
+    maps2.addMarker(lat, lon, stopName);
+    expect(maps2).toBeDefined();
+    expect(maps2.addMarker).toHaveBeenCalled();
   });
   it('should allow maps to have disableMap function', () => {
-    expect(comp.maps.disableMap());
+    expect(maps2.disableMap());
   });
   it('should have called google maps disableMap function',  ()=> {
-    spyOn(comp.maps, 'disableMap');
-    comp.maps.disableMap();
-    expect(comp.maps).toBeDefined();
-    expect(comp.maps.disableMap).toHaveBeenCalled();
+    spyOn(maps2, 'disableMap');
+    maps2.disableMap();
+    expect(maps2).toBeDefined();
+    expect(maps2.disableMap).toHaveBeenCalled();
   });
   it('should allow maps to have enableMap function', () => {
-    expect(comp.maps.enableMap());
+    expect(maps2.enableMap());
   });
   it('should have called google maps enableMap function',  ()=> {
-    spyOn(comp.maps, 'enableMap');
-    comp.maps.enableMap();
-    expect(comp.maps).toBeDefined();
-    expect(comp.maps.enableMap).toHaveBeenCalled();
+    spyOn(maps2, 'enableMap');
+    maps2.enableMap();
+    expect(maps2).toBeDefined();
+    expect(maps2.enableMap).toHaveBeenCalled();
   });
   it('should allow maps to have addConnectivityListeners function', () => {
-    expect(comp.maps.addConnectivityListeners());
+    expect(maps2.addConnectivityListeners());
   });
   it('should have called google maps addConnectivityListeners function',  ()=> {
-    spyOn(comp.maps, 'addConnectivityListeners');
-    comp.maps.addConnectivityListeners();
-    expect(comp.maps).toBeDefined();
-    expect(comp.maps.addConnectivityListeners).toHaveBeenCalled();
+    spyOn(maps2, 'addConnectivityListeners');
+    maps2.addConnectivityListeners();
+    expect(maps2).toBeDefined();
+    expect(maps2.addConnectivityListeners).toHaveBeenCalled();
   });
   it('should allow maps to have calcRoute function', () => {
-    expect(comp.maps.calcRoute(lat,lon));
+    expect(maps2.calcRoute(lat,lon));
   });
   it('should have called google maps calcRoute function',  ()=> {
-    spyOn(comp.maps, 'calcRoute');
-    comp.maps.calcRoute(lat, lon);
-    expect(comp.maps).toBeDefined();
-    expect(comp.maps.calcRoute).toHaveBeenCalled();
+    spyOn(maps2, 'calcRoute');
+    maps2.calcRoute(lat, lon);
+    expect(maps2).toBeDefined();
+    expect(maps2.calcRoute).toHaveBeenCalled();
   });
   it('should allow maps to have renderDirectionsPolylines function', () => {
-    expect(comp.maps.renderDirectionsPolylines(response));
+    expect(maps2.renderDirectionsPolylines(response));
   });
   it('should have called google maps renderDirectionsPolylines function',  ()=> {
-    spyOn(comp.maps, 'renderDirectionsPolylines');
-    comp.maps.renderDirectionsPolylines(response);
-    expect(comp.maps).toBeDefined();
-    expect(comp.maps.renderDirectionsPolylines).toHaveBeenCalled();
+    spyOn(maps2, 'renderDirectionsPolylines');
+    maps2.renderDirectionsPolylines(response);
+    expect(maps2).toBeDefined();
+    expect(maps2.renderDirectionsPolylines).toHaveBeenCalled();
   });
   it('should allow maps to have selectedDest function', () => {
-    expect(comp.maps.selectedDest(destination));
+    expect(maps2.selectedDest(destination));
   });
   it('should have called google maps selectedDest function',  ()=> {
-    spyOn(comp.maps, 'selectedDest');
-    comp.maps.selectedDest(destination);
-    expect(comp.maps).toBeDefined();
-    expect(comp.maps.selectedDest).toHaveBeenCalled();
+    spyOn(maps2, 'selectedDest');
+    maps2.selectedDest(destination);
+    expect(maps2).toBeDefined();
+    expect(maps2.selectedDest).toHaveBeenCalled();
   });
   it('should allow maps to have clearDisplayedPaths function', () => {
-    expect(comp.maps.clearDisplayedPaths());
+    expect(maps2.clearDisplayedPaths());
   });
   it('should have called google maps clearDisplayedPaths function',  ()=> {
-    spyOn(comp.maps, 'clearDisplayedPaths');
-    comp.maps.clearDisplayedPaths();
-    expect(comp.maps).toBeDefined();
-    expect(comp.maps.clearDisplayedPaths).toHaveBeenCalled();
+    spyOn(maps2, 'clearDisplayedPaths');
+    maps2.clearDisplayedPaths();
+    expect(maps2).toBeDefined();
+    expect(maps2.clearDisplayedPaths).toHaveBeenCalled();
   });
   it('should allow maps to have clearMarkers function', () => {
-    expect(comp.maps.clearMarkers());
+    expect(maps2.clearMarkers());
   });
   it('should have called google maps clearMarkers function',  ()=> {
-    spyOn(comp.maps, 'clearMarkers');
-    comp.maps.clearMarkers();
-    expect(comp.maps).toBeDefined();
-    expect(comp.maps.clearMarkers).toHaveBeenCalled();
+    spyOn(maps2, 'clearMarkers');
+    maps2.clearMarkers();
+    expect(maps2).toBeDefined();
+    expect(maps2.clearMarkers).toHaveBeenCalled();
   });
   });

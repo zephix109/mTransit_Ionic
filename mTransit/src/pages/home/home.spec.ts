@@ -18,7 +18,7 @@ let comp: HomePage;
 
 let de: DebugElement;
 let el: HTMLElement;
-
+let comp2: HomePage = null;
 describe('Page: Home Page', () => {
 
   beforeEach(async(() => {
@@ -51,7 +51,6 @@ describe('Page: Home Page', () => {
 
     fixture = TestBed.createComponent(HomePage);
     comp    = fixture.componentInstance;
-
   });
 
   afterEach(() => {

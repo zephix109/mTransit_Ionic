@@ -2,7 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { TranslateService } from 'ng2-translate';
-
+//import { BusStopService } from './bus-stop-service';
+//import { Connectivity } from './connectivity';
+//import { GoogleMaps } from './google-maps';
 import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
 import { RatingPagePage } from '../pages/rating-page/rating-page';
