@@ -100,48 +100,48 @@ describe('Providers: bus-stop-service', () => {
     el = null;
   });
   it('should allow maps to have load_Near_User function', () => {
-    expect(comp.bus_stop_service.load_Near_User());
+    expect(comp.busStopService.load_Near_User());
   });
   it('should have called google maps load_Near_User function',  ()=> {
-    spyOn(comp.bus_stop_service, 'load_Near_User');
-    comp.bus_stop_service.load_Near_User();
-    expect(comp.bus_stop_service).toBeDefined();
-    expect(comp.bus_stop_service.load_Near_User).toHaveBeenCalled();
+    spyOn(comp.busStopService, 'load_Near_User');
+    comp.busStopService.load_Near_User();
+    expect(comp.busStopService).toBeDefined();
+    expect(comp.busStopService.load_Near_User).toHaveBeenCalled();
   });
   it('should allow maps to have load_Destination function', () => {
-    expect(comp.bus_stop_service.load_Destination(lat, lon));
+    expect(comp.busStopService.load_Destination(lat, lon));
   });
   it('should have called google maps load_Destination function',  ()=> {
-    spyOn(comp.bus_stop_service, 'load_Destination');
-    comp.bus_stop_service.load_Destination(lat, lon);
-    expect(comp.bus_stop_service).toBeDefined();
-    expect(comp.bus_stop_service.load_Destination).toHaveBeenCalled();
+    spyOn(comp.busStopService, 'load_Destination');
+    comp.busStopService.load_Destination(lat, lon);
+    expect(comp.busStopService).toBeDefined();
+    expect(comp.busStopService.load_Destination).toHaveBeenCalled();
   });
   it('should allow maps to have applyHaversine function', () => {
-    expect(comp.bus_stop_service.applyHaversine(busStopJSONarr, user_lat, user_lon));
+    expect(comp.busStopService.applyHaversine(busStopJSONarr, user_lat, user_lon));
   });
   it('should have called google maps applyHaversine function',  ()=> {
-    spyOn(comp.bus_stop_service, 'applyHaversine');
-    comp.bus_stop_service.applyHaversine(busStopJSONarr, user_lat, user_lon);
-    expect(comp.bus_stop_service).toBeDefined();
-    expect(comp.bus_stop_service.applyHaversine).toHaveBeenCalled();
+    spyOn(comp.busStopService, 'applyHaversine');
+    comp.busStopService.applyHaversine(busStopJSONarr, user_lat, user_lon);
+    expect(comp.busStopService).toBeDefined();
+    expect(comp.busStopService.applyHaversine).toHaveBeenCalled();
   });
   it('should allow maps to have getDistanceBetweenPoints function', () => {
-    expect(comp.bus_stop_service.getDistanceBetweenPoints(start, end, units));
+    expect(comp.busStopService.getDistanceBetweenPoints(start, end, units));
   });
   it('should have called google maps getDistanceBetweenPoints function',  ()=> {
-    spyOn(comp.bus_stop_service, 'getDistanceBetweenPoints');
-    comp.bus_stop_service.getDistanceBetweenPoints(start, end, units);
-    expect(comp.bus_stop_service).toBeDefined();
-    expect(comp.bus_stop_service.getDistanceBetweenPoints).toHaveBeenCalled();
+    spyOn(comp.busStopService, 'getDistanceBetweenPoints');
+    comp.busStopService.getDistanceBetweenPoints(start, end, units);
+    expect(comp.busStopService).toBeDefined();
+    expect(comp.busStopService.getDistanceBetweenPoints).toHaveBeenCalled();
   });
   it('should allow maps to have toRad function', () => {
-    expect(comp.bus_stop_service.toRad(x));
+    expect(comp.busStopService.toRad(x));
   });
   it('should have called google maps toRad function',  ()=> {
-    spyOn(comp.bus_stop_service, 'toRad');
-    comp.bus_stop_service.toRad(x);
-    expect(comp.bus_stop_service).toBeDefined();
-    expect(comp.bus_stop_service.toRad).toHaveBeenCalled();
+    spyOn(comp.busStopService, 'toRad');
+    comp.busStopService.toRad(x);
+    expect(comp.busStopService).toBeDefined();
+    expect(comp.busStopService.toRad).toHaveBeenCalled();
   });
 });

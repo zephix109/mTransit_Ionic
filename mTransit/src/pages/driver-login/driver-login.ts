@@ -15,9 +15,4 @@ import { MapPage } from '../map/map';
 export class DriverLoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
-
-  //function that loads the map page
-  public goToMap(){
-      this.navCtrl.push(MapPage);
-  }
 }
