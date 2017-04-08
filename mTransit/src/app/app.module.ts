@@ -51,7 +51,7 @@ import firebase from 'firebase';
     RatingPagePage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},StatusBar, Splashscreen,
-    BusStopService, GoogleMaps, Connectivity, Storage]
+    BusStopService, GoogleMaps, Connectivity]
 })
 export class AppModule {}
 export function createTranslateLoader(http: Http) {

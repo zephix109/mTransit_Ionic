@@ -2,6 +2,7 @@ var AuthenticationController = require('./controllers/authentication'),
     TodoController = require('./controllers/todos'),  
     BusStopController = require('./controllers/busStops'),
     StopTimeController = require('./controllers/stopTime'),
+    ShapesController = require('./controllers/shapes');
     express = require('express'),
     passportService = require('../config/passport'),
     passport = require('passport');
@@ -15,7 +16,8 @@ module.exports = function(app){
         authRoutes = express.Router(),
         todoRoutes = express.Router(),
         busstopRoutes = express.Router(),
-        stopTimeRoutes = express.Router();
+        stopTimeRoutes = express.Router(),
+        shapeRoutes = express.Router();
  
     // Auth Routes
     apiRoutes.use('/auth', authRoutes);
@@ -27,15 +29,21 @@ module.exports = function(app){
         res.send({ content: 'Success'});
     });
     
-    //Bus stop routes
+    //Bus-Stop routes
     apiRoutes.use('/busStop',busstopRoutes);
     //busstopRoutes.get('/',BusStopController.getStopTimes);
     busstopRoutes.get('/:lat/:lng',BusStopController.getStops);
 
-    apiRoutes.use('stopTimes',stopTimeRoutes);
+    //StopTime routes
+    apiRoutes.use('/stopTimes',stopTimeRoutes);
     stopTimeRoutes.get('/list:trip_id',StopTimeController.getStopTimes);
     stopTimeRoutes.get('/single:stop_id', StopTimeController.getTrip);
-    //Will only trigger if user successfully logs in
+
+    //Shape routes
+    apiRoutes.use('/shapes',shapeRoutes);
+    shapeRoutes.get('/:shape_id', ShapesController.getShapesById);
+    shapeRoutes.get('/:lat/:lng', ShapesController.getShapesByLocation);
+
     // Todo Routes
     apiRoutes.use('/todos', todoRoutes);
     

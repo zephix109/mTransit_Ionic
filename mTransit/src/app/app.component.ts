@@ -6,12 +6,11 @@ import { TranslateService } from 'ng2-translate';
 import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
 import { RatingPagePage } from '../pages/rating-page/rating-page';
-import { Auth } from '../providers/auth';
+
 import * as firebase from 'firebase';
 
 @Component({
-  templateUrl: 'app.html',
-  providers: [Auth]
+  templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav; 
@@ -20,7 +19,7 @@ export class MyApp {
   pages: Array<{title: string, component: any}>;
 
 
-  constructor(platform: Platform, public translate: TranslateService, public statusBar: StatusBar, public splashScreen: Splashscreen, public auth: Auth) {
+  constructor(platform: Platform, public translate: TranslateService, public statusBar: StatusBar, public splashScreen: Splashscreen) {
     
     const firebaseConfig = {
       apiKey: "AIzaSyClOWx3rRxBGM1yshjpC-brIQfoyMG4k0M",
@@ -34,14 +33,6 @@ export class MyApp {
         { title: 'Map Page', component: MapPage },
         { title: 'Rating Page', component: RatingPagePage }
     ];
-
-    if(this.auth.checkAuthentication()){
-      this.pages = [
-      // { title: 'Home Page', component: HomePage },
-        { title: 'Map Page', component: MapPage },
-        { title: 'Rating Page', component: RatingPagePage }
-      ];
-    }
 
     firebase.initializeApp(firebaseConfig);
 
