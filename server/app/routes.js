@@ -2,6 +2,7 @@ var AuthenticationController = require('./controllers/authentication'),
     TodoController = require('./controllers/todos'),  
     BusStopController = require('./controllers/busStops'),
     StopTimeController = require('./controllers/stopTime'),
+	ShapeController = require('./controllers/shapes'),
     express = require('express'),
     passportService = require('../config/passport'),
     passport = require('passport');
@@ -15,6 +16,7 @@ module.exports = function(app){
         authRoutes = express.Router(),
         todoRoutes = express.Router(),
         busstopRoutes = express.Router(),
+		shapeRoutes = express.Router(),
         stopTimeRoutes = express.Router();
  
     // Auth Routes
@@ -27,6 +29,10 @@ module.exports = function(app){
         res.send({ content: 'Success'});
     });
     
+	//Shape routes
+	apiRoutes.use('/shape',shapeRoutes);
+	//shapeRoutes.get()
+	
     //Bus stop routes
     apiRoutes.use('/busStop',busstopRoutes);
     //busstopRoutes.get('/',BusStopController.getStopTimes);
