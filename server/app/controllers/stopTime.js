@@ -10,12 +10,30 @@ exports.getStopTimes = function(req, res, next){
             res.send(err);
         }
         
-        
+        busTimes.toArray(function(err,docs){
+            //console.log(docs);
+            for(let a of docs){
+                console.log(a.stop_id);
+            }
+        });
 
         res.json(busTimes);
  
     });
  
+}
+
+exports.getTrip = function(req,res,next){
+
+    st.findOne({stop_id : req.params.stop_id}, function(err, existingStopTime){
+
+        if(existingStopTime){
+            res/json(existingStopTime);
+        }
+        
+    });
+
+    
 }
 
 

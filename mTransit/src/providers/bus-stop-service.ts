@@ -196,6 +196,10 @@ export class BusStopService {
       return x * Math.PI / 180;
   }
 
+  getCorrespondingBusPath(){
+    
+  }
+
   
 }
 
