@@ -1,4 +1,4 @@
-var Routes = require('../models/busRoutes');
+var Routes = require('../models/busRoute');
  
 exports.getRoutes = function(req, res, next){
  

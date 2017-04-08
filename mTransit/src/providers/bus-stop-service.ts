@@ -96,8 +96,9 @@ export class BusStopService {
         url = "/android_asset/www/src/" + url;
       }
 
-      this.http.get(url)
-        .map(res => res.json().bus_stops)
+      //this.http.get(url)
+      this.http.get('https://mtransit390.herokuapp.com/api/busStop')
+        .map(res => res.json())
         .subscribe(data => {
 
             Promise.all([

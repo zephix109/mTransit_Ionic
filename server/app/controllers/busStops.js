@@ -1,4 +1,4 @@
-var Stop = require('../models/busStops');
+var Stop = require('../models/busStop');
  
 exports.getStops = function(req, res, next){
  
