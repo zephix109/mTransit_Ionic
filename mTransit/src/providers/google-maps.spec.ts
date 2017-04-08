@@ -97,12 +97,15 @@ describe('Providers: google-maps', () => {
     comp = null;
     de = null;
     el = null;
+    maps2 = null;
   });
   
   it('should allow maps to have init function', () => {
     expect(maps2.init(mapElement, pleaseConnect));
   });
-
+  it('should return a promise',  ()=> {
+    expect(typeof maps2.init(mapElement, pleaseConnect)).toBe('Promise<any>');
+  });
   it('should have called google maps init function',  ()=> {
     spyOn(maps2, 'init');
     maps2.init(mapElement, pleaseConnect);
@@ -111,6 +114,9 @@ describe('Providers: google-maps', () => {
   });
   it('should allow maps to have loadGoogleMaps function', () => {
     expect(maps2.loadGoogleMaps());
+  });
+  it('should return a promise',  ()=> {
+    expect(typeof maps2.loadGoogleMaps()).toBe('Promise<any>');
   });
   it('should have called google maps loadGoogleMaps function',  ()=> {
     spyOn(maps2, 'loadGoogleMaps');

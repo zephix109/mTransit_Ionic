@@ -9,16 +9,20 @@ import { MyApp } from '../../app/app.component';
 import { NavMock } from '../../mocks';
 import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate/ng2-translate';
 import { TranslateService } from 'ng2-translate';
-
+import { MapPage } from '../map/map';
+import { SmsPage } from '../sms/sms';
+import { RatingPagePage } from '../rating-page/rating-page';
+import { DriverLoginPage } from '../driver-login/driver-login';
 
 let fixture: ComponentFixture<HomePage> = null;
 let instance: any = null;
 
 let comp: HomePage;
-
 let de: DebugElement;
 let el: HTMLElement;
 let comp2: HomePage = null;
+let navCtrl: NavController;
+let translateService: TranslateService;
 describe('Page: Home Page', () => {
 
   beforeEach(async(() => {
@@ -51,6 +55,7 @@ describe('Page: Home Page', () => {
 
     fixture = TestBed.createComponent(HomePage);
     comp    = fixture.componentInstance;
+    comp2 = new HomePage(navCtrl, translateService);
   });
 
   afterEach(() => {
@@ -58,6 +63,7 @@ describe('Page: Home Page', () => {
     comp = null;
     de = null;
     el = null;
+    comp2 = null;
   });
 
   it('is created', () => {
@@ -69,67 +75,67 @@ describe('Page: Home Page', () => {
     expect(comp.goToMap());
   });
   it('should have called goToMap function',  ()=> {
-    spyOn(comp, 'goToMap');
-    comp.goToMap();
-    expect(comp).toBeDefined();
-    expect(comp.goToMap).toHaveBeenCalled();
+    spyOn(comp2, 'goToMap');
+    comp2.goToMap();
+    expect(comp2).toBeDefined();
+    expect(comp2.goToMap).toHaveBeenCalled();
   });
   it('should include the goToSMS function', ()=> {
     expect(comp.goToSMS());
   });
   it('should have called goToSMS function',  ()=> {
-    spyOn(comp, 'goToSMS');
-    comp.goToSMS();
-    expect(comp).toBeDefined();
-    expect(comp.goToSMS).toHaveBeenCalled();
+    spyOn(comp2, 'goToSMS');
+    comp2.goToSMS();
+    expect(comp2).toBeDefined();
+    expect(comp2.goToSMS).toHaveBeenCalled();
   });
   it('should include the goToDriverLogin function', ()=> {
     expect(comp.goToDriverLogin());
   });
   it('should have called goToDriverLogin function',  ()=> {
-    spyOn(comp, 'goToDriverLogin');
-    comp.goToDriverLogin();
-    expect(comp).toBeDefined();
-    expect(comp.goToDriverLogin).toHaveBeenCalled();
+    spyOn(comp2, 'goToDriverLogin');
+    comp2.goToDriverLogin();
+    expect(comp2).toBeDefined();
+    expect(comp2.goToDriverLogin).toHaveBeenCalled();
   });
   it('should include the goToRating function', () => {
     expect(comp.goToRating());
   });
     it('should have called goToRating function',  ()=> {
-    spyOn(comp, 'goToRating');
-    comp.goToRating();
-    expect(comp).toBeDefined();
-    expect(comp.goToRating).toHaveBeenCalled();
+    spyOn(comp2, 'goToRating');
+    comp2.goToRating();
+    expect(comp2).toBeDefined();
+    expect(comp2.goToRating).toHaveBeenCalled();
   });
   it('should include the swapLanguage function', ()=> {
     expect(comp.swapLanguage());
   });
   it('should have called swapLanguage function',  ()=> {
-    spyOn(comp, 'swapLanguage');
-    comp.swapLanguage();
-    expect(comp).toBeDefined();
-    expect(comp.swapLanguage).toHaveBeenCalled();
+    spyOn(comp2, 'swapLanguage');
+    comp2.swapLanguage();
+    expect(comp2).toBeDefined();
+    expect(comp2.swapLanguage).toHaveBeenCalled();
   });
   it('should change language to French', ()=> {
-    comp.swapLanguage();
-    expect(comp).toBeDefined();
-    if(comp.translateService.currentLang == "en")
-      expect(comp.translateService.use('fr'));
+    comp2.swapLanguage();
+    expect(comp2).toBeDefined();
+    if(comp2.translateService.currentLang == "en")
+      expect(comp2.translateService.use('fr'));
   });
   it('should change language to English', ()=> {
-    comp.swapLanguage();
-    expect(comp).toBeDefined();
-    if(comp.translateService.currentLang == "fr")
-      expect(comp.translateService.use('en'));
+    comp2.swapLanguage();
+    expect(comp2).toBeDefined();
+    if(comp2.translateService.currentLang == "fr")
+      expect(comp2.translateService.use('en'));
   });
   it('should include facebookLogin function', ()=> {
     expect(comp.facebookLogin());
   });
   it('should have called facebookLogin function', ()=> {
-    spyOn(comp,'facebookLogin');
-    comp.facebookLogin();
-    expect(comp).toBeDefined();
-    expect(comp.facebookLogin).toHaveBeenCalled();
+    spyOn(comp2,'facebookLogin');
+    comp2.facebookLogin();
+    expect(comp2).toBeDefined();
+    expect(comp2.facebookLogin).toHaveBeenCalled();
   });
 
 });

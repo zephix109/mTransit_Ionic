@@ -3,7 +3,7 @@ import { MapPage } from '../pages/map/map';
 import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { IonicModule, NavController } from 'ionic-angular';
+import { IonicModule, NavController, Platform } from 'ionic-angular';
 import { MyApp } from '../app/app.component';
 import { NavMock } from '../mocks';
 import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate/ng2-translate';
@@ -43,7 +43,7 @@ let units: any;
 let x: any;
 let Connection: any;
 let connectivity: Connectivity;
-
+let platform: Platform;
 describe('Providers: connectivity', () => {
 
   beforeEach(async(() => {
@@ -89,7 +89,6 @@ describe('Providers: connectivity', () => {
 
     fixture = TestBed.createComponent(MapPage);
     comp    = fixture.componentInstance;
-
   });
 
   afterEach(() => {
@@ -101,7 +100,7 @@ describe('Providers: connectivity', () => {
   
   it('should allow maps to have isOnline function', () => {
     expect(Connection.isOnline());
-  });
+  })
   it('should have called google maps isOnline function',  ()=> {
     spyOn(Connection, 'isOnline');
     Connection.isOnline();
