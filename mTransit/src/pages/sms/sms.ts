@@ -16,15 +16,15 @@ export class SmsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
-  sendSMS(){
-    var options={
+  public sendSMS(){
+    const options={
       replaceLineBreaks: false,
       android: {
         intent: 'INTENT'  
       }
-    }
+    };
+    
     SMS.send('5149447896','1234',options);
       //.then(()=>{},()=>{});
   }
-
 }

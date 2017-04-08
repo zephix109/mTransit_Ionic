@@ -17,8 +17,7 @@ export class DriverLoginPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   //function that loads the map page
-  goToMap(){
+  public goToMap(){
       this.navCtrl.push(MapPage);
   }
-
 }

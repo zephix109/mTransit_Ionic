@@ -11,7 +11,7 @@ import * as firebase from 'firebase';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  @ViewChild(Nav) nav: Nav; 
+  @ViewChild(Nav) public nav: Nav; 
 
   public rootPage : any = HomePage;
   public pages: Array<{title: string, component: any}>;

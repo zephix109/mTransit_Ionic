@@ -21,7 +21,7 @@ export class HomePage {
   }
 
   //function that logs the user in. It currently redirects to map page, but will redirect to SMS when that functionality is completed.
-  facebookLogin(){
+  public facebookLogin(){
       Facebook.login(['email']).then( (response) => {
           const facebookCredential = firebase.auth.FacebookAuthProvider
               .credential(response.authResponse.accessToken);
@@ -33,31 +33,31 @@ export class HomePage {
   }
 
   //function that loads the map page
-  goToMap(){
+  public goToMap(){
     this.navCtrl.push(MapPage);
   }
 
   //function that loads the SMS verification page
-  goToSMS(){
+  public goToSMS(){
     this.navCtrl.push(SmsPage);
   }
 
   //function that loads the driver login page
-  goToDriverLogin(){
+  public goToDriverLogin(){
       this.navCtrl.push(DriverLoginPage);
   }
 
   //function that loads the rating page
-  goToRating(){
+  public goToRating(){
       this.navCtrl.push(RatingPagePage);
   }
 
   //function that changes the language from Englishs to French and vice versa
-  swapLanguage() {
-    if (this.translateService.currentLang == "en")
+  public swapLanguage() {
+    if (this.translateService.currentLang == "en") {
       this.translateService.use('fr');
-    else
-      this.translateService.use('en');
+    } else {
+      this.translateService.use('en');  
+    }
   }
-
 }

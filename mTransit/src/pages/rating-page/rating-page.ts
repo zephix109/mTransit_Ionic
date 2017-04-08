@@ -18,10 +18,10 @@ export class RatingPagePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl : AlertController) {}
 
-  //onModelChange(){}
+  //To be added with full database support
+  // onModelChange(){}
 
-  finishReview() {
-    if(this.rate > 0){}
-  }
-  
+  // public finishReview() {
+  //   if(this.rate > 0){}
+  // }
 }

@@ -250,7 +250,7 @@ export class GoogleMaps {
           content: contentString
     });
 
-    infowindow.addListener('click', () =>{ });
+    infowindow.addListener('click', () =>{/*Add code for route selection here*/});
     marker.addListener('click', () => {
     marker.setIcon(selectedMarker);
     infowindow.open(this.map, marker);
@@ -364,8 +364,7 @@ export class GoogleMaps {
         }
         stepPolyline.setMap(this.map);
         // route click listeners, different one on each step
-        google.maps.event.addListener(stepPolyline, 'click', (evt) => {
-        });
+        google.maps.event.addListener(stepPolyline, 'click', (evt) => {/*Add code for polyline click*/});
       }
     }
   }
