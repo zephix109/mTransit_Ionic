@@ -29,7 +29,8 @@ module.exports = function(app){
     
     //Bus stop routes
     apiRoutes.use('/busStop',busstopRoutes);
-    busstopRoutes.get('/',BusStopController.getStopTimes);
+    //busstopRoutes.get('/',BusStopController.getStopTimes);
+    busstopRoutes.get('/:lat/:lng',BusStopController.getStops);
 
     apiRoutes.use('stopTimes',stopTimeRoutes);
     stopTimeRoutes.get('/list:trip_id',StopTimeController.getStopTimes);

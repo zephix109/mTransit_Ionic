@@ -81,11 +81,6 @@ export class BusStopService {
   */
   public load_Destination(lat: number, lng: number) {
 
-    // if (this.data_destination) {
-    //   console.log("Destinations already exist");
-    //   return Promise.resolve(this.data_destination);
-    // }
-    console.log("Inside load_destination Lat: " + lat );
     // don't have the data yet
     return new Promise(resolve => {
 
@@ -97,27 +92,15 @@ export class BusStopService {
       }
 
       this.http.get(url)
-      this.http.get('https://mtransit390.herokuapp.com/api/busStop')
-     //this.http.get('http://localhost:8080/api/busStop')
-        //.map(res => res.json().bus_stops)
+      //this.http.get('https://mtransit390.herokuapp.com/api/busStop')
+     this.http.get('http://localhost:8080/api/busStop/' + lat + '/' + lng) //use this to test local host
+        //.map(res => res.json().bus_stops) //use this to test with file in doc
         .map(res => res.json())
         .subscribe(data => {
           
-           // let data = res.json();
-            Promise.all([
-              
-              // 1 - Create and calculate 'distance' value for each item in the array
-              this.applyHaversine( data, lat, lng ),  
-              // 2 - Sort array
-              data.sort((busStopA,busStopB) => {
-                return busStopA.distance - busStopB.distance;
-              }),
-              // 3 - Show only the first 50
-              this.data_destination = data.slice(0,10),
-              //console.log(this.data_destination),
-              resolve(this.data_destination)
-              
-            ]);
+
+          this.data_destination = data;
+          resolve(data);
 
       });
         
@@ -198,6 +181,10 @@ export class BusStopService {
 
   getCorrespondingBusPath(){
     
+  }
+
+  getBusTripId(){
+
   }
 
   
