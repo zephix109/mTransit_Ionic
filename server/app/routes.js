@@ -24,7 +24,7 @@ module.exports = function(app){
     authRoutes.get('/protected', requireAuth, function(req, res){
         res.send({ content: 'Success'});
     });
-
+    
     //Bus stop routes
     apiRoutes.use('/busStop',busstopRoutes);
     busstopRoutes.get('/',BusStopController.getStops);

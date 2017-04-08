@@ -1,49 +1,22 @@
-var Routes = require('../models/busRoute');
+var st = require('../models/stopTime');
+
+
+//Get list of bus stops corresponding to trip
+exports.getStopTimes = function(req, res, next){
  
-exports.getRoutes = function(req, res, next){
- 
-    Routes.find(function(err, Routes) {
- 
-        if (err){
-            res.send(err);
-        }
- 
-        res.json(Routes);
- 
-    });
- 
-}
- 
-exports.createRoutes = function(req, res, next){
- 
-    Route.create({
-        title : req.body.title
-    }, function(err, Route) {
+    st.find({trip_id : req.params.trip_id},function(err, busTimes) {
  
         if (err){
             res.send(err);
         }
- 
-        Route.find(function(err, Routes) {
- 
-            if (err){
-                res.send(err);
-            }
- 
-            res.json(Routes);
- 
-        });
+        
+        
+
+        res.json(busTimes);
  
     });
  
 }
- 
-exports.deleteRoute = function(req, res, next){
- 
-    Route.remove({
-        _id : req.params.Route_id
-    }, function(err, Route) {
-        res.json(Route);
-    });
- 
-}
+
+
+

@@ -1,13 +1,15 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var routeSchema = new Schema({
-	stop_time : Number,
-	stop_code : Number
+var StopTimeSchema = new Schema({
 
-});
+	trip_id : String,
+	arrival_time: Date,
+	departure_time: Date,
+	stop_id : Number,
+	stop_sequence : Number
+
+},{ collection : 'stop_times' });
 
 
-var Route = mongoose.model('Route', routeSchema);
-
-module.exports = Route;
+module.exports = mongoose.model('StopTime', StopTimeSchema, 'stop_times');
