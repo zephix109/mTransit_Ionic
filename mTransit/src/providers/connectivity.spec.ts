@@ -1,18 +1,17 @@
-
-import { TestUtils } from '../../test';
-import { MapPage } from './map';
+import { TestUtils } from '../test';
+import { MapPage } from '../pages/map/map';
 import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { IonicModule, NavController } from 'ionic-angular';
-import { MyApp } from '../../app/app.component';
-import { NavMock } from '../../mocks';
+import { MyApp } from '../app/app.component';
+import { NavMock } from '../mocks';
 import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate/ng2-translate';
 import { TranslateService } from 'ng2-translate';
-import { GoogleMaps } from '../../providers/google-maps';
+import { GoogleMaps } from './google-maps';
 import { Injectable, NgZone } from '@angular/core';
-import { BusStopService } from '../../providers/bus-stop-service';
-import { Connectivity } from '../../providers/connectivity';
+import { BusStopService } from './bus-stop-service';
+import { Connectivity } from './connectivity';
 import { Network } from 'ionic-native';
 
 let fixture: ComponentFixture<MapPage> = null;
@@ -45,7 +44,7 @@ let x: any;
 let Connection: any;
 let connectivity: Connectivity;
 
-describe('Pages: Map', () => {
+describe('Providers: connectivity', () => {
 
   beforeEach(async(() => {
 
@@ -99,31 +98,23 @@ describe('Pages: Map', () => {
     de = null;
     el = null;
   });
-
-  it('should create the map page', async(() => {
-    expect(fixture).toBeTruthy();
-    expect(comp).toBeTruthy();
-  }));
-
-  it('should include the loadMap function', () => {
-    expect(comp.ionViewDidLoad());
+  
+  it('should allow maps to have isOnline function', () => {
+    expect(Connection.isOnline());
   });
-  it('should have called loadMap function',  ()=> {
-    spyOn(comp, 'ionViewDidLoad');
-    comp.ionViewDidLoad();
-    expect(comp).toBeDefined();
-    expect(comp.ionViewDidLoad).toHaveBeenCalled();
+  it('should have called google maps isOnline function',  ()=> {
+    spyOn(Connection, 'isOnline');
+    Connection.isOnline();
+    expect(Connection).toBeDefined();
+    expect(Connection.isOnline).toHaveBeenCalled();
   });
-
-  it('should include the goToRating function', () => {
-    expect(comp.goToRating());
+  it('should allow maps to have isOffline function', () => {
+    expect(Connection.isOffline());
   });
-    it('should have called goToRating function',  ()=> {
-    spyOn(comp, 'goToRating');
-    comp.goToRating();
-    expect(comp).toBeDefined();
-    expect(comp.goToRating).toHaveBeenCalled();
+  it('should have called google maps isOffline function',  ()=> {
+    spyOn(Connection, 'isOffline');
+    Connection.isOffline();
+    expect(Connection).toBeDefined();
+    expect(Connection.isOffline).toHaveBeenCalled();
   });
-
-
 });
