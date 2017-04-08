@@ -2,7 +2,7 @@ var Routes = require('../models/busRoute');
  
 exports.getRoutes = function(req, res, next){
  
-    routes.find(function(err, Routes) {
+    Routes.find(function(err, Routes) {
  
         if (err){
             res.send(err);

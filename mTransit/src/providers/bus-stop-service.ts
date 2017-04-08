@@ -85,7 +85,7 @@ export class BusStopService {
     //   console.log("Destinations already exist");
     //   return Promise.resolve(this.data_destination);
     // }
-    console.log("Inside load_destination");
+    console.log("Inside load_destination Lat: " + lat );
     // don't have the data yet
     return new Promise(resolve => {
 
@@ -96,12 +96,16 @@ export class BusStopService {
         url = "/android_asset/www/src/" + url;
       }
 
-      //this.http.get(url)
+      this.http.get(url)
       this.http.get('https://mtransit390.herokuapp.com/api/busStop')
+     //this.http.get('http://localhost:8080/api/busStop')
+        //.map(res => res.json().bus_stops)
         .map(res => res.json())
         .subscribe(data => {
-
+          
+           // let data = res.json();
             Promise.all([
+              
               // 1 - Create and calculate 'distance' value for each item in the array
               this.applyHaversine( data, lat, lng ),  
               // 2 - Sort array
@@ -110,7 +114,7 @@ export class BusStopService {
               }),
               // 3 - Show only the first 50
               this.data_destination = data.slice(0,10),
-
+              console.log(this.data_destination.stop_lat),
               resolve(this.data_destination)
               
             ]);

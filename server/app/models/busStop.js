@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
 
-var stopSchema = new Schema({
+var stopSchema = new mongoose.Schema({
 	stop_id : Number,
 	stop_code : Number,
 	stop_name : String,
@@ -10,13 +9,21 @@ var stopSchema = new Schema({
 	stop_url : String,
 	wheelchair_boarding : Number
 	
-});
+},{ collection : 'stm_stops' });
 
 stopSchema.methods.getName = function() {
 	
 	return this.stop_name;
 }
 
-var Stop = mongoose.model('Stop', stopSchema);
+stopSchema.methods.getLat = function() {
+	
+	return this.stop_lat;
+}
 
-module.exports = Stop;
+stopSchema.methods.getLng = function() {
+	
+	return this.stop_lon;
+}
+
+module.exports = mongoose.model('Stop', stopSchema, 'stm_stops');

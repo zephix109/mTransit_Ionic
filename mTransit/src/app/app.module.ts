@@ -19,7 +19,7 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 
 import firebase from 'firebase';
 
-let storage: Storage = new Storage();
+//let storage: Storage = new Storage();
 
 @NgModule({
   declarations: [
@@ -51,7 +51,7 @@ let storage: Storage = new Storage();
     RatingPagePage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},StatusBar, Splashscreen,
-    BusStopService, GoogleMaps, Connectivity]
+    BusStopService, GoogleMaps, Connectivity, Storage]
 })
 export class AppModule {}
 export function createTranslateLoader(http: Http) {
