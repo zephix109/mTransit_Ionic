@@ -31,7 +31,6 @@ constructor(public navCtrl: NavController, public translateService: TranslateSer
           .then((success) => {
               console.log("Firebase success: " + JSON.stringify(success));
               this.goToMap();
-              //this.goToSMS();
           })
           .catch((error) => {
               console.log("Firebase failure: " + JSON.stringify(error));
@@ -44,9 +43,7 @@ constructor(public navCtrl: NavController, public translateService: TranslateSer
 
   //function that loads the map page
   goToMap(){
-    //let nav: Nav
     this.navCtrl.push(MapPage);
-    //nav.setRoot(MapPage);
   }
 
   //function that loads the SMS verification page
