@@ -11,10 +11,8 @@ exports.getStopTimes = function(req, res, next){
         }
         
         busTimes.toArray(function(err,docs){
-            //console.log(docs);
-            for(let a of docs){
-                console.log(a.stop_id);
-            }
+
+
         });
 
         res.json(busTimes);

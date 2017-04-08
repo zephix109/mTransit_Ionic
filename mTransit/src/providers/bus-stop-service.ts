@@ -92,8 +92,8 @@ export class BusStopService {
       }
 
       this.http.get(url)
-      //this.http.get('https://mtransit390.herokuapp.com/api/busStop')
-     this.http.get('http://localhost:8080/api/busStop/' + lat + '/' + lng) //use this to test local host
+      this.http.get('https://mtransit390.herokuapp.com/api/busStop/'+ lat + '/' + lng)
+     //this.http.get('http://localhost:8080/api/busStop/' + lat + '/' + lng) //use this to test local host
         //.map(res => res.json().bus_stops) //use this to test with file in doc
         .map(res => res.json())
         .subscribe(data => {

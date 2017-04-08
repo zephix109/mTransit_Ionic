@@ -29,7 +29,7 @@ exports.getStops = function(req, res, next){
 
 applyHaversine = function(busStopJSONarr, userLat, userLon){
 
-      let usersLocation = {
+      var usersLocation = {
 
           lat: userLat, 
           lng: userLon
@@ -38,7 +38,7 @@ applyHaversine = function(busStopJSONarr, userLat, userLon){
 
       busStopJSONarr.map((location) => {
   
-        let placeLocation = {
+        var placeLocation = {
           lat: location.stop_lat,
           lng: location.stop_lon
         };
@@ -59,25 +59,25 @@ applyHaversine = function(busStopJSONarr, userLat, userLon){
   //Calculation for Haversine formulas
 getDistanceBetweenPoints = function(start, end, units){
  
-        let earthRadius = {
+        var earthRadius = {
             miles: 3958.8,
             km: 6371
         };
  
-        let R = earthRadius[units || 'km'];
-        let lat1 = start.lat;
-        let lon1 = start.lng;
-        let lat2 = end.lat;
-        let lon2 = end.lng;
+        var R = earthRadius[units || 'km'];
+        var lat1 = start.lat;
+        var lon1 = start.lng;
+        var lat2 = end.lat;
+        var lon2 = end.lng;
  
-        let dLat = toRad((lat2 - lat1));
-        let dLon = toRad((lon2 - lon1));
-        let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        var dLat = toRad((lat2 - lat1));
+        var dLon = toRad((lon2 - lon1));
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
         Math.sin(dLon / 2) *
         Math.sin(dLon / 2);
-        let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        let d = R * c;
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c;
  
         return d;
  
