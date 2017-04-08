@@ -268,7 +268,7 @@ export class GoogleMaps {
   */
   addMarker(laT: number, lnG: number, stop_name : string): void {
     var image = 'https://www.givepulse.com/images/search/blueMarker.png';
-    var selectedMarker = 'https://www.londondrugs.com/on/demandware.static/Sites-LondonDrugs-Site/-/default/dw2a9afa9b/img/map_marker_default.png';
+    var selectedMarker = 'http://i.imgur.com/sCGNAdB.png';
 
     let marker = new google.maps.Marker({
       map: this.map,
@@ -409,7 +409,7 @@ export class GoogleMaps {
   renderDirectionsPolylines(response) {
 
     let polylineOptions = {
-      strokeColor: '#000000',
+      strokeColor: '#ffffff',
       strokeOpacity: 10,
       strokeWeight: 7
     };
