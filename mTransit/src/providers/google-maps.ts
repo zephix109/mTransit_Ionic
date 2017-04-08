@@ -268,7 +268,7 @@ export class GoogleMaps {
       }
 
       for(let data of dataArr){
-        //let tempLatLng = new GoogleMapsLatLng(data.stop_lat,data.stop_lon);
+
         this.addMarker(data.stop_lat,data.stop_lon,data.stop_name);   
       }
   }

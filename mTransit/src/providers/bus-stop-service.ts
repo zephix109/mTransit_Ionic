@@ -114,7 +114,7 @@ export class BusStopService {
               }),
               // 3 - Show only the first 50
               this.data_destination = data.slice(0,10),
-              console.log(this.data_destination.stop_lat),
+              //console.log(this.data_destination),
               resolve(this.data_destination)
               
             ]);
