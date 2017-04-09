@@ -297,14 +297,13 @@ export class GoogleMaps {
 
     marker.addListener('click', () => {
     marker.setIcon(selectedMarker);
-    infowindow.open(this.map, marker);
+    //infowindow.open(this.map, marker);
 
     
-
     });
 
     //When user confirms a bus stop
-    marker.addListener('rightclick', () =>{
+    marker.addListener('dblclick', () =>{
 
       marker.setIcon(selectedMarker);
       this.clearDisplayedPaths();
