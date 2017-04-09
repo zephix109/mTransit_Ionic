@@ -1,70 +1,48 @@
 var Shape = require('../models/shape');
- 
-exports.getShapesById = function(req, res, next){
- 
-	Shape.find({shape_id : req.params.shape_id},function(err, shapes) { 
-	
-        if (err){
-            res.send(err);
-        }
-        
-        res.json(shapes);
- 
-    });
- 
-}
+var nearBy = require('../formulas');
+
  
 exports.getShapesByLocation = function(req, res, next){
- 
-	Shape.find({shape_pt_lat : req.params.shape_pt_lat, shape_pt_lon: req.params.shape_pt_lon},function(err, shapes) { 
+
+    Shape.find(function(err, allShapes) { 
 	
         if (err){
-            res.send(err);
+            return next(err);
         }
-        
-        shapes.toArray(function(err,docs){
-            //console.log(docs);
-            for(let a of docs){
-                console.log(a.shape_id);
-            }
+
+        //Set our initial shape to a list shape first
+        var shape = allShapes;
+
+        nearBy.applyHaversineForShapes(shape,req.params.lat,req.params.lng);
+
+        shape.sort((shapeA,shapeB) => {
+            return shapeA.distance - shapeB.distance;
         });
 
-        res.json(shapes);
+        shape = shape.splice(0,1);
+        
+       // console.log("Distance: " + shape[0]["distance"]);
+
+       // console.log("Returned shape Lat:" +shape[0]["shape_pt_lat"] + " input lat: "+ req.params.lat);
+
+        Shape.find({
+            shape_id : shape[0]["shape_id"]
+        },function(err, shapes) { 
+        
+            if (err){
+                console.log("None found");
+                res.send(err);
+            }
+
+            shape.sort((shapeA,shapeB) => {
+                return shapeA.shape_pt_sequence - shapeB.shape_pt_sequence;
+            });        
+
+            res.json(shapes);
+    
+        });
  
     });
  
 } 
  
-exports.createShape = function(req, res, next){
- 
-    Shape.create({
-        title : req.body.title
-    }, function(err, shape) {
- 
-        if (err){
-            res.send(err);
-        }
- 
-        Shape.find(function(err, shapes) {
- 
-            if (err){
-                res.send(err);
-            }
- 
-            res.json(shapes);
- 
-        });
- 
-    });
- 
-}
- 
-exports.deleteShape = function(req, res, next){
- 
-    Shape.remove({
-        _id : req.params.shape_id
-    }, function(err, shape) {
-        res.json(shape);
-    });
- 
-}

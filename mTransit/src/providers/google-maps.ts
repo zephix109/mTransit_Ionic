@@ -1,11 +1,15 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Connectivity } from './connectivity';
 import { Geolocation, GoogleMapsLatLng, Geoposition } from 'ionic-native';
+import { Http } from '@angular/http';
+import { Formulas } from './formulas'
  
 declare var google;
  
 @Injectable()
 export class GoogleMaps {
+
+  
  
   mapElement: any;
   pleaseConnect: any;
@@ -14,6 +18,8 @@ export class GoogleMaps {
   mapLoaded: any;
   mapLoadedObserver: any;
   markers: any[] = [];
+  busPath: any[] = [];
+
   apiKey: string;//"AIzaSyApveMIrtj5hoxWezmwCNbGLjKwhxsd3W0";
   myLocation: any;
   watch: any;
@@ -23,7 +29,7 @@ export class GoogleMaps {
 
   polylines = [];
 
-  constructor(public connectivityService: Connectivity, zone:NgZone) {}
+  constructor(public connectivityService: Connectivity,public formulas: Formulas, zone:NgZone, public http: Http) {}
  
   init(mapElement: any, pleaseConnect: any): Promise<any> {
  
@@ -244,7 +250,6 @@ export class GoogleMaps {
   }
 
   showMarkers(dataArr:any){
-      console.log(this.markers.length);
 
       if(this.markers.length > 0){
         this.clearMarkers();
@@ -266,13 +271,13 @@ export class GoogleMaps {
   * infoWindow, prompting the user to confirm their bus ride confirmation. Clicking the infoWindow 
   * would confirm the user to this bus stop and any bus that would eventually pass.
   */
-  addMarker(laT: number, lnG: number, stop_name : string): void {
+  addMarker(laT: any, lnG: any, stop_name : string): void {
     var image = 'https://www.givepulse.com/images/search/blueMarker.png';
     var selectedMarker = 'https://www.londondrugs.com/on/demandware.static/Sites-LondonDrugs-Site/-/default/dw2a9afa9b/img/map_marker_default.png';
 
     let marker = new google.maps.Marker({
       map: this.map,
-      position: {lat: laT, lng: lnG},
+      position: {lat: parseFloat(laT), lng: parseFloat(lnG)},
       icon: image
     });                
     
@@ -294,10 +299,13 @@ export class GoogleMaps {
     marker.setIcon(selectedMarker);
     infowindow.open(this.map, marker);
 
-    this.calcRoute(marker.position.lat(), marker.position.lng());
-  });
+    
 
+    });
+
+    //When user confirms a bus stop
     marker.addListener('rightclick', () =>{
+
       marker.setIcon(selectedMarker);
       this.clearDisplayedPaths();
       this.selectedPath = true;
@@ -309,7 +317,9 @@ export class GoogleMaps {
           map: this.map,
           position: {lat: position.coords.latitude, lng: position.coords.longitude},
           icon: image
-        });    
+        });  
+
+        //this.calcRoute(tempMarker.position.lat(), tempMarker.position.lng(),marker.position.lat(), marker.position.lng(),"DRIVING");
 
         this.markers.push(tempMarker);
       });
@@ -371,15 +381,15 @@ export class GoogleMaps {
   * Input: Destination's latitude and longitude
   *
   */
-  calcRoute(lat: number, lng: number){
+  calcRoute(lat1: number, lng1: number,lat2: number, lng2: number, travelType : String){
 
     var directionsService = new google.maps.DirectionsService();
     var directionsDisplay = new google.maps.DirectionsRenderer();
 
     var request = {
-      origin: this.myLocation,
-      destination: new google.maps.LatLng(lat, lng),
-      travelMode: 'DRIVING',
+      origin: new google.maps.LatLng(lat1, lng1),
+      destination: new google.maps.LatLng(lat2, lng2),
+      travelMode: travelType,
       provideRouteAlternatives: false,
       drivingOptions: {
         departureTime: new Date(Date.now()),
@@ -452,7 +462,14 @@ export class GoogleMaps {
       this.markers.length = 0;
       this.markers.push(tempMark);
 
-      this.calcRoute(dest.lat(),dest.lng());
+        //When a bus stop is confirmed, show the bus' path from the start to end
+      this.loadShapes(dest.lat(),dest.lng()).then((result) => {
+        this.showOriginalBusPath(result);
+
+        this.calcRoute(this.myLocation.lat(), this.myLocation.lng(), result[0].shape_pt_lat, result[0].shape_pt_lon, "WALKING");
+        this.calcRoute(result[0].shape_pt_lat, result[0].shape_pt_lon,dest.lat(),dest.lng(), "DRIVING");
+      });  
+     // this.calcRoute(this.myLocation.lat,this.myLocation.lng,dest.lat(),dest.lng());
 
   }
 
@@ -471,6 +488,58 @@ export class GoogleMaps {
     for(let marker of this.markers){
       marker.setMap(null);
     }
+    for(let marker of this.busPath){
+      marker.setMap(null);
+    }
+    
     this.markers.length = 0;   
+    this.busPath.length = 0;       
   }
+
+  loadShapes(lat: Number, lng: Number){
+
+    return new Promise(resolve => {
+      this.http.get('https://mtransit390.herokuapp.com/api/shapes/' + lat + '/' + lng) //use this to test local host
+        .map(res => res.json())
+        .subscribe(data => {
+
+          let halfpoint = Math.round(data.length/2);
+          
+          let startEndStops : any[] = [];
+
+          //Uncomment to include first and last but stop
+          // startEndStops.push(data[0]); 
+          // startEndStops.push(data[halfpoint]);
+
+          this.formulas.getClosestStop(data,this.myLocation.lat(),this.myLocation.lng()).then((res) => {
+            startEndStops.push(res[0]);
+          });
+
+          resolve(startEndStops);
+
+      });
+    });
+
+  }
+
+  showOriginalBusPath(dataArr:any){
+
+      if(this.markers.length > 0){
+        //this.clearMarkers();
+      }
+
+      for(let data of dataArr){
+          let markerShape = new google.maps.Marker({
+            map: this.map,
+            position: {lat: parseFloat(data.shape_pt_lat), lng: parseFloat(data.shape_pt_lon)},
+            icon: 'https://mt.googleapis.com/vt/icon/name=icons/onion/SHARED-mymaps-pin-container_4x.png,icons/onion/1899-blank-shape_pin_4x.png&highlight=9FC3FF&scale=2.0'
+          });
+          this.busPath.push(markerShape);
+      }
+  }
+
+  showFastBusPath(arr: any){
+
+  }
+
 }

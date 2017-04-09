@@ -41,7 +41,6 @@ module.exports = function(app){
 
     //Shape routes
     apiRoutes.use('/shapes',shapeRoutes);
-    shapeRoutes.get('/:shape_id', ShapesController.getShapesById);
     shapeRoutes.get('/:lat/:lng', ShapesController.getShapesByLocation);
 
     // Todo Routes
