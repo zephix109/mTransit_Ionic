@@ -19,7 +19,7 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 
 import firebase from 'firebase';
 
-let storage: Storage = new Storage();
+//let storage: Storage = new Storage();
 
 @NgModule({
   declarations: [

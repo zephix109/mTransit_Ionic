@@ -25,7 +25,7 @@
     "@ionic-native/facebook": "3.0.0-alpha.1",
     "@ionic-native/splash-screen": "^3.2.3",
     "@ionic-native/status-bar": "^3.2.3",
-    "@ionic/storage": "1.1.7",
+    "@ionic/storage": "1.1.6",
     "add": "^2.0.6",
     "angular2-jwt": "^0.1.27",
     "cordova-plugin-geolocation": "^2.4.2",
