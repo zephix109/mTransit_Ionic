@@ -28,7 +28,7 @@ export class MapPage {
   ionViewDidLoad(){
  
     var input = document.getElementById("searchInput");
-    console.log(input + " <- input is there");
+
     var autocomplete = new google.maps.places.Autocomplete(input);
 
     this.platform.ready().then(() => {
