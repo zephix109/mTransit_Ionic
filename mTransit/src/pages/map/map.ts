@@ -5,6 +5,9 @@ import { NavController, Platform } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import { RatingPagePage } from '../rating-page/rating-page';
  
+
+declare var google;
+
 @Component({
   selector: 'page-map',
   templateUrl: 'map.html'
@@ -24,11 +27,14 @@ export class MapPage {
  
   ionViewDidLoad(){
  
+    var input = document.getElementById("searchInput");
+    console.log(input + " <- input is there");
+    var autocomplete = new google.maps.places.Autocomplete(input);
+
     this.platform.ready().then(() => {
  
         let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
-        let stopLoaded = this.bus_stop_service.load_Near_User();
-        let input = document.getElementById('searchInput');       
+        let stopLoaded = this.bus_stop_service.load_Near_User();       
 
 
         Promise.all([
@@ -46,8 +52,6 @@ export class MapPage {
               this.maps.showMarkers(result);
             });
           });
-
-          this.maps.loadSearchBar(input);
 
       }).catch( rej => {
           console.log(rej);
