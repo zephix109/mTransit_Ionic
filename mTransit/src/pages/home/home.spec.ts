@@ -141,6 +141,30 @@ describe('Page: Home Page', () => {
   it('should include the swapLanguage function', ()=> {
     expect(comp.swapLanguage());
   });
+  it('should be able to swap language', () => {
+ 
+    let translateService = fixture.debugElement.injector.get(TranslateService);
+    spyOn(translateService, 'use');
+    //comp2.swapLanguage();
+    de = fixture.debugElement.query(By.css('#language'));
+ 
+    de.triggerEventHandler('click', null);
+ 
+    expect(translateService.use).toHaveBeenCalled();
+ 
+  });
+  it('should have current language as english', () => {
+ 
+    let translateService = fixture.debugElement.injector.get(TranslateService);
+    //spyOn(translateService, 'use');
+    //comp2.swapLanguage();
+    de = fixture.debugElement.query(By.css('#language'));
+ 
+    de.triggerEventHandler('click', null);
+ 
+    expect(translateService.currentLang).toBe('en');
+ 
+  });
   // it('should have called swapLanguage function',  ()=> {
   //   spyOn(comp2, 'swapLanguage');
   //   comp2.swapLanguage();
