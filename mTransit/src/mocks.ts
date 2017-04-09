@@ -7,6 +7,7 @@ import * as firebase from 'firebase';
 import { BusStopService } from './providers/bus-stop-service';
 import { GoogleMaps } from './providers/google-maps';
 import { Connectivity } from './providers/connectivity';
+import { IonicModule, NavController, Nav } from 'ionic-angular';
 
 export class AlertMock {
 
@@ -58,7 +59,7 @@ export class FormMock {
   }
 }
 
-export class NavMock {
+export class NavMock{
 
   public pop(): any {
     return new Promise(function(resolve: Function): void {

@@ -10,7 +10,7 @@ import 'zone.js/dist/fake-async-test';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { getTestBed, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { App, Config, Form, IonicModule, Keyboard, DomController, MenuController, NavController, Platform } from 'ionic-angular';
+import { App, Config, Form, IonicModule, Keyboard, DomController, MenuController, NavController, Platform, Nav } from 'ionic-angular';
 import { ConfigMock, PlatformMock } from './mocks';
 import { TranslateModule, TranslateStaticLoader, TranslateLoader } from 'ng2-translate/ng2-translate';
 import { HomePage }          from './pages/home/home';
@@ -69,6 +69,7 @@ export class TestUtils {
       imports: [
         FormsModule,
         IonicModule,
+        NavController,
         ReactiveFormsModule,
         BusStopService,
         GoogleMaps,
