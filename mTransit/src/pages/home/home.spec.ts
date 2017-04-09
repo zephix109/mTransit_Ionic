@@ -1,7 +1,7 @@
 
 import { TestUtils } from '../../test';
 import { HomePage } from './home';
-import { TestBed, ComponentFixture, async } from '@angular/core/testing';
+import { TestBed, ComponentFixture, async, inject } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { IonicModule, NavController, Nav } from 'ionic-angular';
@@ -84,15 +84,25 @@ describe('Page: Home Page', () => {
   //   expect(comp2.navCtrl.push(MapPage));
   // });
   it('should be able to launch Map Page', () => {
+      inject([HomePage], (homePage) => {
+
+       // Spies
+      spyOn(homePage.navCtrl, 'push').and.stub();
+
+      // Call
+      homePage.goToMap();
+
+     // Expectations
+      expect(homePage.navCtrl.push).toHaveBeenCalledWith(MapPage);
+  });
+    // let navCtrl = fixture.debugElement.injector.get(NavController);
+    // spyOn(navCtrl, 'push');
  
-    let navCtrl = fixture.debugElement.injector.get(NavController);
-    spyOn(navCtrl, 'push');
+    // de = fixture.debugElement.query(By.css('#map'));
  
-    de = fixture.debugElement.query(By.css('#map'));
+    // de.triggerEventHandler('click', null);
  
-    de.triggerEventHandler('click', null);
- 
-    expect(navCtrl.push).toHaveBeenCalledWith(MapPage);
+    // expect(navCtrl.push).toHaveBeenCalledWith(MapPage);
  
   });
   it('should include the goToSMS function', ()=> {
@@ -116,17 +126,29 @@ describe('Page: Home Page', () => {
   //   expect(comp2.goToDriverLogin).toHaveBeenCalled();
   //   expect(comp2.navCtrl.push(DriverLoginPage));
   // });
+  // it('should be able to launch Driver Login Page', () => {
+ 
+  //   let navCtrl = fixture.debugElement.injector.get(NavController);
+  //   spyOn(navCtrl, 'push');
+ 
+  //   de = fixture.debugElement.query(By.css('#driverLogin'));
+ 
+  //   de.triggerEventHandler('click', null);
+ 
+  //   expect(navCtrl.push).toHaveBeenCalledWith(DriverLoginPage);
+ 
+  // });
   it('should be able to launch Driver Login Page', () => {
- 
-    let navCtrl = fixture.debugElement.injector.get(NavController);
-    spyOn(navCtrl, 'push');
- 
-    de = fixture.debugElement.query(By.css('#driverLogin'));
- 
-    de.triggerEventHandler('click', null);
- 
-    expect(navCtrl.push).toHaveBeenCalledWith(DriverLoginPage);
- 
+      inject([HomePage], (homePage) => {
+
+       // Spies
+      spyOn(homePage.navCtrl, 'push').and.stub();
+
+      // Call
+      homePage.goToDriverLogin();
+
+     // Expectations
+      expect(homePage.navCtrl.push).toHaveBeenCalledWith(DriverLoginPage);
   });
   it('should include the goToRating function', () => {
     expect(comp.goToRating());
