@@ -18,8 +18,8 @@
 		<ion-icon name="logo-facebook"></ion-icon> 
 		{{ "FACEBOOK_LOGIN" | translate }}
 	</button>
-  <button ion-button (click)="goToMap()">Map</button>
+  <button ion-button id="map" (click)="goToMap()">Map</button>
 	<p>{{ "OR" | translate }}</p>
 	<p> {{ "DRIVER_TEXT" | translate }} </p>
-	<button ion-button (click)="goToDriverLogin()">{{ "DRIVER_LOGIN" | translate }}</button>
+	<button ion-button id="driverLogin" (click)="goToDriverLogin()">{{ "DRIVER_LOGIN" | translate }}</button>
 </ion-content>

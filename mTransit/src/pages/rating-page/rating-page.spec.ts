@@ -64,15 +64,15 @@ let el: HTMLElement;
     el = null;
   });
 
-  it('should create the rating page', async(() => {
+  xit('should create the rating page', async(() => {
     expect(fixture).toBeTruthy();
     expect(comp).toBeTruthy();
   }));
 
-  it('should include the finishReview function', ()=> {
+  xit('should include the finishReview function', ()=> {
     expect(comp.finishReview());
   });
-  it('should have called finishReview function',  ()=> {
+  xit('should have called finishReview function',  ()=> {
     spyOn(comp, 'finishReview');
     comp.finishReview();
     expect(comp).toBeDefined();
