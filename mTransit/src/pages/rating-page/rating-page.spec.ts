@@ -68,7 +68,7 @@ let el: HTMLElement;
     expect(fixture).toBeTruthy();
     expect(comp).toBeTruthy();
   }));
-
+/*
   xit('should include the finishReview function', ()=> {
     expect(comp.finishReview());
   });
@@ -78,6 +78,6 @@ let el: HTMLElement;
     expect(comp).toBeDefined();
     expect(comp.finishReview).toHaveBeenCalled();
   });
-
+*/
 
 });

@@ -50,6 +50,7 @@
     "@types/jasmine": "^2.5.46",
     "@types/node": "^7.0.8",
     "angular": "^1.6.3",
+    "angular-cli": "^1.0.0-beta.28.3",
     "angular-mocks": "^1.6.3",
     "angular-ui-router": "^0.4.2",
     "codecov": "^1.0.1",
