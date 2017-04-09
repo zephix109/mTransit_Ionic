@@ -84,16 +84,16 @@ describe('Page: Home Page', () => {
   //   expect(comp2.navCtrl.push(MapPage));
   // });
   it('should be able to launch Map Page', () => {
-      inject([HomePage], (homePage) => {
+      inject([HomePage], (comp2) => {
 
        // Spies
-      spyOn(homePage.navCtrl, 'push').and.stub();
+      spyOn(comp2.navCtrl, 'push').and.stub();
 
       // Call
-      homePage.goToMap();
+      comp2.goToMap();
 
      // Expectations
-      expect(homePage.navCtrl.push).toHaveBeenCalledWith(MapPage);
+      expect(comp2.navCtrl.push).toHaveBeenCalledWith(MapPage);
   });
     // let navCtrl = fixture.debugElement.injector.get(NavController);
     // spyOn(navCtrl, 'push');
@@ -139,16 +139,16 @@ describe('Page: Home Page', () => {
  
   // });
   it('should be able to launch Driver Login Page', () => {
-      inject([HomePage], (homePage) => {
+      inject([HomePage], (comp2) => {
 
        // Spies
-      spyOn(homePage.navCtrl, 'push').and.stub();
+      spyOn(comp2.navCtrl, 'push').and.stub();
 
       // Call
-      homePage.goToDriverLogin();
+      comp2.goToDriverLogin();
 
      // Expectations
-      expect(homePage.navCtrl.push).toHaveBeenCalledWith(DriverLoginPage);
+      expect(comp2.navCtrl.push).toHaveBeenCalledWith(DriverLoginPage);
   });
   it('should include the goToRating function', () => {
     expect(comp.goToRating());
@@ -226,4 +226,4 @@ describe('Page: Home Page', () => {
   //   expect(navCtrl.push).toHaveBeenCalledWith(DriverLoginPage);
  
   // });
-});
+})});
