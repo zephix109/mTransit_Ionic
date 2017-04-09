@@ -2,7 +2,8 @@ var AuthenticationController = require('./controllers/authentication'),
     TodoController = require('./controllers/todos'),  
     BusStopController = require('./controllers/busStops'),
     StopTimeController = require('./controllers/stopTime'),
-    ShapesController = require('./controllers/shapes');
+    ShapesController = require('./controllers/shapes'),
+    ReviewController = require('./controllers/reviews'),
     express = require('express'),
     passportService = require('../config/passport'),
     passport = require('passport');
@@ -17,7 +18,8 @@ module.exports = function(app){
         todoRoutes = express.Router(),
         busstopRoutes = express.Router(),
         stopTimeRoutes = express.Router(),
-        shapeRoutes = express.Router();
+        shapeRoutes = express.Router(),
+        reviewRoutes = express.Router();
  
     // Auth Routes
     apiRoutes.use('/auth', authRoutes);
@@ -43,6 +45,10 @@ module.exports = function(app){
     apiRoutes.use('/shapes',shapeRoutes);
     shapeRoutes.get('/:shape_id', ShapesController.getShapesById);
     shapeRoutes.get('/:lat/:lng', ShapesController.getShapesByLocation);
+
+    //Review routes
+    apiRoutes.use('/review', reviewRoutes);
+    reviewRoutes.post('/add', ReviewController.createReview);
 
     // Todo Routes
     apiRoutes.use('/todos', todoRoutes);

@@ -98,9 +98,8 @@ export class BusStopService {
         .map(res => res.json())
         .subscribe(data => {
           
-
           this.data_destination = data;
-          resolve(data);
+          resolve(this.data_destination);
 
       });
         

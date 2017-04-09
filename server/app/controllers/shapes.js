@@ -22,12 +22,6 @@ exports.getShapesByLocation = function(req, res, next){
             res.send(err);
         }
         
-        shapes.toArray(function(err,docs){
-            //console.log(docs);
-            for(let a of docs){
-                console.log(a.shape_id);
-            }
-        });
 
         res.json(shapes);
  

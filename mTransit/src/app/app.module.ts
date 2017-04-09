@@ -15,6 +15,7 @@ import { Storage } from '@ionic/storage';
 import { BusStopService } from '../providers/bus-stop-service';
 import { GoogleMaps } from '../providers/google-maps';
 import { Connectivity } from '../providers/connectivity';
+import { Rating_TDG } from '../providers/rating';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import firebase from 'firebase';
@@ -51,7 +52,7 @@ import firebase from 'firebase';
     RatingPagePage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},StatusBar, Splashscreen,
-    BusStopService, GoogleMaps, Connectivity]
+    BusStopService, GoogleMaps, Connectivity, Rating_TDG]
 })
 export class AppModule {}
 export function createTranslateLoader(http: Http) {

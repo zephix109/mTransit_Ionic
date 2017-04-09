@@ -15,26 +15,41 @@ exports.getReviews = function(req, res, next){
 }
  
 exports.createReview = function(req, res, next){
- 
-    Review.create({
-        title : req.body.title
-    }, function(err, review) {
- 
-        if (err){
-            res.send(err);
-        }
- 
-        Review.find(function(err, reviews) {
- 
-            if (err){
-                res.send(err);
-            }
- 
-            res.json(reviews);
- 
-        });
- 
+    console.log("We're in");
+    var comment = req.body.comment;
+    var ratings = req.body.rating;
+    
+    var review = new Review({
+        comments : comment,
+        rating: ratings
     });
+
+    Review.create(review);
+
+    console.log("review created");
+
+
+    // Review.create({
+    //     comments : req.body.comment,
+    //     rating: req.body.rating,
+    // }, function(err, review) {
+ 
+    //     if (err){
+    //         res.send(err);
+    //     }
+        
+    //     console.log("review Created");
+    //     // Review.find(function(err, reviews) {
+ 
+    //     //     if (err){
+    //     //         res.send(err);
+    //     //     }
+ 
+    //     //     res.json(reviews);
+ 
+    //     // });
+ 
+    // });
  
 }
  

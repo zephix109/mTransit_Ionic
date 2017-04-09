@@ -268,7 +268,7 @@ export class GoogleMaps {
       }
 
       for(let data of dataArr){
-
+        console.log(data);
         this.addMarker(data.stop_lat,data.stop_lon,data.stop_name);   
       }
   }
@@ -288,6 +288,7 @@ export class GoogleMaps {
     //let latLng = new google.maps.LatLng(lat, lng);
     var image = 'https://www.givepulse.com/images/search/blueMarker.png';
     var selectedMarker = 'https://www.londondrugs.com/on/demandware.static/Sites-LondonDrugs-Site/-/default/dw2a9afa9b/img/map_marker_default.png';
+
 
     let marker = new google.maps.Marker({
       map: this.map,

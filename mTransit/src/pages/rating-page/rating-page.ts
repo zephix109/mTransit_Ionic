@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController  } from 'ionic-angular';
-
+import { Rating_TDG } from '../../providers/rating';
 
 /*
   Generated class for the RatingPage page.
@@ -17,16 +17,18 @@ export class RatingPagePage {
   private rate: number;
   private comment: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl : AlertController) {}
-
-  onModelChange(){
-    
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl : AlertController, public rateNow: Rating_TDG) {}
 
   finishReview() {
     if(this.rate > 0){
-      console.log(this.rate);
-      console.log(this.comment);
+
+      let review = {
+        rating: this.rate,
+        comment:  this.comment
+      }
+
+      this.rateNow.addRating(review);
+      console.log("Thank you for rating")
     }
   }
   
