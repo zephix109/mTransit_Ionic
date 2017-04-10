@@ -15,6 +15,7 @@ import { Storage } from '@ionic/storage';
 import { BusStopService } from '../providers/bus-stop-service';
 import { GoogleMaps } from '../providers/google-maps';
 import { Connectivity } from '../providers/connectivity';
+import { Formulas } from '../providers/formulas';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import firebase from 'firebase';
@@ -52,7 +53,7 @@ import firebase from 'firebase';
   ],
 
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},StatusBar, Splashscreen,
-    BusStopService, GoogleMaps, Connectivity],
+    BusStopService, GoogleMaps, Connectivity, Formulas],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
 })
