@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NavController, NavParams, AlertController  } from 'ionic-angular';
-
+import { Ionic2RatingModule } from 'ionic2-rating';
 
 /*
   Generated class for the RatingPage page.
@@ -12,6 +12,7 @@ import { NavController, NavParams, AlertController  } from 'ionic-angular';
   selector: 'page-rating-page',
   templateUrl: 'rating-page.html'
 })
+
 export class RatingPagePage {
 
   private rate: number;

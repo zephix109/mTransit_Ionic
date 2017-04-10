@@ -18,6 +18,7 @@ export class MyApp {
   rootPage : any = HomePage;
   pages: Array<{title: string, component: any}>;
 
+
   constructor(platform: Platform, public translate: TranslateService, public statusBar: StatusBar, public splashScreen: Splashscreen) {
     
     const firebaseConfig = {
@@ -28,10 +29,9 @@ export class MyApp {
       messagingSenderId: "883599256403"
     };
 
-    this.pages = [
-     // { title: 'Home Page', component: HomePage },
-      { title: 'Map Page', component: MapPage },
-      { title: 'Rating Page', component: RatingPagePage }
+    this.pages= [
+        { title: 'Map Page', component: MapPage },
+        { title: 'Rating Page', component: RatingPagePage }
     ];
 
     firebase.initializeApp(firebaseConfig);

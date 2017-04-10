@@ -1,4 +1,4 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule, ErrorHandler, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -15,11 +15,12 @@ import { Storage } from '@ionic/storage';
 import { BusStopService } from '../providers/bus-stop-service';
 import { GoogleMaps } from '../providers/google-maps';
 import { Connectivity } from '../providers/connectivity';
+import { Formulas } from '../providers/formulas';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import firebase from 'firebase';
 
-let storage: Storage = new Storage();
+//let storage: Storage = new Storage();
 
 @NgModule({
   declarations: [
@@ -50,8 +51,11 @@ let storage: Storage = new Storage();
     DriverLoginPage,
     RatingPagePage
   ],
+
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},StatusBar, Splashscreen,
-    BusStopService, GoogleMaps, Connectivity]
+    BusStopService, GoogleMaps, Connectivity, Formulas],
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+
 })
 export class AppModule {}
 export function createTranslateLoader(http: Http) {

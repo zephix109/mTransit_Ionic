@@ -2,7 +2,8 @@
 // IONIC:
 import { EventEmitter}      from '@angular/core';
 import { FormBuilder }      from '@angular/forms';
-
+import {Facebook} from '@ionic-native/facebook';
+import * as firebase from 'firebase';
 export class AlertMock {
 
   public create(): any {
