@@ -15,11 +15,11 @@
   },
   "include": [
     "src/**/*.ts",
-    "src/test.ts",
-    "**/*.spec.ts"
+    "src/test.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/*.spec.ts"
   ],
   "compileOnSave": false,
   "atom": {

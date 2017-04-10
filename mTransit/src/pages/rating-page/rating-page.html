@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <button persistent="true" ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Rate</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding text-center>
+
+<div>
+  <p>Thank you for using the mTransit system. You are helping reduce global gas emissions and helping save the planet :)</p>
+</div>
+
+<rating [(ngModel)]="rate" 
+        readOnly="false"
+        max="5"
+        emptyStarIconName="star-outline"
+        halfStarIconName="star-half" 
+        starIconName="star"
+        nullable="false"
+        (ngModelChange)="onModelChange($event)"></rating>
+<br>
+<ion-item>
+  <ion-input [(ngModel)]="comment"  placeholder="Please give us your feedback on your ride :)"></ion-input>
+</ion-item>
+<br><br><br><br>
+<button ion-button (click)="finishReview()">Continue</button>
+
+</ion-content>

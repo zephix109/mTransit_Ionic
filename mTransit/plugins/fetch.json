@@ -47,16 +47,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-googlemaps": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-googlemaps"
-        },
-        "is_top_level": true,
-        "variables": {
-            "API_KEY_FOR_ANDROID": "AIzaSyApveMIrtj5hoxWezmwCNbGLjKwhxsd3W0"
-        }
-    },
     "cordova-plugin-geolocation": {
         "source": {
             "type": "registry",
@@ -77,6 +67,14 @@
         "source": {
             "type": "registry",
             "id": "cordova-plugin-inappbrowser@1.6.1"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-network-information": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-network-information"
         },
         "is_top_level": true,
         "variables": {}
@@ -107,5 +105,15 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-plugin-googlemaps": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-googlemaps"
+        },
+        "is_top_level": true,
+        "variables": {
+            "API_KEY_FOR_ANDROID": "AIzaSyApveMIrtj5hoxWezmwCNbGLjKwhxsd3W0"
+        }
     }
 }

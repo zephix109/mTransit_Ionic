@@ -6,5 +6,6 @@
 	"FACEBOOK_LOGIN": "Facebook",
     "DRIVER_TEXT": "If you are a driver, press on the button below",
     "DRIVER_LOGIN": "Driver login",
-	"DRIVER_PROMPT": "Please enter your driver code, bus number and route number"
+	"DRIVER_PROMPT": "Please enter your driver code, bus number and route number",
+    "LOGOUT": "Log Out"
 }
