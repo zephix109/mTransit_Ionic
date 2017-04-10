@@ -20,9 +20,7 @@ export class MapPage {
   mapInitialised: boolean = false;
 
 
-  constructor(public navCtrl: NavController, public maps: GoogleMaps, public platform: Platform, public bus_stop_service: BusStopService) {
-
-  }
+  constructor(public navCtrl: NavController, public maps: GoogleMaps, public platform: Platform, public bus_stop_service: BusStopService) { }
  
   ionViewDidLoad(){
  
@@ -53,16 +51,8 @@ export class MapPage {
 
       }).catch( rej => {
           console.log(rej);
-
         });
-
-        this.maps.loadSearchBar(input);
-
-      }).catch(rej => {
-        console.log(rej);
       });
-
-    });
   }
 
   goToRating() {
