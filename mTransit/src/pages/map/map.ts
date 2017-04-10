@@ -20,14 +20,10 @@ export class MapPage {
   mapInitialised: boolean = false;
  
   constructor(public navCtrl: NavController, public maps: GoogleMaps, public platform: Platform, public bus_stop_service: BusStopService) { }
-   
-  getmymap(){
-    return this.maps;
-  }
 
-  ionViewDidLoad(){
+  public ionViewDidLoad(){
 
-    console.log("my map is "+this.maps);
+    //console.log("my map is "+this.maps);
     var input = document.getElementById("searchInput");
     var gomap = this.maps;
     var montrealBounds = new google.maps.LatLngBounds( 
@@ -38,11 +34,11 @@ export class MapPage {
       strictBounds: true,
       bounds: montrealBounds
     }
+
     var autocomplete = new google.maps.places.Autocomplete(input, options);
-  
     autocomplete.addListener('place_changed', function() {
       
-      gomap.goToPlace(autocomplete.getPlace())
+    gomap.goToPlace(autocomplete.getPlace())
     
   });
     
@@ -57,8 +53,7 @@ export class MapPage {
       
         ]).then((result) => {
 
-          console.log("Result length = " + result[1].length);
-
+          //console.log("Result length = " + result[1].length);
           this.maps.map.addListener('click', (pos) =>{
             this.maps.selectedPath = false;
             this.maps.clearDisplayedPaths();
@@ -66,14 +61,13 @@ export class MapPage {
               this.maps.showMarkers(result);
             });
           });
-
       }).catch( rej => {
           console.log(rej);
         });
       });
   }
 
-  goToRating() {
+  public goToRating() {
     this.navCtrl.push(RatingPagePage);
   }
 

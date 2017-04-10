@@ -1,32 +1,32 @@
 import { Injectable } from '@angular/core';
 import { Network } from 'ionic-native';
 import { Platform } from 'ionic-angular';
- 
-declare var Connection;
- 
+
+declare const Connection;
+
 @Injectable()
 export class Connectivity {
- 
-  onDevice: boolean;
- 
-  constructor(public platform: Platform){
+
+  private onDevice: boolean;
+
+  constructor(public platform: Platform) {
     this.onDevice = this.platform.is('cordova');
   }
- 
-  isOnline(): boolean {
-    if(this.onDevice && Network.type){
+
+  public isOnline(): boolean {
+    if (this.onDevice && Network.type) {
       return Network.type !== Connection.NONE;
     } else {
-      return navigator.onLine; 
+      return navigator.onLine;
     }
   }
- 
-  isOffline(): boolean {
-    if(this.onDevice && Network.type){
+
+  public isOffline(): boolean {
+    if (this.onDevice && Network.type) {
       return Network.type === Connection.NONE;
     } else {
-      return !navigator.onLine;   
+      return !navigator.onLine;
     }
   }
- 
+
 }

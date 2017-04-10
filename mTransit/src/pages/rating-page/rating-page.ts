@@ -20,14 +20,12 @@ export class RatingPagePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl : AlertController) {}
 
-  onModelChange(){
-    
-  }
+  public onModelChange(){/*add code for functionality*/}
 
-  finishReview() {
+  public finishReview() {
     if(this.rate > 0){
-      console.log(this.rate);
-      console.log(this.comment);
+      //console.log(this.rate);
+      //console.log(this.comment);
     }
   }
   
