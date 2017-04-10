@@ -62,7 +62,7 @@ export class MapPage {
           });
         });
       }).catch(rej => {
-        console.log(rej);
+        //console.log(rej);
       });
     });
   }
