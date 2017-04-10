@@ -49,7 +49,7 @@ export class GoogleMaps {
             this.enableMap();
           };
 
-          let script = document.createElement("script");
+          const script = document.createElement("script");
           script.id = "googleMaps";
 
           if (this.apiKey) {
@@ -209,8 +209,7 @@ export class GoogleMaps {
               stylers: [{ color: '#17263c' }]
             }
           ],
-
-        }
+        };
 
         this.map = new google.maps.Map(this.mapElement, mapOptions);
         resolve(true);
@@ -223,7 +222,7 @@ export class GoogleMaps {
       this.clearMarkers();
     }
 
-    for (let data of dataArr) {
+    for (const data of dataArr) {
       this.addMarker(data.stop_lat, data.stop_lon, data.stop_name);
     }
   }
@@ -239,7 +238,7 @@ export class GoogleMaps {
   * infoWindow, prompting the user to confirm their bus ride confirmation. Clicking the infoWindow 
   * would confirm the user to this bus stop and any bus that would eventually pass.
   */
-  addMarker(laT: any, lnG: any, stop_name: string): void {
+  public addMarker(laT: any, lnG: any, stop_name: string): void {
     const image = 'https://www.givepulse.com/images/search/blueMarker.png';
     const selectedMarker = 'http://i.imgur.com/sCGNAdB.png';
 
@@ -250,7 +249,7 @@ export class GoogleMaps {
     });
 
     const contentString = "<p>" + stop_name + "</p>" +
-      "<button ng-click='clickR()'>Click me</button>"
+      "<button ng-click='clickR()'>Click me</button>";
 
     const infowindow = new google.maps.InfoWindow({
       content: contentString
@@ -395,8 +394,7 @@ export class GoogleMaps {
   }
 
   public selectedDest(dest: any) {
-
-    for (let marker of this.markers) {
+    for (const marker of this.markers) {
       if (dest == marker.position) {
         var tempMark = marker;
       } else {
@@ -416,21 +414,21 @@ export class GoogleMaps {
   }
 
   public clearDisplayedPaths() {
-    for (let path of this.directionArr) {
+    for (const path of this.directionArr) {
       path.setMap(null);
     }
 
-    for (let path of this.polylines) {
+    for (const path of this.polylines) {
       path.setMap(null);
     }
   }
 
   public clearMarkers() {
 
-    for (let marker of this.markers) {
+    for (const marker of this.markers) {
       marker.setMap(null);
     }
-    for (let marker of this.busPath) {
+    for (const marker of this.busPath) {
       marker.setMap(null);
     }
 
@@ -438,7 +436,7 @@ export class GoogleMaps {
     this.busPath.length = 0;
   }
 
-  public loadShapes(lat: Number, lng: Number) {
+  public loadShapes(lat: number, lng: number) {
 
     return new Promise(resolve => {
       this.http.get('https://mtransit390.herokuapp.com/api/shapes/' + lat + '/' + lng) //use this to test local host
@@ -467,7 +465,7 @@ export class GoogleMaps {
       //this.clearMarkers();
     }
 
-    for (let data of dataArr) {
+    for (const data of dataArr) {
       const markerShape = new google.maps.Marker({
         map: this.map,
         position: { lat: parseFloat(data.shape_pt_lat), lng: parseFloat(data.shape_pt_lon) },
