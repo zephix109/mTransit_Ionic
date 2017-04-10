@@ -1,4 +1,3 @@
-
 import { TestUtils } from '../../test';
 import { HomePage } from './home';
 import { TestBed, ComponentFixture, async, inject } from '@angular/core/testing';
@@ -42,7 +41,7 @@ describe('Page: Home Page', () => {
           provide: HomePage,
           useClass: HomePage
         },
-        { provide: NavController, 
+        { provide: NavController,
           useValue: {push: NavController.prototype.push}
         }
       ],
@@ -77,16 +76,7 @@ describe('Page: Home Page', () => {
     expect(fixture).toBeTruthy();
     expect(comp).toBeTruthy();
   });
-  // it('should include the goToMap function', ()=> {
-  //   expect(comp2.goToMap());
-  // });
-  // it('should have called goToMap function',  ()=> {
-  //   //spyOn(comp2, 'goToMap');
-  //   comp2.goToMap();
-  //   //expect(comp2).toBeDefined();
-  //   //expect(comp2.goToMap).toHaveBeenCalled();
-  //   expect(comp2.navCtrl.push(MapPage));
-  // });
+ 
   it('should be able to launch Map Page', () => {
       inject([HomePage], (comp2) => {
 
@@ -99,49 +89,7 @@ describe('Page: Home Page', () => {
      // Expectations
       expect(comp2.navCtrl.push).toHaveBeenCalledWith(MapPage);
   });
-    // let navCtrl = fixture.debugElement.injector.get(NavController);
-    // spyOn(navCtrl, 'push');
- 
-    // de = fixture.debugElement.query(By.css('#map'));
- 
-    // de.triggerEventHandler('click', null);
- 
-    // expect(navCtrl.push).toHaveBeenCalledWith(MapPage);
- 
-  });
-  // it('should include the goToSMS function', ()=> {
-  //   expect(comp.goToSMS());
-  // });
-  // it('should have called goToSMS function',  ()=> {
-  //   spyOn(comp2, 'goToSMS');
-  //   comp2.goToSMS();
-  //   expect(comp2).toBeDefined();
-  //   expect(comp2.goToSMS).toHaveBeenCalled();
-  //   expect(comp2.navCtrl.push(SmsPage));
-  // });
-  
-  // it('should include the goToDriverLogin function', ()=> {
-  //   expect(comp.goToDriverLogin());
-  // });
-  // it('should have called goToDriverLogin function',  ()=> {
-  //   spyOn(comp2, 'goToDriverLogin');
-  //   comp2.goToDriverLogin();
-  //   expect(comp2).toBeDefined();
-  //   expect(comp2.goToDriverLogin).toHaveBeenCalled();
-  //   expect(comp2.navCtrl.push(DriverLoginPage));
-  // });
-  // it('should be able to launch Driver Login Page', () => {
- 
-  //   let navCtrl = fixture.debugElement.injector.get(NavController);
-  //   spyOn(navCtrl, 'push');
- 
-  //   de = fixture.debugElement.query(By.css('#driverLogin'));
- 
-  //   de.triggerEventHandler('click', null);
- 
-  //   expect(navCtrl.push).toHaveBeenCalledWith(DriverLoginPage);
- 
-  // });
+
   it('should be able to launch Driver Login Page', () => {
       inject([HomePage], (comp2) => {
 
@@ -157,77 +105,37 @@ describe('Page: Home Page', () => {
   it('should include the goToRating function', () => {
     expect(comp.goToRating());
   });
-  //   it('should have called goToRating function',  ()=> {
-  //   spyOn(comp2, 'goToRating');
-  //   comp2.goToRating();
-  //   expect(comp2).toBeDefined();
-  //   expect(comp2.goToRating).toHaveBeenCalled();
-  //   expect(comp2.navCtrl.push(RatingPagePage));
-  // });
+
   it('should include the swapLanguage function', ()=> {
     expect(comp.swapLanguage());
   });
   it('should be able to swap language', () => {
- 
+
     let translateService = fixture.debugElement.injector.get(TranslateService);
     spyOn(translateService, 'use');
     //comp2.swapLanguage();
     de = fixture.debugElement.query(By.css('#language'));
- 
+
     de.triggerEventHandler('click', null);
- 
+
     expect(translateService.use).toHaveBeenCalled();
- 
+
   });
   it('should have current language as english', () => {
- 
+
     let translateService = fixture.debugElement.injector.get(TranslateService);
     //spyOn(translateService, 'use');
     //comp2.swapLanguage();
     de = fixture.debugElement.query(By.css('#language'));
- 
+
     de.triggerEventHandler('click', null);
- 
+
     expect(translateService.currentLang).toBe('en');
- 
+
   });
-  // it('should have called swapLanguage function',  ()=> {
-  //   spyOn(comp2, 'swapLanguage');
-  //   comp2.swapLanguage();
-  //   expect(comp2).toBeDefined();
-  //   expect(comp2.swapLanguage).toHaveBeenCalled();
-  // });
-  // it('should change language to French', ()=> {
-  //   comp2.swapLanguage();
-  //   expect(comp2).toBeDefined();
-  //   if(comp2.translateService.currentLang == "en")
-  //     expect(comp2.translateService.use('fr'));
-  // });
-  // it('should change language to English', ()=> {
-  //   comp2.swapLanguage();
-  //   expect(comp2).toBeDefined();
-  //   if(comp2.translateService.currentLang == "fr")
-  //     expect(comp2.translateService.use('en'));
-  // });
+
   it('should include facebookLogin function', ()=> {
     expect(comp.facebookLogin());
   });
-  // it('should have called facebookLogin function', ()=> {
-  //   spyOn(comp2,'facebookLogin');
-  //   comp2.facebookLogin();
-  //   expect(comp2).toBeDefined();
-  //   expect(comp2.facebookLogin).toHaveBeenCalled();
-  // });
-  // it('should be able to launch Facebook Login Page', () => {
- 
-  //   let navCtrl = fixture.debugElement.injector.get(NavController);
-  //   spyOn(navCtrl, 'push');
- 
-  //   de = fixture.debugElement.query(By.css('#facebookLogin'));
- 
-  //   de.triggerEventHandler('click', null);
- 
-  //   expect(navCtrl.push).toHaveBeenCalledWith(DriverLoginPage);
- 
-  // });
+
 })});

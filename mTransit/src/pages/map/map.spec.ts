@@ -1,4 +1,3 @@
-
 import { TestUtils } from '../../test';
 import { MapPage } from './map';
 import { TestBed, ComponentFixture, async } from '@angular/core/testing';

@@ -69,15 +69,4 @@ let el: HTMLElement;
     expect(comp).toBeTruthy();
   }));
 
-  xit('should include the finishReview function', ()=> {
-    expect(comp.finishReview());
-  });
-  xit('should have called finishReview function',  ()=> {
-    spyOn(comp, 'finishReview');
-    comp.finishReview();
-    expect(comp).toBeDefined();
-    expect(comp.finishReview).toHaveBeenCalled();
-  });
-
-
 });
