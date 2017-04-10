@@ -14,24 +14,19 @@ import { SMS } from 'ionic-native'; //allows us to send SMS
 })
 export class SmsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams) { }
 
-  sendSMS(){
-    var options={
+  public sendSMS() {
+    const options = {
       replaceLineBreaks: false,
       android: {
-        intent: 'INTENT'  
+        intent: 'INTENT'
       }
-    }  
-    SMS.send('5149447896','1234',options)
-      .then(()=>{
-      },()=>{
-        alert("failed");  
-      });
+    };
+    SMS.send('5149447896', '1234', options);
   }
 
   ionViewDidLoad() {
     //console.log('ionViewDidLoad SmsPage');
   }
-
 }
