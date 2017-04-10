@@ -39,9 +39,9 @@ export class GoogleMaps {
       if (typeof google == "undefined" || typeof google.maps == "undefined") {
         //console.log("Google maps JavaScript needs to be loaded.");
         this.disableMap();
-
+        const mapInit = 'mapInit';
         if (this.connectivityService.isOnline()) {
-          window['mapInit'] = () => {
+          window[mapInit] = () => {
             this.initMap().then(() => {
               resolve(true);
             });
@@ -102,7 +102,7 @@ export class GoogleMaps {
       this.map.setCenter(place.geometry.location);
     }
 
-    var address = '';
+    let address = '';
     if (place.address_components) {
       address = [
         (place.address_components[0] && place.address_components[0].short_name || ''),
@@ -330,7 +330,7 @@ export class GoogleMaps {
   * Input: Destination's latitude and longitude
   *
   */
-  public calcRoute(lat1: number, lng1: number, lat2: number, lng2: number, travelType: String) {
+  public calcRoute(lat1: number, lng1: number, lat2: number, lng2: number, travelType: string) {
 
     const directionsService = new google.maps.DirectionsService();
     const directionsDisplay = new google.maps.DirectionsRenderer();
@@ -358,7 +358,7 @@ export class GoogleMaps {
       } else if (status == google.maps.DirectionsStatus.ZERO_RESULTS) {
         //console.log("Nothing found");
       }
-    })
+    });
   }
 
 
@@ -370,12 +370,12 @@ export class GoogleMaps {
     };
 
     const legs = response.routes[0].legs;
-    for (var i = 0; i < legs.length; i++) {
+    for (let i = 0; i < legs.length; i++) {
       const steps = legs[i].steps;
-      for (var j = 0; j < steps.length; j++) {
+      for (let j = 0; j < steps.length; j++) {
         const nextSegment = steps[j].path;
         const stepPolyline = new google.maps.Polyline(polylineOptions);
-        for (var k = 0; k < nextSegment.length; k++) {
+        for (let k = 0; k < nextSegment.length; k++) {
           stepPolyline.getPath().push(nextSegment[k]);
         }
         this.polylines.push(stepPolyline);
@@ -388,15 +388,16 @@ export class GoogleMaps {
         // route click listeners, different one on each step
         google.maps.event.addListener(stepPolyline, 'click', function (evt) {
           //console.log("clicked");
-        })
+        });
       }
     }
   }
 
   public selectedDest(dest: any) {
+    let tempMark : any;
     for (const marker of this.markers) {
       if (dest == marker.position) {
-        var tempMark = marker;
+        tempMark = marker;
       } else {
         marker.setMap(null);
       }
@@ -444,7 +445,7 @@ export class GoogleMaps {
         .subscribe(data => {
 
           const halfpoint = Math.round(data.length / 2);
-          let startEndStops: any[] = [];
+          const startEndStops: any[] = [];
 
           //Uncomment to include first and last but stop
           // startEndStops.push(data[0]); 
