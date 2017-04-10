@@ -111,10 +111,7 @@ export class GoogleMaps {
             this.map.fitBounds(place.geometry.viewport);
           } else {
             this.map.setCenter(place.geometry.location);
-            this.map.setZoom(17);
           }
-          marker.setPosition(place.geometry.location);
-          marker.setVisible(true);
 
           var address = '';
           if (place.address_components) {
