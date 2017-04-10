@@ -18,16 +18,34 @@ export class MapPage {
 
   map: any;
   mapInitialised: boolean = false;
-
-
+ 
   constructor(public navCtrl: NavController, public maps: GoogleMaps, public platform: Platform, public bus_stop_service: BusStopService) { }
- 
+   
+  getmymap(){
+    return this.maps;
+  }
+
   ionViewDidLoad(){
- 
+
+    console.log("my map is "+this.maps);
     var input = document.getElementById("searchInput");
-
-    var autocomplete = new google.maps.places.Autocomplete(input);
-
+    var gomap = this.maps;
+    var montrealBounds = new google.maps.LatLngBounds( 
+        new google.maps.LatLng(45.383291, -74.011961),
+        new google.maps.LatLng(45.716133, -73.447467) 
+    );
+    var options = {
+      strictBounds: true,
+      bounds: montrealBounds
+    }
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+  
+    autocomplete.addListener('place_changed', function() {
+      
+      gomap.goToPlace(autocomplete.getPlace())
+    
+  });
+    
     this.platform.ready().then(() => {
  
         let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
