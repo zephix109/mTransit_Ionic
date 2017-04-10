@@ -9,21 +9,11 @@ import { MapPage } from '../map/map';
   Ionic pages and navigation.
 */
 @Component({
-  //selector: 'page-driver-login',
   selector: 'driver-login-page',
   templateUrl: 'driver-login.html'
 })
 export class DriverLoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DriverLoginPage');
-  }
-
-  //function that loads the map page
-  goToMap(){
-      this.navCtrl.push(MapPage);
-  }
 
 }

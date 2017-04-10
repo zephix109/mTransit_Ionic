@@ -7,13 +7,13 @@ declare var Connection;
 @Injectable()
 export class Connectivity {
  
-  onDevice: boolean;
+  private onDevice: boolean;
  
   constructor(public platform: Platform){
     this.onDevice = this.platform.is('cordova');
   }
  
-  isOnline(): boolean {
+  public isOnline(): boolean {
     if(this.onDevice && Network.type){
       return Network.type !== Connection.NONE;
     } else {
@@ -21,7 +21,7 @@ export class Connectivity {
     }
   }
  
-  isOffline(): boolean {
+  public isOffline(): boolean {
     if(this.onDevice && Network.type){
       return Network.type === Connection.NONE;
     } else {
