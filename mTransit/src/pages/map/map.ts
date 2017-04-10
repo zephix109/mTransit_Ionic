@@ -38,7 +38,7 @@ export class MapPage {
     const autocomplete = new google.maps.places.Autocomplete(input, options);
     autocomplete.addListener('place_changed', function () {
 
-      gomap.goToPlace(autocomplete.getPlace())
+      gomap.goToPlace(autocomplete.getPlace());
 
     });
 
