@@ -26,7 +26,7 @@ export class SmsPage {
     SMS.send('5149447896', '1234', options);
   }
 
-  ionViewDidLoad() {
+  public ionViewDidLoad() {
     //console.log('ionViewDidLoad SmsPage');
   }
 }
