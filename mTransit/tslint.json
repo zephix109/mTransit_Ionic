@@ -17,6 +17,8 @@
     ],
     "callable-types": true,
     "triple-equals": false,
+    "only-arrow-functions": false,
+    "no-shadowed-variable": false,
     "interface-name": false,
     "interface-over-type-literal": true,
     "file-header": [
