@@ -4,7 +4,6 @@ import { GoogleMaps } from '../../providers/google-maps';
 import { NavController, Platform } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import { RatingPagePage } from '../rating-page/rating-page';
- 
 
 declare var google;
 
@@ -13,16 +12,16 @@ declare var google;
   templateUrl: 'map.html'
 })
 export class MapPage {
- 
+
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
 
   map: any;
   mapInitialised: boolean = false;
 
- 
+
   constructor(public navCtrl: NavController, public maps: GoogleMaps, public platform: Platform, public bus_stop_service: BusStopService) {
- 
+
   }
  
   ionViewDidLoad(){
@@ -35,7 +34,6 @@ export class MapPage {
  
         let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
         let stopLoaded = this.bus_stop_service.load_Near_User();       
-
 
         Promise.all([
           mapLoaded,
@@ -55,14 +53,20 @@ export class MapPage {
 
       }).catch( rej => {
           console.log(rej);
+
         });
 
+        this.maps.loadSearchBar(input);
+
+      }).catch(rej => {
+        console.log(rej);
+      });
 
     });
   }
-        
-  goToRating(){
-      this.navCtrl.push(RatingPagePage);
+
+  goToRating() {
+    this.navCtrl.push(RatingPagePage);
   }
- 
+
 }

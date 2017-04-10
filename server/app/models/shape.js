@@ -2,15 +2,15 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var shapeSchema = new Schema({
-	trip_id : String,
-	arrival_time : String,
-	departure_time : String,
-	stop_id : Number,
-	stop_sequence : Number
 
-});
+	shape_id : Number,
+	shape_pt_lat : Number,
+	shape_pt_lon : Number,
+	shape_pt_sequence : Number
+
+},{ collection : 'shapes' });
 
 
-var Shape = mongoose.model('Shape', shapeSchema);
+var Shape = mongoose.model('Shape', shapeSchema,'shapes');
 
 module.exports = Shape;
