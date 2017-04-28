@@ -2,7 +2,7 @@
 <b>Mini capstone project for Soen 390</b>
 
 ### For running locally<br />
-1 - ensure u have 4 things installed <br />
+1 - ensure you have 4 things installed <br />
     a) npm -v<br />
     b) node -v<br />
     c) cordova -v<br />
